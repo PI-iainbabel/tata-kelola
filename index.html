@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tata Kelola & Akuntabilitas · Psychosophia Hub</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#E8EDF8',
+                            100: '#C5D2F0',
+                            200: '#9DB5E8',
+                            300: '#6F95E0',
+                            400: '#4F7FD8',
+                            500: '#2A5CC4',
+                            600: '#1A3F8F',
+                            700: '#122B6A',
+                            800: '#0B1D45',
+                            900: '#060F28',
+                            950: '#030714',
+                        },
+                        gold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060F28;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(11, 29, 69, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(79, 143, 255, 0.15);
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .btn-nav-home {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        .btn-nav-home:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .btn-nav-parent {
+            background: rgba(212, 175, 55, 0.06);
+            color: #D4AF37;
+            border-color: rgba(212, 175, 55, 0.1);
+        }
+        .btn-nav-parent:hover {
+            background: rgba(212, 175, 55, 0.12);
+            border-color: #D4AF37;
+            transform: translateY(-2px);
+        }
+        .btn-nav-tree {
+            background: rgba(82, 183, 136, 0.06);
+            color: #52B788;
+            border-color: rgba(82, 183, 136, 0.1);
+        }
+        .btn-nav-tree:hover {
+            background: rgba(82, 183, 136, 0.12);
+            border-color: #52B788;
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 4px;
+            font-size: 0.8rem;
+            padding: 8px 0;
+        }
+        .breadcrumb a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .breadcrumb a:hover {
+            color: #D4AF37;
+        }
+        .breadcrumb .separator {
+            color: #475569;
+            font-size: 0.6rem;
+            margin: 0 2px;
+        }
+        .breadcrumb .current {
+            color: #e2e8f0;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb .current i {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .content-card {
+            background: rgba(11, 29, 69, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 28px 32px;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .content-card:hover {
+            border-color: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .sub-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+        .sub-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: #D4AF37;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        .sub-card .icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(212, 175, 55, 0.08);
+            color: #D4AF37;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+        .sub-card .title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .sub-card .desc {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            flex: 1;
+        }
+        .sub-card .btn-open {
+            margin-top: 14px;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: transparent;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            align-self: flex-start;
+        }
+        .sub-card .btn-open:hover {
+            background: #D4AF37;
+            color: #060F28;
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+        }
+        .sub-card .badge-status {
+            font-size: 0.55rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 1px 12px;
+            border-radius: 100px;
+            background: rgba(45, 143, 138, 0.12);
+            color: #2d8f8a;
+            display: inline-block;
+            margin-left: 6px;
+        }
+        .sub-card .badge-status.draft {
+            background: rgba(100, 116, 139, 0.12);
+            color: #94a3b8;
+        }
+
+        .analysis-narrative {
+            background: linear-gradient(135deg, rgba(11, 29, 69, 0.8), rgba(26, 63, 143, 0.2));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-top: 28px;
+        }
+        .analysis-narrative h3 {
+            color: #D4AF37;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .analysis-narrative p {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        .analysis-narrative strong {
+            color: #fff;
+        }
+        .analysis-narrative .highlight {
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        @media (max-width: 640px) {
+            .breadcrumb {
+                font-size: 0.7rem;
+            }
+            .content-card {
+                padding: 16px;
+            }
+            .sub-card {
+                padding: 14px;
+            }
+            .analysis-narrative {
+                padding: 16px 18px;
+            }
+            .analysis-narrative p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!-- NAVBAR DENGAN BREADCRUMB                                   -->
+    <!-- ========================================================== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" title="Kembali ke Home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+
+                    <span class="current">
+                        <i class="fas fa-building"></i> Tata Kelola & Akuntabilitas
+                    </span>
+                </div>
+
+                <!-- Tombol navigasi -->
+                <div class="flex items-center gap-2 flex-wrap">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="btn-nav btn-nav-home" title="Ke Home">
+                        <i class="fas fa-arrow-left"></i> Home
+                    </a>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" class="btn-nav btn-nav-tree" title="Pohon Pengetahuan">
+                        <i class="fas fa-tree"></i> Peta
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================== -->
+    <!-- SPACER                                                     -->
+    <!-- ========================================================== -->
+    <div class="pt-20"></div>
+
+    <!-- ========================================================== -->
+    <!-- HERO MAIN CARD                                             -->
+    <!-- ========================================================== -->
+    <section class="px-4 py-6 text-center border-b border-white/5 bg-gradient-to-b from-navy-900 to-navy-950">
+        <div class="max-w-3xl mx-auto">
+            <div class="inline-block px-3 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-semibold tracking-wider mb-3">
+                <i class="fas fa-building mr-1"></i> MAIN CARD
+            </div>
+            <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-white">
+                🏛️ <span class="text-gold">Tata Kelola</span> &amp; Akuntabilitas
+            </h1>
+            <p class="mt-2 text-slate-400 text-sm max-w-2xl mx-auto">
+                Struktur organisasi, profil dosen, tenaga kependidikan, sarpras, pembiayaan, survei kepuasan, sistem informasi, dan good governance.
+            </p>
+            <div class="mt-3 flex flex-wrap justify-center gap-2 text-xs text-slate-500">
+                <span><i class="fas fa-folder-open text-gold mr-1"></i> 8 Sub-kartu</span>
+                <span><i class="fas fa-check-circle text-green-500 mr-1"></i> 1 Live</span>
+                <span><i class="fas fa-hourglass-start text-slate-500 mr-1"></i> 7 Segera</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- GRID SUB-KARTU                                             -->
+    <!-- ========================================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <div class="content-card">
+
+            <h2 class="text-lg font-heading font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fas fa-th-large text-gold"></i> Sub-kartu Tata Kelola
+                <span class="text-xs text-slate-500 font-normal ml-2">Klik untuk membuka</span>
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                <!-- Sub-kartu 1: Struktur Organisasi -->
+                <a href="#" class="sub-card">
+                    <div class="icon-wrap"><i class="fas fa-sitemap"></i></div>
+                    <div class="title">
+                        Struktur Organisasi
+                        <span class="badge-status draft">Segera</span>
+                    </div>
+                    <div class="desc">Bagan struktur organisasi program studi dan alur koordinasi.</div>
+                    <span class="btn-open"><i class="fas fa-arrow-right"></i> Buka</span>
+                </a>
+
+                <!-- Sub-kartu 2: Profil Dosen -->
+                <a href="#" class="sub-card">
+                    <div class="icon-wrap"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <div class="title">
+                        Profil Dosen
+                        <span class="badge-status draft">Segera</span>
+                    </div>
+                    <div class="desc">Data dosen, kualifikasi akademik, dan rekognisi dosen.</div>
+                    <span class="btn-open"><i class="fas fa-arrow-right"></i> Buka</span>
+                </a>
+
+                <!-- Sub-kartu 3: Tenaga Kependidikan (→ tendik.html) -->
+                <a href="https://pi-iainbabel.github.io/sdm/tendik.html" target="_blank" class="sub-card">
+                    <div class="icon-wrap"><i class="fas fa-users-cog"></i></div>
+                    <div class="title">
+                        Tenaga Kependidikan
+                        <span class="badge-status">Live</span>
+                    </div>
+                    <div class="desc">Data tenaga kependidikan, kualifikasi, dan distribusi peran.</div>
+                    <span class="btn-open"><i class="fas fa-arrow-right"></i> Buka</span>
+                </a>
+
+                <!-- Sub-kartu 4: Sarana & Prasarana -->
+                <a href="#" class="sub-card">
+                    <div class="icon-wrap"><i class="fas fa-building"></i></div>
+                    <div class="title">
+                        Sarana & Prasarana
+                        <span class="badge-status draft">Segera</span>
+                    </div>
+                    <div class="desc">Data sarana dan prasarana penunjang pembelajaran.</div>
+                    <span class="btn-open"><i class="fas fa-arrow-right"></i> Buka</span>
+                </a>
+
+                <!-- Sub-kartu 5: Pembiayaan -->
+                <a href="#" class="sub-card">
+                    <div class="icon-wrap"><i class="fas fa-coins"></i></div>
+                    <div class="title">
+                        Pembiayaan
+                        <span class="badge-status draft">Segera</span>
+                    </div>
+                    <div class="desc">Rencana anggaran, realisasi, dan laporan keuangan program studi.</div>
+                    <span class="btn-open"><i class="fas fa-arrow-right"></i> Buka</span>
+                </a>
+
+                <!-- Sub-kartu 6: Survei Kepuasan Internal -->
+                <a href="#" class="sub-card">
+                    <div class="icon-wrap"><i class="fas fa-star"></i></div>
+                    <div class="title">
+                        Survei Kepuasan Internal
+                        <span class="badge-status draft">Segera</span>
+                    </div>
+                    <div class="desc">Hasil survei kepuasan dosen, mahasiswa, dan tenaga kependidikan.</div>
+                    <span class="btn-open"><i class="fas fa-arrow-right"></i> Buka</span>
+                </a>
+
+                <!-- Sub-kartu 7: Sistem Informasi & TIK -->
+                <a href="#" class="sub-card">
+                    <div class="icon-wrap"><i class="fas fa-laptop"></i></div>
+                    <div class="title">
+                        Sistem Informasi & TIK
+                        <span class="badge-status draft">Segera</span>
+                    </div>
+                    <div class="desc">Infrastruktur TIK, sistem informasi akademik, dan layanan digital.</div>
+                    <span class="btn-open"><i class="fas fa-arrow-right"></i> Buka</span>
+                </a>
+
+                <!-- Sub-kartu 8: Good University Governance -->
+                <a href="#" class="sub-card">
+                    <div class="icon-wrap"><i class="fas fa-gavel"></i></div>
+                    <div class="title">
+                        Good University Governance
+                        <span class="badge-status draft">Segera</span>
+                    </div>
+                    <div class="desc">Dokumen kebijakan, mekanisme pengambilan keputusan, dan tata kelola yang baik.</div>
+                    <span class="btn-open"><i class="fas fa-arrow-right"></i> Buka</span>
+                </a>
+
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- NARASI ANALISIS KEKUATAN                                   -->
+            <!-- ========================================================== -->
+            <div class="analysis-narrative">
+                <h3>
+                    <i class="fas fa-trophy"></i> Analisis Kekuatan Tata Kelola
+                </h3>
+                <p>
+                    Program Studi Psikologi Islam telah membangun <span class="highlight">tata kelola yang solid</span> dengan dukungan 8 pilar utama yang saling terkait, mulai dari struktur organisasi hingga good governance. Ketersediaan data yang terstruktur menjadi fondasi bagi akuntabilitas dan transparansi pengelolaan prodi.
+                </p>
+                <p>
+                    <strong>Pertama</strong>, dari sisi <span class="highlight">sumber daya manusia</span>, prodi didukung oleh dosen dan tenaga kependidikan yang memadai secara kuantitas dan kualifikasi. Seluruh tenaga kependidikan telah memiliki kualifikasi minimal S-1, sementara dosen memiliki rekognisi akademik yang beragam. Ini menjamin layanan akademik dan non-akademik berjalan optimal.
+                </p>
+                <p>
+                    <strong>Kedua</strong>, <span class="highlight">infrastruktur dan pembiayaan</span> menjadi penunjang utama kegiatan tridarma. Sarana dan prasarana yang tersedia, serta sistem informasi dan TIK yang berkembang, memungkinkan proses pembelajaran dan administrasi berjalan efisien dan terintegrasi.
+                </p>
+                <p>
+                    <strong>Ketiga</strong>, <span class="highlight">mekanisme pengambilan keputusan</span> yang partisipatif dan transparan, didukung oleh survei kepuasan internal, menunjukkan komitmen prodi terhadap perbaikan berkelanjutan. Good governance bukan hanya slogan, tetapi diimplementasikan melalui kebijakan dan evaluasi berkala.
+                </p>
+                <p class="mb-0">
+                    Dengan fondasi tata kelola yang kuat ini, Program Studi Psikologi Islam siap menghadapi tantangan perubahan dan terus meningkatkan <span class="highlight">daya saing dan kualitas layanan</span> bagi seluruh pemangku kepentingan.
+                </p>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- NAVIGASI BAWAH: Link ke Tree Map                           -->
+            <!-- ========================================================== -->
+            <div class="mt-10 text-center border-t border-white/5 pt-6">
+                <p class="text-xs text-slate-500 mb-2">
+                    <i class="fas fa-sitemap mr-1"></i> Jelajahi semua konten melalui peta situs
+                </p>
+                <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html"
+                   class="inline-flex items-center gap-2 text-gold hover:text-white transition-colors text-sm font-medium">
+                    <i class="fas fa-tree"></i> Pohon Pengetahuan (Tree Map)
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+                <div class="mt-4 flex flex-wrap justify-center gap-1 text-[0.6rem] text-slate-600">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="hover:text-slate-400">Home</a>
+                    <span>/</span>
+                    <span class="text-slate-400">Tata Kelola & Akuntabilitas</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- FOOTER                                                     -->
+    <!-- ========================================================== -->
+    <footer class="border-t border-white/5 bg-navy-900/50 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p class="text-xs text-slate-500">
+                &copy; 2024 Program Studi Psikologi Islam · Fakultas Dakwah dan Komunikasi Islam · IAIN Syaikh Abdurrahman Siddik Bangka Belitung
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
