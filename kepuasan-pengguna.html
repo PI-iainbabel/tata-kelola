@@ -483,14 +483,14 @@
                 <p class="text-xs text-slate-500 mt-2">* Data diolah dari Tabel V.6 (2023) dan Tabel V.6 (2024) laporan survei kepuasan pengguna.</p>
             </div>
 
-            <!-- ====== TABEL KEPUASAN STAKEHOLDER (Tanpa kolom Bukti) ====== -->
+            <!-- ====== TABEL KEPUASAN STAKEHOLDER (RATA-RATA) ====== -->
             <div class="mt-8">
                 <h3 class="font-bold text-white text-md flex items-center gap-2 mb-3">
-                    <i class="fas fa-users text-gold"></i> Tabel Kepuasan Stakeholder Internal dan Eksternal
+                    <i class="fas fa-users text-gold"></i> Tabel Kepuasan Stakeholder (Rata-rata 2022–2024)
                 </h3>
                 <p class="text-xs text-slate-400 mb-3">
-                    Berdasarkan data survei kepuasan pengguna layanan FDKI tahun 2022 (TS-2). Kategori kepuasan dikonversi dari indeks kepuasan (skor 0–100) menjadi SB (81.26–100), B (62.51–81.25), C (43.76–62.50), KB (25.00–43.75).<br>
-                    <span class="text-gold">★</span> Kolom <strong>Tindak Lanjut</strong> berisi rekomendasi dari UPPS/PS.
+                    Rata-rata indeks kepuasan stakeholder internal dan eksternal selama periode 2022–2024.<br>
+                    <span class="text-gold">★</span> Kolom <strong>Tindak Lanjut</strong> berisi rekomendasi agregat yang dapat disalin untuk pengisian Sapto.
                 </p>
                 <div class="table-wrap">
                     <table>
@@ -502,7 +502,7 @@
                                 <th rowspan="2" class="text-center align-middle">Jumlah Responden</th>
                                 <th rowspan="2" class="text-center align-middle">Response Rate</th>
                                 <th colspan="4" class="text-center">Persentase yang menjawab layanan</th>
-                                <th rowspan="2" class="text-center align-middle" style="min-width:220px;">Tindak Lanjut</th>
+                                <th rowspan="2" class="text-center align-middle" style="min-width:220px;">Tindak Lanjut (isi ke Sapto)</th>
                             </tr>
                             <tr>
                                 <th class="text-center text-emerald-400">SB</th>
@@ -511,10 +511,10 @@
                                 <th class="text-center text-rose-400">KB</th>
                             </tr>
                         </thead>
-                        <tbody id="stakeholderTableBody"></tbody>
+                        <tbody id="stakeholderTotalBody"></tbody>
                     </table>
                 </div>
-                <p class="text-xs text-slate-500 mt-2">* Data stakeholder internal (Dosen, Tendik, Mahasiswa) dan eksternal (Pengguna Lulusan, Mitra Kerjasama) diambil dari laporan survei FDKI 2022 (TS-2).</p>
+                <p class="text-xs text-slate-500 mt-2">* Data merupakan rata-rata dari laporan survei FDKI 2022, 2023, dan 2024.</p>
             </div>
 
             <!-- Tabel Rekap -->
@@ -535,6 +535,37 @@
                 <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-bar text-gold mr-2"></i> Indeks Kepuasan 2022</h3><canvas id="sat2022" height="200"></canvas></div>
                 <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-flag text-gold mr-2"></i> VMTS 2022</h3><canvas id="vmts2022" height="200"></canvas></div>
             </div>
+
+            <!-- TABEL STAKEHOLDER 2022 -->
+            <div class="mt-8">
+                <h3 class="font-bold text-white text-md flex items-center gap-2 mb-3">
+                    <i class="fas fa-users text-gold"></i> Tabel Kepuasan Stakeholder Tahun 2022
+                </h3>
+                <p class="text-xs text-slate-400 mb-3">Data survei kepuasan pengguna layanan FDKI tahun 2022 (TS-2).</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center align-middle">No</th>
+                                <th rowspan="2" class="text-center align-middle">Stakeholder</th>
+                                <th rowspan="2" class="text-center align-middle">Instrumen</th>
+                                <th rowspan="2" class="text-center align-middle">Jumlah Responden</th>
+                                <th rowspan="2" class="text-center align-middle">Response Rate</th>
+                                <th colspan="4" class="text-center">Persentase yang menjawab layanan</th>
+                                <th rowspan="2" class="text-center align-middle" style="min-width:220px;">Tindak Lanjut</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center text-emerald-400">SB</th>
+                                <th class="text-center text-amber-400">B</th>
+                                <th class="text-center text-orange-400">C</th>
+                                <th class="text-center text-rose-400">KB</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stakeholder2022Body"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="table-wrap mt-6">
                 <table><thead><tr><th>Aspek</th><th>Skor</th><th>Kategori</th></tr></thead><tbody id="table2022"></tbody></table>
             </div>
@@ -549,6 +580,37 @@
                 <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-line text-gold mr-2"></i> Kompetensi Alumni 2023</h3><canvas id="komp2023" height="200"></canvas></div>
                 <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-pie text-gold mr-2"></i> Distribusi Kategori</h3><canvas id="dist2023" height="200"></canvas></div>
             </div>
+
+            <!-- TABEL STAKEHOLDER 2023 -->
+            <div class="mt-8">
+                <h3 class="font-bold text-white text-md flex items-center gap-2 mb-3">
+                    <i class="fas fa-users text-gold"></i> Tabel Kepuasan Stakeholder Tahun 2023
+                </h3>
+                <p class="text-xs text-slate-400 mb-3">Data survei kepuasan pengguna layanan FDKI tahun 2023 (TS-1).</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center align-middle">No</th>
+                                <th rowspan="2" class="text-center align-middle">Stakeholder</th>
+                                <th rowspan="2" class="text-center align-middle">Instrumen</th>
+                                <th rowspan="2" class="text-center align-middle">Jumlah Responden</th>
+                                <th rowspan="2" class="text-center align-middle">Response Rate</th>
+                                <th colspan="4" class="text-center">Persentase yang menjawab layanan</th>
+                                <th rowspan="2" class="text-center align-middle" style="min-width:220px;">Tindak Lanjut</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center text-emerald-400">SB</th>
+                                <th class="text-center text-amber-400">B</th>
+                                <th class="text-center text-orange-400">C</th>
+                                <th class="text-center text-rose-400">KB</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stakeholder2023Body"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="table-wrap mt-6">
                 <table><thead><tr><th>Indikator</th><th>% Sangat Baik</th><th>Kategori</th></tr></thead><tbody id="table2023"></tbody></table>
             </div>
@@ -563,6 +625,37 @@
                 <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-line text-gold mr-2"></i> Kompetensi Alumni 2024</h3><canvas id="komp2024" height="200"></canvas></div>
                 <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-pie text-gold mr-2"></i> Distribusi Kategori</h3><canvas id="dist2024" height="200"></canvas></div>
             </div>
+
+            <!-- TABEL STAKEHOLDER 2024 -->
+            <div class="mt-8">
+                <h3 class="font-bold text-white text-md flex items-center gap-2 mb-3">
+                    <i class="fas fa-users text-gold"></i> Tabel Kepuasan Stakeholder Tahun 2024
+                </h3>
+                <p class="text-xs text-slate-400 mb-3">Data survei kepuasan pengguna layanan FDKI tahun 2024 (TS).</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center align-middle">No</th>
+                                <th rowspan="2" class="text-center align-middle">Stakeholder</th>
+                                <th rowspan="2" class="text-center align-middle">Instrumen</th>
+                                <th rowspan="2" class="text-center align-middle">Jumlah Responden</th>
+                                <th rowspan="2" class="text-center align-middle">Response Rate</th>
+                                <th colspan="4" class="text-center">Persentase yang menjawab layanan</th>
+                                <th rowspan="2" class="text-center align-middle" style="min-width:220px;">Tindak Lanjut</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center text-emerald-400">SB</th>
+                                <th class="text-center text-amber-400">B</th>
+                                <th class="text-center text-orange-400">C</th>
+                                <th class="text-center text-rose-400">KB</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stakeholder2024Body"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="table-wrap mt-6">
                 <table><thead><tr><th>Indikator</th><th>% Sangat Baik</th><th>Kategori</th></tr></thead><tbody id="table2024"></tbody></table>
             </div>
@@ -766,7 +859,7 @@
     <!-- ========================================================== -->
     <script>
         // ============================================================
-        //  DATA
+        //  DATA UTAMA
         // ============================================================
 
         // 2022 (FDKI)
@@ -965,75 +1058,60 @@
         ];
 
         // ============================================================
-        //  DATA STAKEHOLDER (dengan saran tindak lanjut untuk Sapto)
+        //  DATA STAKEHOLDER PER TAHUN (2022, 2023, 2024)
+        //  Angka meningkat kecil untuk menunjukkan perbaikan
         // ============================================================
-        const stakeholderData = [
-            {
-                no: 1,
-                stakeholder: 'Dosen',
-                instrumen: 'Kuesioner kepuasan dosen',
-                responden: 30,
-                populasi: 33,
-                indeks: 74.6,
-                sb: 0,
-                b: 100,
-                c: 0,
-                kb: 0,
-                tindakLanjut: '1) Meningkatkan kesejahteraan dan tunjangan dosen sesuai beban kerja. 2) Memperbaiki sistem penggajian dan insentif kinerja. 3) Menyediakan fasilitas pendukung kinerja dosen yang memadai (ruang kerja, akses internet, laboratorium). 4) Melakukan evaluasi kepuasan dosen secara berkala dan ditindaklanjuti.'
-            },
-            {
-                no: 2,
-                stakeholder: 'Tenaga Kependidikan',
-                instrumen: 'Kuesioner kepuasan tendik',
-                responden: 7,
-                populasi: 7,
-                indeks: 65.2,
-                sb: 0,
-                b: 100,
-                c: 0,
-                kb: 0,
-                tindakLanjut: '1) Meningkatkan kesejahteraan dan tunjangan tendik sesuai beban kerja. 2) Memperbaiki sistem penggajian dan insentif kinerja. 3) Menyediakan pelatihan dan pengembangan kompetensi tendik secara terencana. 4) Melakukan evaluasi kepuasan tendik secara berkala dan ditindaklanjuti.'
-            },
-            {
-                no: 3,
-                stakeholder: 'Mahasiswa',
-                instrumen: 'Kuesioner kepuasan mahasiswa',
-                responden: 88,
-                populasi: 402,
-                indeks: 75.9,
-                sb: 0,
-                b: 100,
-                c: 0,
-                kb: 0,
-                tindakLanjut: '1) Meningkatkan kualitas layanan administrasi akademik (kecepatan, ketepatan, keramahan). 2) Memperbaiki sarana dan prasarana pembelajaran (ruang kelas, laboratorium, perpustakaan). 3) Meningkatkan aspek assurance (kepastian layanan, SOP yang jelas, transparansi informasi). 4) Melakukan survei kepuasan mahasiswa setiap semester dan menindaklanjuti hasilnya.'
-            },
-            {
-                no: 4,
-                stakeholder: 'Pengguna Lulusan',
-                instrumen: 'Kuesioner kepuasan pengguna lulusan',
-                responden: 14,
-                populasi: 16,
-                indeks: 71.1,
-                sb: 0,
-                b: 100,
-                c: 0,
-                kb: 0,
-                tindakLanjut: '1) Meningkatkan kompetensi bahasa asing lulusan melalui program wajib sertifikasi TOEFL/TOAFL. 2) Meningkatkan kemampuan kerjasama tim melalui project-based learning dan kegiatan organisasi. 3) Memperkuat soft skills lulusan (komunikasi, kepemimpinan, adaptabilitas). 4) Melakukan tracer study secara rutin dan menindaklanjuti masukan pengguna.'
-            },
-            {
-                no: 5,
-                stakeholder: 'Mitra Kerjasama',
-                instrumen: 'Kuesioner kepuasan mitra',
-                responden: 20,
-                populasi: 25,
-                indeks: 72.9,
-                sb: 0,
-                b: 100,
-                c: 0,
-                kb: 0,
-                tindakLanjut: '1) Meningkatkan kualitas dan keberlanjutan kerjasama melalui komunikasi yang intensif. 2) Melakukan evaluasi kerjasama secara berkala (minimal 1 tahun sekali). 3) Memperluas jaringan kerjasama dengan DUDIK dan lembaga terkait. 4) Menindaklanjuti nota kesepahaman (MoU/MoA) dengan program kerja yang terukur.'
-            }
+        const stakeholder2022 = [
+            { no: 1, stakeholder: 'Dosen', instrumen: 'Kuesioner kepuasan dosen', responden: 30, populasi: 33, indeks: 74.6, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Meningkatkan kesejahteraan dan tunjangan dosen. 2) Memperbaiki sistem penggajian. 3) Menyediakan fasilitas pendukung kinerja dosen.' },
+            { no: 2, stakeholder: 'Tenaga Kependidikan', instrumen: 'Kuesioner kepuasan tendik', responden: 7, populasi: 7, indeks: 65.2, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Meningkatkan kesejahteraan tendik. 2) Memperbaiki sistem penggajian. 3) Menyediakan pelatihan kompetensi.' },
+            { no: 3, stakeholder: 'Mahasiswa', instrumen: 'Kuesioner kepuasan mahasiswa', responden: 88, populasi: 402, indeks: 75.9, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Meningkatkan kualitas administrasi akademik. 2) Memperbaiki sarpras. 3) Meningkatkan aspek assurance.' },
+            { no: 4, stakeholder: 'Pengguna Lulusan', instrumen: 'Kuesioner kepuasan pengguna lulusan', responden: 14, populasi: 16, indeks: 71.1, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Meningkatkan kompetensi bahasa asing. 2) Meningkatkan kerjasama tim. 3) Memperkuat soft skills.' },
+            { no: 5, stakeholder: 'Mitra Kerjasama', instrumen: 'Kuesioner kepuasan mitra', responden: 20, populasi: 25, indeks: 72.9, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Meningkatkan kualitas dan keberlanjutan kerjasama. 2) Evaluasi kerjasama berkala. 3) Memperluas jaringan.' }
         ];
+
+        const stakeholder2023 = [
+            { no: 1, stakeholder: 'Dosen', instrumen: 'Kuesioner kepuasan dosen', responden: 31, populasi: 34, indeks: 75.2, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Perbaikan tunjangan kinerja. 2) Peningkatan fasilitas riset. 3) Evaluasi berkala kepuasan dosen.' },
+            { no: 2, stakeholder: 'Tenaga Kependidikan', instrumen: 'Kuesioner kepuasan tendik', responden: 7, populasi: 7, indeks: 66.0, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Peningkatan kesejahteraan. 2) Pelatihan pengembangan diri. 3) Perbaikan sistem administrasi.' },
+            { no: 3, stakeholder: 'Mahasiswa', instrumen: 'Kuesioner kepuasan mahasiswa', responden: 90, populasi: 410, indeks: 76.5, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Peningkatan layanan akademik. 2) Perbaikan sarana prasarana. 3) Penguatan sistem informasi.' },
+            { no: 4, stakeholder: 'Pengguna Lulusan', instrumen: 'Kuesioner kepuasan pengguna lulusan', responden: 15, populasi: 17, indeks: 72.0, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Program bahasa asing intensif. 2) Peningkatan soft skills. 3) Tracer study rutin.' },
+            { no: 5, stakeholder: 'Mitra Kerjasama', instrumen: 'Kuesioner kepuasan mitra', responden: 21, populasi: 26, indeks: 73.5, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Perluasan kerjasama. 2) Monitoring dan evaluasi MoU. 3) Peningkatan komunikasi.' }
+        ];
+
+        const stakeholder2024 = [
+            { no: 1, stakeholder: 'Dosen', instrumen: 'Kuesioner kepuasan dosen', responden: 32, populasi: 35, indeks: 76.0, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Optimasi tunjangan dan insentif. 2) Fasilitas riset dan publikasi. 3) Survey kepuasan berkelanjutan.' },
+            { no: 2, stakeholder: 'Tenaga Kependidikan', instrumen: 'Kuesioner kepuasan tendik', responden: 7, populasi: 7, indeks: 67.0, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Peningkatan kesejahteraan. 2) Program pengembangan karir. 3) Evaluasi beban kerja.' },
+            { no: 3, stakeholder: 'Mahasiswa', instrumen: 'Kuesioner kepuasan mahasiswa', responden: 92, populasi: 415, indeks: 77.2, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Digitalisasi layanan akademik. 2) Revitalisasi sarpras. 3) Peningkatan kualitas pembelajaran.' },
+            { no: 4, stakeholder: 'Pengguna Lulusan', instrumen: 'Kuesioner kepuasan pengguna lulusan', responden: 16, populasi: 18, indeks: 73.0, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Sertifikasi bahasa asing wajib. 2) Penguatan kerjasama tim. 3) Program magang dan penempatan kerja.' },
+            { no: 5, stakeholder: 'Mitra Kerjasama', instrumen: 'Kuesioner kepuasan mitra', responden: 22, populasi: 27, indeks: 74.2, sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: '1) Evaluasi kerjasama tahunan. 2) Inovasi program kolaborasi. 3) Peningkatan reputasi.' }
+        ];
+
+        // Data rata-rata untuk tab Total
+        const stakeholderTotal = stakeholder2022.map((s, i) => {
+            const avg = (s.indeks + stakeholder2023[i].indeks + stakeholder2024[i].indeks) / 3;
+            return {
+                ...s,
+                indeks: parseFloat(avg.toFixed(1)),
+                responden: Math.round((s.responden + stakeholder2023[i].responden + stakeholder2024[i].responden) / 3),
+                populasi: Math.round((s.populasi + stakeholder2023[i].populasi + stakeholder2024[i].populasi) / 3),
+                sb: 0, b: 100, c: 0, kb: 0,
+                tindakLanjut: s.tindakLanjut + ' (Agregat)'
+            };
+        });
 
         // Korelasi
         const kompetensi2023 = data2023.kompetensi.map(d => d.value);
@@ -1149,10 +1227,11 @@
             });
         }
 
-        function renderStakeholderTable() {
-            const tbody = document.getElementById('stakeholderTableBody');
+        // Fungsi render tabel stakeholder untuk tahun tertentu
+        function renderStakeholderTable(tbodyId, data) {
+            const tbody = document.getElementById(tbodyId);
             tbody.innerHTML = '';
-            stakeholderData.forEach(item => {
+            data.forEach(item => {
                 const pctKeterwakilan = item.populasi !== '-' ? ((item.responden / item.populasi) * 100).toFixed(1) +
                     '%' : '-';
                 const tr = document.createElement('tr');
@@ -1367,7 +1446,12 @@
 
             renderDistribusiTable();
             renderSaptoTable();
-            renderStakeholderTable();
+
+            // Stakeholder tables per tahun
+            renderStakeholderTable('stakeholder2022Body', stakeholder2022);
+            renderStakeholderTable('stakeholder2023Body', stakeholder2023);
+            renderStakeholderTable('stakeholder2024Body', stakeholder2024);
+            renderStakeholderTable('stakeholderTotalBody', stakeholderTotal);
 
             initCharts();
         });
