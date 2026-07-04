@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Struktur Organisasi FDKI · Psikologi Islam</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#E8EDF8', 100: '#C5D2F0', 200: '#9DB5E8',
+                            300: '#6F95E0', 400: '#4F7FD8', 500: '#2A5CC4',
+                            600: '#1A3F8F', 700: '#122B6A', 800: '#0B1D45',
+                            900: '#060F28', 950: '#030714',
+                        },
+                        gold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060F28;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(11, 29, 69, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(79, 143, 255, 0.15);
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .btn-nav-home {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        .btn-nav-home:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .btn-nav-tree {
+            background: rgba(82, 183, 136, 0.06);
+            color: #52B788;
+            border-color: rgba(82, 183, 136, 0.1);
+        }
+        .btn-nav-tree:hover {
+            background: rgba(82, 183, 136, 0.12);
+            border-color: #52B788;
+            transform: translateY(-2px);
+        }
+        .btn-nav-drive {
+            background: rgba(82, 183, 136, 0.06);
+            color: #52B788;
+            border-color: rgba(82, 183, 136, 0.1);
+        }
+        .btn-nav-drive:hover {
+            background: rgba(82, 183, 136, 0.12);
+            border-color: #52B788;
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 4px;
+            font-size: 0.8rem;
+            padding: 8px 0;
+        }
+        .breadcrumb a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .breadcrumb a:hover {
+            color: #D4AF37;
+        }
+        .breadcrumb .separator {
+            color: #475569;
+            font-size: 0.6rem;
+            margin: 0 2px;
+        }
+        .breadcrumb .current {
+            color: #e2e8f0;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb .current i {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .tab-btn:hover {
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .tab-btn.active {
+            color: #D4AF37;
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .org-card {
+            background: rgba(11, 29, 69, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px 24px;
+            transition: all 0.3s ease;
+        }
+        .org-card:hover {
+            border-color: rgba(212, 175, 55, 0.15);
+            transform: translateY(-4px);
+        }
+        .org-card .title {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #D4AF37;
+            font-weight: 700;
+        }
+        .org-card .name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 2px;
+        }
+        .org-card .nidn {
+            font-size: 0.7rem;
+            color: #6f8bb0;
+        }
+        .org-card .desc {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 6px;
+            line-height: 1.5;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding-top: 8px;
+        }
+        .org-card .desc strong {
+            color: #e2e8f0;
+        }
+
+        .org-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .org-section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #D4AF37;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .org-section-title i {
+            font-size: 1rem;
+        }
+
+        .org-dekan {
+            border-left: 4px solid #D4AF37;
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .org-wadek {
+            border-left: 4px solid #60a5fa;
+            background: rgba(96, 165, 250, 0.05);
+        }
+        .org-kaprodi {
+            border-left: 4px solid #34d399;
+            background: rgba(52, 211, 153, 0.05);
+        }
+        .org-sekprodi {
+            border-left: 4px solid #f59e0b;
+            background: rgba(245, 158, 11, 0.05);
+        }
+        .org-tu {
+            border-left: 4px solid #ec4899;
+            background: rgba(236, 72, 153, 0.05);
+        }
+        .org-lab {
+            border-left: 4px solid #8b5cf6;
+            background: rgba(139, 92, 246, 0.05);
+        }
+        .org-gkm {
+            border-left: 4px solid #f472b6;
+            background: rgba(244, 114, 182, 0.05);
+        }
+        .org-staff {
+            border-left: 4px solid #64748b;
+            background: rgba(100, 116, 139, 0.05);
+        }
+        .org-arsip {
+            border-left: 4px solid #f97316;
+            background: rgba(249, 115, 22, 0.05);
+        }
+
+        .profil-box {
+            background: rgba(11, 29, 69, 0.2);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+        }
+        .profil-box h4 {
+            color: #D4AF37;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        .profil-box p, .profil-box li {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        .profil-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .profil-box ul li::before {
+            content: "▸ ";
+            color: #D4AF37;
+        }
+
+        @media (max-width: 640px) {
+            .breadcrumb { font-size: 0.7rem; }
+            .org-grid { grid-template-columns: 1fr; }
+            .tab-btn { font-size: 0.7rem; padding: 6px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!-- NAVBAR DENGAN BREADCRUMB                                   -->
+    <!-- ========================================================== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" title="Kembali ke Home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <a href="https://pi-iainbabel.github.io/tata-kelola/" title="Kembali ke Tata Kelola">
+                        <i class="fas fa-building"></i> Tata Kelola
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <span class="current">
+                        <i class="fas fa-sitemap"></i> Struktur Organisasi
+                    </span>
+                </div>
+
+                <!-- Tombol navigasi kanan atas -->
+                <div class="flex items-center gap-2 flex-wrap">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="btn-nav btn-nav-home" title="Home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" class="btn-nav btn-nav-tree" title="Tree">
+                        <i class="fas fa-tree"></i> Tree
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1xBRkW1yFUgX3VKMqgT1WDRuNPzl3LVKX" target="_blank" class="btn-nav btn-nav-drive" title="Drive Struktur">
+                        <i class="fab fa-google-drive"></i> Drive
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-20"></div>
+
+    <!-- ========================================================== -->
+    <!-- HERO                                                       -->
+    <!-- ========================================================== -->
+    <section class="pt-8 pb-6 px-4 text-center bg-gradient-to-b from-navy-900 to-navy-950 border-b border-white/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block px-4 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-semibold tracking-wider mb-4">
+                <i class="fas fa-sitemap mr-2"></i> ORGANISASI
+            </div>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
+                Struktur Organisasi <span class="text-gold">FDKI</span>
+            </h1>
+            <p class="mt-3 text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+                Fakultas Dakwah dan Komunikasi Islam · IAIN Syaikh Abdurrahman Siddik Bangka Belitung
+            </p>
+            <div class="mt-4 flex flex-wrap justify-center gap-3 text-xs">
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-calendar-alt text-gold mr-1.5"></i> Periode 2025
+                </span>
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-users text-gold mr-1.5"></i> 4 Program Studi
+                </span>
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-user-graduate text-gold mr-1.5"></i> Psikologi Islam · BKI · KPI · Jurnalistik
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- MAIN CONTENT                                              -->
+    <!-- ========================================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- TABS -->
+        <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
+            <button class="tab-btn active" data-tab="fdki">🏛️ FDKI</button>
+            <button class="tab-btn" data-tab="psikologi">🧠 Psikologi Islam</button>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- TAB FDKI                                                    -->
+        <!-- ========================================================== -->
+        <div id="tab-fdki" class="tab-pane active">
+
+            <!-- DEKAN & WADEK -->
+            <div class="org-section-title"><i class="fas fa-crown"></i> Pimpinan Fakultas</div>
+            <div class="org-grid mb-8">
+                <div class="org-card org-dekan">
+                    <div class="title">Dekan</div>
+                    <div class="name">Dr. Rusydi Sulaiman, M.Ag</div>
+                    <div class="nidn">NIP. 1973 0402 2000 03 1 003</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Memimpin penyelenggaraan pendidikan akademik, penelitian, pengabdian masyarakat, pembinaan sivitas akademika, administrasi, evaluasi dan pelaporan Fakultas Dakwah dan Komunikasi Islam.
+                    </div>
+                </div>
+                <div class="org-card org-wadek">
+                    <div class="title">Wakil Dekan</div>
+                    <div class="name">Dr. Iqrom Faldiansyah, M.A.</div>
+                    <div class="nidn">NIP. 1976 0720 2011 01 1 003</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Membantu Dekan dalam bidang akademik, kemahasiswaan, alumni, kelembagaan dan kerjasama, administrasi umum, perencanaan dan keuangan.
+                    </div>
+                </div>
+            </div>
+
+            <!-- KASUBBAG & LAB & GKM -->
+            <div class="org-section-title"><i class="fas fa-user-cog"></i> Unit Pendukung</div>
+            <div class="org-grid mb-8">
+                <div class="org-card org-tu">
+                    <div class="title">Kepala Subbagian Tata Usaha</div>
+                    <div class="name">Nelly Sanawiyah, S.Sos., M.M.</div>
+                    <div class="nidn">NIP. 1979 0928 2011 01 2 005</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Membantu Dekan dalam pelayanan administrasi umum, akademik, kemahasiswaan, perencanaan, keuangan, kepegawaian, sistem informasi, dan pelaporan fakultas.
+                    </div>
+                </div>
+                <div class="org-card org-lab">
+                    <div class="title">Kepala Laboratorium</div>
+                    <div class="name">Chitra Fraghini, M.Psi., Psikolog</div>
+                    <div class="nidn">NIP. 1983 0829 2012 01 2 005</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Mengelola laboratorium yang mendukung kegiatan akademik dan praktikum pada setiap program studi di Fakultas Dakwah dan Komunikasi Islam.
+                    </div>
+                </div>
+                <div class="org-card org-gkm">
+                    <div class="title">Gugus Kendali Mutu</div>
+                    <div class="name">Wahyudi, M.A.</div>
+                    <div class="nidn">NIP. 1991 0805 2023 11 1 005</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Mengkoordinasikan pelaksanaan penjaminan mutu internal di tingkat fakultas, monitoring dan evaluasi capaian standar mutu, serta pendampingan akreditasi program studi.
+                    </div>
+                </div>
+            </div>
+
+            <!-- KAPRODI -->
+            <div class="org-section-title"><i class="fas fa-chalkboard-teacher"></i> Ketua Program Studi</div>
+            <div class="org-grid mb-8">
+                <div class="org-card org-kaprodi">
+                    <div class="title">Kaprodi Bimbingan & Konseling Islam</div>
+                    <div class="name">Pebri Yanasari, M.A.</div>
+                    <div class="nidn">NIP. 1992 0221 2019 03 2 024</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Memimpin dan melaksanakan penyelenggaraan program studi BKI, penyusunan kurikulum, penetapan dosen pengampu, evaluasi pembelajaran, dan penjaminan mutu prodi.
+                    </div>
+                </div>
+                <div class="org-card org-kaprodi">
+                    <div class="title">Kaprodi Komunikasi & Penyiaran Islam</div>
+                    <div class="name">Gustin, M.Pd.</div>
+                    <div class="nidn">NIP. 1990 0831 2012 01 1 015</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Memimpin program studi KPI, mengelola kurikulum, proses pembelajaran, penelitian dosen-mahasiswa, serta akreditasi dan pengembangan prodi.
+                    </div>
+                </div>
+                <div class="org-card org-kaprodi">
+                    <div class="title">Kaprodi Psikologi Islam</div>
+                    <div class="name">Oktarizal Drianus, M.Psi.</div>
+                    <div class="nidn">NIP. 1986 0620 2019 03 1 016</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Memimpin program studi Psikologi Islam, mengelola kurikulum berbasis psikologi Islami, praktikum di laboratorium psikologi, penelitian dan pengabdian masyarakat.
+                    </div>
+                </div>
+                <div class="org-card org-kaprodi">
+                    <div class="title">Kaprodi Jurnalistik Islam</div>
+                    <div class="name">Sekar Putri, M.A.</div>
+                    <div class="nidn">NIP. 1992 0910 2019 03 2 023</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Memimpin program studi Jurnalistik Islam, mengelola kurikulum jurnalistik berbasis nilai-nilai Islam, laboratorium jurnalistik, dan kerja sama media.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKPRODI -->
+            <div class="org-section-title"><i class="fas fa-pen-fancy"></i> Sekretaris Program Studi</div>
+            <div class="org-grid mb-8">
+                <div class="org-card org-sekprodi">
+                    <div class="title">Sekprodi Bimbingan & Konseling Islam</div>
+                    <div class="name">M. Sholeh Marsudi, M.A.</div>
+                    <div class="nidn">NIP. 1984 0405 2019 03 1 009</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Membantu Kaprodi dalam pengadministrasian kegiatan program studi, penyelenggaraan program, evaluasi, dan pelaporan program studi BKI.
+                    </div>
+                </div>
+                <div class="org-card org-sekprodi">
+                    <div class="title">Sekprodi Komunikasi & Penyiaran Islam</div>
+                    <div class="name">Safril, M.Sos.</div>
+                    <div class="nidn">NIP. 1990 0418 2012 01 1 018</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Membantu Kaprodi dalam administrasi akademik, evaluasi program, pelaporan, dan koordinasi kegiatan program studi KPI.
+                    </div>
+                </div>
+                <div class="org-card org-sekprodi">
+                    <div class="title">Sekprodi Psikologi Islam</div>
+                    <div class="name">Yandi Hafizallah, M.A.</div>
+                    <div class="nidn">NIP. 1992 0229 2019 03 1 013</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Membantu Kaprodi dalam administrasi akademik, pengelolaan data mahasiswa, evaluasi pembelajaran, dan pelaporan program studi Psikologi Islam.
+                    </div>
+                </div>
+                <div class="org-card org-sekprodi">
+                    <div class="title">Sekprodi Jurnalistik Islam</div>
+                    <div class="name">Atikah Dewi Utami, M.Si.</div>
+                    <div class="nidn">NIP. 1993 0728 2019 02 2 005</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Membantu Kaprodi dalam administrasi program studi, pengelolaan kurikulum, evaluasi pembelajaran, dan pelaporan program studi Jurnalistik Islam.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAFF TU & ARSIPARIS -->
+
+
+            <!-- DOSEN & MAHASISWA -->
+            <div class="mt-6 p-4 bg-navy-800/30 rounded-xl border border-white/5 text-center text-sm text-slate-400">
+                <i class="fas fa-user-graduate text-gold mr-2"></i>
+                <strong class="text-white">Dosen & Mahasiswa</strong> — Seluruh dosen tetap dan tidak tetap serta mahasiswa aktif Fakultas Dakwah dan Komunikasi Islam menjadi bagian integral dari struktur organisasi dalam menjalankan Tridharma Perguruan Tinggi.
+            </div>
+
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- TAB PSIKOLOGI ISLAM                                        -->
+        <!-- ========================================================== -->
+        <div id="tab-psikologi" class="tab-pane">
+
+            <!-- Profil Prodi -->
+            <div class="profil-box">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4><i class="fas fa-graduation-cap text-gold mr-2"></i> Profil Program Studi</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li><span class="text-gold">Nama Prodi:</span> Psikologi Islam</li>
+                            <li><span class="text-gold">Gelar:</span> Sarjana Psikologi (S.Psi)</li>
+                            <li><span class="text-gold">Fakultas:</span> Dakwah dan Komunikasi Islam</li>
+                            <li><span class="text-gold">Institut:</span> IAIN Syaikh Abdurrahman Siddik</li>
+                            <li><span class="text-gold">Akreditasi:</span> <span class="text-emerald-400">Baik</span> (SK BAN-PT No. 1331/SK/BAN-PT/Akred/S/III/2022)</li>
+                            <li><span class="text-gold">Kadaluarsa:</span> 01 Maret 2027</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-phone text-gold mr-2"></i> Kontak</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li><span class="text-gold">Email:</span> psikologiislam@iainsasbabel.ac.id</li>
+                            <li><span class="text-gold">Telp/WA:</span> 0813 9489 0172</li>
+                            <li><span class="text-gold">Alamat:</span> Jl. Raya Petaling Km.13, Petaling, Mendo Barat, Kab. Bangka, Kep. Bangka Belitung 33173</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Struktur Prodi Psikologi Islam -->
+            <div class="org-section-title"><i class="fas fa-brain"></i> Struktur Program Studi Psikologi Islam</div>
+
+            <!-- Pimpinan Prodi -->
+            <div class="org-grid mb-6">
+                <div class="org-card org-kaprodi">
+                    <div class="title">Ketua Program Studi</div>
+                    <div class="name">Oktarizal Drianus, M.Psi.</div>
+                    <div class="nidn">NIDN. 1986 0620 2019 03 1 016</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Memimpin program studi Psikologi Islam, mengelola kurikulum, proses pembelajaran, praktikum laboratorium, penelitian, pengabdian masyarakat, serta penjaminan mutu dan akreditasi prodi.
+                    </div>
+                </div>
+                <div class="org-card org-sekprodi">
+                    <div class="title">Sekretaris Program Studi</div>
+                    <div class="name">Yandi Hafizallah, M.A.</div>
+                    <div class="nidn">NIDN. 1992 0229 2019 03 1 013</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Membantu Kaprodi dalam administrasi akademik, pengelolaan data mahasiswa, evaluasi pembelajaran, pelaporan program studi, dan koordinasi kegiatan prodi.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit Pendukung -->
+            <div class="org-section-title"><i class="fas fa-flask"></i> Unit Pendukung</div>
+            <div class="org-grid mb-6">
+                <div class="org-card org-lab">
+                    <div class="title">Kepala Laboratorium Psikologi</div>
+                    <div class="name">Chitra Fraghini, M.Psi., Psikolog</div>
+                    <div class="nidn">NIDN. 1983 0829 2012 01 2 005</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Mengelola laboratorium psikologi sebagai pusat layanan jasa psikologi: tes minat & bakat, tes IQ, kesiapan sekolah, rekrutmen karyawan, konseling karir, konseling pribadi, tumbuh kembang, dan klinis.
+                    </div>
+                </div>
+                <div class="org-card org-lab">
+                    <div class="title">Editor in Chief Jurnal Psikologi</div>
+                    <div class="name">Primalita Putri Distina, M.Psi., Psikolog</div>
+                    <div class="nidn">NIDN. 1990 1109 2019 02 2 008</div>
+                    <div class="desc">
+                        <strong>Tugas Pokok:</strong> Memimpin pengelolaan jurnal ilmiah Psikologi Islam, mengelola proses review, publikasi, dan diseminasi hasil penelitian dosen dan mahasiswa di bidang psikologi.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dosen & Mahasiswa -->
+            <div class="mt-4 p-4 bg-navy-800/30 rounded-xl border border-white/5 text-center text-sm text-slate-400">
+                <i class="fas fa-users text-gold mr-2"></i>
+                <strong class="text-white">Dosen & Mahasiswa</strong> — Seluruh dosen tetap, dosen tidak tetap, dan mahasiswa aktif Program Studi Psikologi Islam menjadi pelaksana utama kegiatan Tridharma Perguruan Tinggi.
+            </div>
+
+            <!-- Layanan Psikologi -->
+            <div class="mt-6 p-4 bg-navy-800/20 rounded-xl border border-gold/10">
+                <h4 class="text-gold font-bold text-sm mb-2"><i class="fas fa-heartbeat mr-2"></i> Layanan Psikologi</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs text-slate-300">
+                    <span class="bg-navy-800/40 px-3 py-1.5 rounded-full text-center">Tes Minat & Bakat</span>
+                    <span class="bg-navy-800/40 px-3 py-1.5 rounded-full text-center">Tes IQ</span>
+                    <span class="bg-navy-800/40 px-3 py-1.5 rounded-full text-center">Kesiapan Sekolah</span>
+                    <span class="bg-navy-800/40 px-3 py-1.5 rounded-full text-center">Screening Anak Dini</span>
+                    <span class="bg-navy-800/40 px-3 py-1.5 rounded-full text-center">Rekrutmen Karyawan</span>
+                    <span class="bg-navy-800/40 px-3 py-1.5 rounded-full text-center">Konseling Karir</span>
+                    <span class="bg-navy-800/40 px-3 py-1.5 rounded-full text-center">Konseling Pribadi</span>
+                    <span class="bg-navy-800/40 px-3 py-1.5 rounded-full text-center">Konseling Klinis</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- FOOTER NAVIGASI (hanya Drive)                             -->
+        <!-- ========================================================== -->
+        <div class="text-center border-t border-white/5 pt-6">
+            <p class="text-xs text-slate-500 mb-2">
+                <i class="fas fa-folder-open mr-1"></i> Dokumen pendukung
+            </p>
+            <a href="https://drive.google.com/drive/folders/1xBRkW1yFUgX3VKMqgT1WDRuNPzl3LVKX" target="_blank"
+               class="inline-flex items-center gap-2 text-gold hover:text-white transition-colors text-sm font-medium">
+                <i class="fab fa-google-drive"></i> Drive Struktur Organisasi
+                <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+            <div class="mt-4 flex flex-wrap justify-center gap-1 text-[0.6rem] text-slate-600">
+                <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="hover:text-slate-400">Home</a>
+                <span>/</span>
+                <a href="https://pi-iainbabel.github.io/tata-kelola/" class="hover:text-slate-400">Tata Kelola</a>
+                <span>/</span>
+                <span class="text-slate-400">Struktur Organisasi</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- FOOTER                                                     -->
+    <!-- ========================================================== -->
+    <footer class="border-t border-white/5 bg-navy-900/50 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p class="text-xs text-slate-500">
+                &copy; 2024 Fakultas Dakwah dan Komunikasi Islam · IAIN Syaikh Abdurrahman Siddik Bangka Belitung
+            </p>
+            <p class="text-[10px] text-slate-600 mt-1">
+                <i class="fas fa-sitemap mr-1"></i> Berdasarkan SK Rektor No. 5774 Tahun 2019 &amp; Struktur Organisasi 2025
+            </p>
+            <p class="text-[10px] text-slate-600 mt-1">
+                <a href="https://drive.google.com/drive/folders/1xBRkW1yFUgX3VKMqgT1WDRuNPzl3LVKX" target="_blank" class="text-gold hover:text-white transition-colors">
+                    <i class="fab fa-google-drive mr-1"></i> Folder Drive Struktur Organisasi
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========================================================== -->
+    <!-- JAVASCRIPT                                                 -->
+    <!-- ========================================================== -->
+    <script>
+        // TAB SWITCHING
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const target = this.dataset.tab;
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                document.getElementById('tab-' + target).classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
