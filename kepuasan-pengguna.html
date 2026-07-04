@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Survei Kepuasan FDKI · Psikologi Islam</title>
+    <title>Dashboard Survei Kepuasan FDKI >> Psikologi Islam</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com">
@@ -323,12 +323,22 @@
             color: #475569;
         }
 
+        .tindak-lanjut-text {
+            font-size: 0.6rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+        .tindak-lanjut-text strong {
+            color: #D4AF37;
+        }
+
         @media (max-width: 640px) {
             .breadcrumb { font-size: 0.7rem; }
             .tab-btn { font-size: 0.65rem; padding: 6px 10px; }
-            .table-wrap table { font-size: 0.6rem; }
+            .table-wrap table { font-size: 0.55rem; }
             .table-wrap thead th, .table-wrap tbody td { padding: 4px 4px; }
-            .input-sapto { font-size: 0.55rem; }
+            .input-sapto { font-size: 0.5rem; }
+            .tindak-lanjut-text { font-size: 0.5rem; }
         }
     </style>
 </head>
@@ -360,7 +370,7 @@
                         <i class="fas fa-arrow-left"></i> Home
                     </a>
                     <a href="https://drive.google.com/drive/folders/1Dwvxt2flhuTkef-aEbcPOQafqZttGzJU" target="_blank" class="btn-nav btn-nav-drive" title="Unduh Laporan Kepuasan">
-                        <i class="fas fa-file-pdf"></i> Unduh Laporan Survei Kepuasan
+                        <i class="fas fa-file-pdf"></i> Unduh Laporan Kepuasan
                     </a>
                 </div>
 
@@ -473,13 +483,14 @@
                 <p class="text-xs text-slate-500 mt-2">* Data diolah dari Tabel V.6 (2023) dan Tabel V.6 (2024) laporan survei kepuasan pengguna.</p>
             </div>
 
-            <!-- ====== TABEL KEPUASAN STAKEHOLDER ====== -->
+            <!-- ====== TABEL KEPUASAN STAKEHOLDER (Tanpa kolom Bukti) ====== -->
             <div class="mt-8">
                 <h3 class="font-bold text-white text-md flex items-center gap-2 mb-3">
                     <i class="fas fa-users text-gold"></i> Tabel Kepuasan Stakeholder Internal dan Eksternal
                 </h3>
                 <p class="text-xs text-slate-400 mb-3">
-                    Berdasarkan data survei kepuasan pengguna layanan FDKI tahun 2022 (TS-2). Kategori kepuasan dikonversi dari indeks kepuasan (skor 0–100) menjadi SB (81.26–100), B (62.51–81.25), C (43.76–62.50), KB (25.00–43.75).
+                    Berdasarkan data survei kepuasan pengguna layanan FDKI tahun 2022 (TS-2). Kategori kepuasan dikonversi dari indeks kepuasan (skor 0–100) menjadi SB (81.26–100), B (62.51–81.25), C (43.76–62.50), KB (25.00–43.75).<br>
+                    <span class="text-gold">★</span> Kolom <strong>Tindak Lanjut</strong> berisi rekomendasi dari UPPS/PS.
                 </p>
                 <div class="table-wrap">
                     <table>
@@ -491,16 +502,13 @@
                                 <th rowspan="2" class="text-center align-middle">Jumlah Responden</th>
                                 <th rowspan="2" class="text-center align-middle">Response Rate</th>
                                 <th colspan="4" class="text-center">Persentase yang menjawab layanan</th>
-                                <th rowspan="2" class="text-center align-middle">Tindak Lanjut</th>
-                                <th colspan="2" class="text-center align-middle">Bukti</th>
+                                <th rowspan="2" class="text-center align-middle" style="min-width:220px;">Tindak Lanjut</th>
                             </tr>
                             <tr>
                                 <th class="text-center text-emerald-400">SB</th>
                                 <th class="text-center text-amber-400">B</th>
                                 <th class="text-center text-orange-400">C</th>
                                 <th class="text-center text-rose-400">KB</th>
-                                <th class="text-center">Ada</th>
-                                <th class="text-center">Tidak Ada</th>
                             </tr>
                         </thead>
                         <tbody id="stakeholderTableBody"></tbody>
@@ -745,7 +753,7 @@
     <footer class="border-t border-white/5 bg-navy-900/50 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
             <p class="text-xs text-slate-500">
-                &copy; 2024 Program Studi Psikologi Islam · IAIN Syaikh Abdurrahman Siddik Bangka Belitung
+                &copy; 2024 Program Studi Psikologi Islam · FDKI · IAIN Syaikh Abdurrahman Siddik Bangka Belitung
             </p>
             <p class="text-[10px] text-slate-600 mt-1">
                 <i class="fas fa-clipboard-list mr-1"></i> Berdasarkan Laporan Survei FDKI 2022 &amp; Tracer Study 2023–2024
@@ -956,7 +964,9 @@
             }
         ];
 
-        // Stakeholder Data (dengan response rate >= 80%)
+        // ============================================================
+        //  DATA STAKEHOLDER (dengan saran tindak lanjut untuk Sapto)
+        // ============================================================
         const stakeholderData = [
             {
                 no: 1,
@@ -965,7 +975,11 @@
                 responden: 30,
                 populasi: 33,
                 indeks: 74.6,
-                sb: 0, b: 100, c: 0, kb: 0
+                sb: 0,
+                b: 100,
+                c: 0,
+                kb: 0,
+                tindakLanjut: '1) Meningkatkan kesejahteraan dan tunjangan dosen sesuai beban kerja. 2) Memperbaiki sistem penggajian dan insentif kinerja. 3) Menyediakan fasilitas pendukung kinerja dosen yang memadai (ruang kerja, akses internet, laboratorium). 4) Melakukan evaluasi kepuasan dosen secara berkala dan ditindaklanjuti.'
             },
             {
                 no: 2,
@@ -974,7 +988,11 @@
                 responden: 7,
                 populasi: 7,
                 indeks: 65.2,
-                sb: 0, b: 100, c: 0, kb: 0
+                sb: 0,
+                b: 100,
+                c: 0,
+                kb: 0,
+                tindakLanjut: '1) Meningkatkan kesejahteraan dan tunjangan tendik sesuai beban kerja. 2) Memperbaiki sistem penggajian dan insentif kinerja. 3) Menyediakan pelatihan dan pengembangan kompetensi tendik secara terencana. 4) Melakukan evaluasi kepuasan tendik secara berkala dan ditindaklanjuti.'
             },
             {
                 no: 3,
@@ -983,25 +1001,37 @@
                 responden: 88,
                 populasi: 402,
                 indeks: 75.9,
-                sb: 0, b: 100, c: 0, kb: 0
+                sb: 0,
+                b: 100,
+                c: 0,
+                kb: 0,
+                tindakLanjut: '1) Meningkatkan kualitas layanan administrasi akademik (kecepatan, ketepatan, keramahan). 2) Memperbaiki sarana dan prasarana pembelajaran (ruang kelas, laboratorium, perpustakaan). 3) Meningkatkan aspek assurance (kepastian layanan, SOP yang jelas, transparansi informasi). 4) Melakukan survei kepuasan mahasiswa setiap semester dan menindaklanjuti hasilnya.'
             },
             {
                 no: 4,
                 stakeholder: 'Pengguna Lulusan',
                 instrumen: 'Kuesioner kepuasan pengguna lulusan',
                 responden: 14,
-                populasi: 16,   // response rate = 87.5%
+                populasi: 16,
                 indeks: 71.1,
-                sb: 0, b: 100, c: 0, kb: 0
+                sb: 0,
+                b: 100,
+                c: 0,
+                kb: 0,
+                tindakLanjut: '1) Meningkatkan kompetensi bahasa asing lulusan melalui program wajib sertifikasi TOEFL/TOAFL. 2) Meningkatkan kemampuan kerjasama tim melalui project-based learning dan kegiatan organisasi. 3) Memperkuat soft skills lulusan (komunikasi, kepemimpinan, adaptabilitas). 4) Melakukan tracer study secara rutin dan menindaklanjuti masukan pengguna.'
             },
             {
                 no: 5,
                 stakeholder: 'Mitra Kerjasama',
                 instrumen: 'Kuesioner kepuasan mitra',
                 responden: 20,
-                populasi: 25,   // response rate = 80%
+                populasi: 25,
                 indeks: 72.9,
-                sb: 0, b: 100, c: 0, kb: 0
+                sb: 0,
+                b: 100,
+                c: 0,
+                kb: 0,
+                tindakLanjut: '1) Meningkatkan kualitas dan keberlanjutan kerjasama melalui komunikasi yang intensif. 2) Melakukan evaluasi kerjasama secara berkala (minimal 1 tahun sekali). 3) Memperluas jaringan kerjasama dengan DUDIK dan lembaga terkait. 4) Menindaklanjuti nota kesepahaman (MoU/MoA) dengan program kerja yang terukur.'
             }
         ];
 
@@ -1012,7 +1042,11 @@
 
         function pearsonCorrelation(x, y) {
             const n = x.length;
-            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
+            let sumX = 0,
+                sumY = 0,
+                sumXY = 0,
+                sumX2 = 0,
+                sumY2 = 0;
             for (let i = 0; i < n; i++) {
                 sumX += x[i];
                 sumY += y[i];
@@ -1047,10 +1081,10 @@
                 const card = document.createElement('div');
                 card.className = 'stat-card text-center';
                 card.innerHTML = `
-                    <div class="text-xs text-slate-400 uppercase tracking-wider">${s.label}</div>
-                    <div class="text-2xl font-bold text-white mt-1">${s.value}</div>
-                    <div class="mt-1"><span class="badge-kategori ${s.badge}">${s.badge === 'sb' ? 'Sangat Baik' : s.badge === 'b' ? 'Baik' : s.badge === 'c' ? 'Cukup' : 'Kurang'}</span></div>
-                `;
+                        <div class="text-xs text-slate-400 uppercase tracking-wider">${s.label}</div>
+                        <div class="text-2xl font-bold text-white mt-1">${s.value}</div>
+                        <div class="mt-1"><span class="badge-kategori ${s.badge}">${s.badge === 'sb' ? 'Sangat Baik' : s.badge === 'b' ? 'Baik' : s.badge === 'c' ? 'Cukup' : 'Kurang'}</span></div>
+                    `;
                 container.appendChild(card);
             });
         }
@@ -1063,16 +1097,16 @@
                 const badge = row.kategori === 'Sangat Baik' ? 'sb' : row.kategori === 'Baik' ? 'b' : 'c';
                 if (isTotal) {
                     tr.innerHTML = `
-                        <td class="text-white text-xs">${row.indikator}</td>
-                        <td class="text-center text-xs">${row.value.toFixed(1)}%</td>
-                        <td class="text-center"><span class="badge-kategori ${badge}">${row.kategori}</span></td>
-                    `;
+                            <td class="text-white text-xs">${row.indikator}</td>
+                            <td class="text-center text-xs">${row.value.toFixed(1)}%</td>
+                            <td class="text-center"><span class="badge-kategori ${badge}">${row.kategori}</span></td>
+                        `;
                 } else {
                     tr.innerHTML = `
-                        <td class="text-white text-xs">${row.indikator || row.aspek}</td>
-                        <td class="text-center text-xs">${row.value || row.skor}${row.value ? '%' : ''}</td>
-                        <td class="text-center"><span class="badge-kategori ${badge}">${row.kategori}</span></td>
-                    `;
+                            <td class="text-white text-xs">${row.indikator || row.aspek}</td>
+                            <td class="text-center text-xs">${row.value || row.skor}${row.value ? '%' : ''}</td>
+                            <td class="text-center"><span class="badge-kategori ${badge}">${row.kategori}</span></td>
+                        `;
                 }
                 tbody.appendChild(tr);
             });
@@ -1085,16 +1119,16 @@
                 const row24 = distribusi2024[idx] || { sb: 0, b: 0, c: 0, k: 0 };
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="text-white text-xs font-medium">${row23.aspek}</td>
-                    <td class="text-center text-emerald-400 text-xs">${row23.sb.toFixed(2)}%</td>
-                    <td class="text-center text-amber-400 text-xs">${row23.b.toFixed(2)}%</td>
-                    <td class="text-center text-orange-400 text-xs">${row23.c.toFixed(2)}%</td>
-                    <td class="text-center text-rose-400 text-xs">${row23.k.toFixed(2)}%</td>
-                    <td class="text-center text-emerald-400 text-xs">${row24.sb.toFixed(2)}%</td>
-                    <td class="text-center text-amber-400 text-xs">${row24.b.toFixed(2)}%</td>
-                    <td class="text-center text-orange-400 text-xs">${row24.c.toFixed(2)}%</td>
-                    <td class="text-center text-rose-400 text-xs">${row24.k.toFixed(2)}%</td>
-                `;
+                        <td class="text-white text-xs font-medium">${row23.aspek}</td>
+                        <td class="text-center text-emerald-400 text-xs">${row23.sb.toFixed(2)}%</td>
+                        <td class="text-center text-amber-400 text-xs">${row23.b.toFixed(2)}%</td>
+                        <td class="text-center text-orange-400 text-xs">${row23.c.toFixed(2)}%</td>
+                        <td class="text-center text-rose-400 text-xs">${row23.k.toFixed(2)}%</td>
+                        <td class="text-center text-emerald-400 text-xs">${row24.sb.toFixed(2)}%</td>
+                        <td class="text-center text-amber-400 text-xs">${row24.b.toFixed(2)}%</td>
+                        <td class="text-center text-orange-400 text-xs">${row24.c.toFixed(2)}%</td>
+                        <td class="text-center text-rose-400 text-xs">${row24.k.toFixed(2)}%</td>
+                    `;
                 tbody.appendChild(tr);
             });
         }
@@ -1105,12 +1139,12 @@
             saptoData.forEach(item => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="text-white text-xs font-medium">${item.aspek}</td>
-                    <td class="text-xs text-slate-300">${item.temuan}</td>
-                    <td class="text-xs text-slate-300">${item.rencana}</td>
-                    <td class="text-xs"><input type="text" placeholder="UPPS/PS..." class="input-sapto" /></td>
-                    <td class="text-xs"><input type="text" placeholder="Target waktu..." class="input-sapto" /></td>
-                `;
+                        <td class="text-white text-xs font-medium">${item.aspek}</td>
+                        <td class="text-xs text-slate-300">${item.temuan}</td>
+                        <td class="text-xs text-slate-300">${item.rencana}</td>
+                        <td class="text-xs"><input type="text" placeholder="UPPS/PS..." class="input-sapto" /></td>
+                        <td class="text-xs"><input type="text" placeholder="Target waktu..." class="input-sapto" /></td>
+                    `;
                 tbody.appendChild(tr);
             });
         }
@@ -1119,22 +1153,23 @@
             const tbody = document.getElementById('stakeholderTableBody');
             tbody.innerHTML = '';
             stakeholderData.forEach(item => {
-                const pctKeterwakilan = item.populasi !== '-' ? ((item.responden / item.populasi) * 100).toFixed(1) + '%' : '-';
+                const pctKeterwakilan = item.populasi !== '-' ? ((item.responden / item.populasi) * 100).toFixed(1) +
+                    '%' : '-';
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="text-center text-xs">${item.no}</td>
-                    <td class="text-white text-xs">${item.stakeholder}</td>
-                    <td class="text-xs text-slate-300">${item.instrumen}</td>
-                    <td class="text-center text-xs">${item.responden}</td>
-                    <td class="text-center text-xs">${pctKeterwakilan}</td>
-                    <td class="text-center text-emerald-400 text-xs">${item.sb}%</td>
-                    <td class="text-center text-amber-400 text-xs">${item.b}%</td>
-                    <td class="text-center text-orange-400 text-xs">${item.c}%</td>
-                    <td class="text-center text-rose-400 text-xs">${item.kb}%</td>
-                    <td class="text-xs"><input type="text" placeholder="Tindak lanjut..." class="input-sapto" /></td>
-                    <td class="text-center"><input type="checkbox" class="w-3 h-3 accent-gold" /></td>
-                    <td class="text-center"><input type="checkbox" class="w-3 h-3 accent-gold" /></td>
-                `;
+                        <td class="text-center text-xs">${item.no}</td>
+                        <td class="text-white text-xs">${item.stakeholder}</td>
+                        <td class="text-xs text-slate-300">${item.instrumen}</td>
+                        <td class="text-center text-xs">${item.responden}</td>
+                        <td class="text-center text-xs">${pctKeterwakilan}</td>
+                        <td class="text-center text-emerald-400 text-xs">${item.sb}%</td>
+                        <td class="text-center text-amber-400 text-xs">${item.b}%</td>
+                        <td class="text-center text-orange-400 text-xs">${item.c}%</td>
+                        <td class="text-center text-rose-400 text-xs">${item.kb}%</td>
+                        <td class="text-xs">
+                            <div class="tindak-lanjut-text">${item.tindakLanjut}</div>
+                        </td>
+                    `;
                 tbody.appendChild(tr);
             });
         }
@@ -1148,7 +1183,9 @@
                     datasets: [{
                         label: label,
                         data: data,
-                        backgroundColor: ['#D4AF37', '#60a5fa', '#34d399', '#f59e0b', '#ec4899', '#8b5cf6', '#f87171'],
+                        backgroundColor: ['#D4AF37', '#60a5fa', '#34d399', '#f59e0b', '#ec4899', '#8b5cf6',
+                            '#f87171'
+                        ],
                         borderRadius: 6,
                         barThickness: 30,
                     }]
@@ -1158,7 +1195,8 @@
                     maintainAspectRatio: true,
                     plugins: { legend: { display: false } },
                     scales: {
-                        y: { min: 0, max: 100, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.04)' } },
+                        y: { min: 0, max: 100, ticks: { stepSize: 20, color: '#94a3b8' },
+                            grid: { color: 'rgba(255,255,255,0.04)' } },
                         x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 8 } } }
                     }
                 }
@@ -1254,8 +1292,12 @@
                         }
                     },
                     scales: {
-                        x: { min: 40, max: 100, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#94a3b8' }, title: { display: true, text: '2023 (% Sangat Baik)', color: '#94a3b8' } },
-                        y: { min: 40, max: 100, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#94a3b8' }, title: { display: true, text: '2024 (% Sangat Baik)', color: '#94a3b8' } }
+                        x: { min: 40, max: 100, grid: { color: 'rgba(255,255,255,0.04)' },
+                            ticks: { color: '#94a3b8' }, title: { display: true,
+                                text: '2023 (% Sangat Baik)', color: '#94a3b8' } },
+                        y: { min: 40, max: 100, grid: { color: 'rgba(255,255,255,0.04)' },
+                            ticks: { color: '#94a3b8' }, title: { display: true,
+                                text: '2024 (% Sangat Baik)', color: '#94a3b8' } }
                     }
                 }
             });
@@ -1284,12 +1326,15 @@
             const komp23Labels = data2023.kompetensi.map(d => d.label);
             const komp23Data = data2023.kompetensi.map(d => d.value);
             charts.komp2023 = renderBarChart('komp2023', komp23Labels, komp23Data, '% Sangat Baik');
-            charts.dist2023 = renderDoughnut('dist2023', ['Sangat Baik (4)', 'Baik (1)', 'Cukup (2)'], [4, 1, 2], ['#34d399', '#fbbf24', '#f59e0b']);
+            charts.dist2023 = renderDoughnut('dist2023', ['Sangat Baik (4)', 'Baik (1)', 'Cukup (2)'], [4, 1, 2],
+            ['#34d399', '#fbbf24', '#f59e0b']);
 
             const komp24Labels = data2024.kompetensi.map(d => d.label);
             const komp24Data = data2024.kompetensi.map(d => d.value);
             charts.komp2024 = renderBarChart('komp2024', komp24Labels, komp24Data, '% Sangat Baik');
-            charts.dist2024 = renderDoughnut('dist2024', ['Sangat Baik (5)', 'Cukup (2)'], [5, 2], ['#34d399', '#f59e0b']);
+            charts.dist2024 = renderDoughnut('dist2024', ['Sangat Baik (5)', 'Cukup (2)'], [5, 2], ['#34d399',
+                '#f59e0b'
+            ]);
 
             renderScatter();
             renderHeatmap();
@@ -1303,7 +1348,8 @@
                 document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
                 document.getElementById('tab-' + target).classList.add('active');
                 setTimeout(() => {
-                    Object.values(charts).forEach(chart => { if (chart && chart.resize) chart.resize(); });
+                    Object.values(charts).forEach(chart => { if (chart && chart.resize) chart
+                        .resize(); });
                 }, 100);
             });
         });
