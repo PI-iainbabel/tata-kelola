@@ -173,19 +173,19 @@
         .table-wrap table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
         .table-wrap thead {
             background: rgba(11, 29, 69, 0.6);
             border-bottom: 2px solid rgba(212, 175, 55, 0.2);
         }
         .table-wrap thead th {
-            padding: 10px 12px;
+            padding: 8px 8px;
             text-align: left;
             font-weight: 700;
             color: #D4AF37;
             text-transform: uppercase;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             letter-spacing: 0.04em;
             white-space: nowrap;
         }
@@ -197,7 +197,7 @@
             background: rgba(212, 175, 55, 0.03);
         }
         .table-wrap tbody td {
-            padding: 8px 12px;
+            padding: 6px 8px;
             color: #cbd5e1;
             vertical-align: middle;
         }
@@ -238,9 +238,9 @@
         .tab-btn {
             background: transparent;
             border: none;
-            padding: 8px 20px;
+            padding: 8px 16px;
             border-radius: 40px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #94a3b8;
             cursor: pointer;
@@ -306,31 +306,31 @@
             font-size: 0.65rem;
         }
 
+        .input-sapto {
+            background: rgba(11, 29, 69, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 4px 6px;
+            font-size: 0.65rem;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+        .input-sapto:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        .input-sapto::placeholder {
+            color: #475569;
+        }
+
         @media (max-width: 640px) {
-            .breadcrumb {
-                font-size: 0.7rem;
-            }
-            .card-result {
-                padding: 14px 16px;
-            }
-            .table-wrap table {
-                font-size: 0.65rem;
-            }
-            .table-wrap thead th,
-            .table-wrap tbody td {
-                padding: 4px 6px;
-            }
-            .tab-btn {
-                font-size: 0.7rem;
-                padding: 6px 12px;
-            }
-            .hm-grid {
-                font-size: 0.6rem;
-            }
-            .hm-cell {
-                padding: 4px 2px;
-                min-width: 24px;
-            }
+            .breadcrumb { font-size: 0.7rem; }
+            .tab-btn { font-size: 0.65rem; padding: 6px 10px; }
+            .table-wrap table { font-size: 0.6rem; }
+            .table-wrap thead th, .table-wrap tbody td { padding: 4px 4px; }
+            .input-sapto { font-size: 0.55rem; }
         }
     </style>
 </head>
@@ -360,7 +360,10 @@
 
                 <!-- Tombol navigasi -->
                 <div class="flex items-center gap-2 flex-wrap">
-                    <a href="https://drive.google.com/drive/folders/1UNQBuEkCYw9ySKiazeE2UXDR7eiB98ew" target="_blank" class="btn-nav btn-nav-drive" title="Unduh Laporan Kepuasan">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="btn-nav btn-nav-home" title="Ke Home">
+                        <i class="fas fa-arrow-left"></i> Home
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1Dwvxt2flhuTkef-aEbcPOQafqZttGzJU" target="_blank" class="btn-nav btn-nav-drive" title="Unduh Laporan Kepuasan">
                         <i class="fas fa-file-pdf"></i> Unduh Laporan Kepuasan
                     </a>
                 </div>
@@ -419,7 +422,11 @@
 
         <!-- ====== TAB PANE: TOTAL ====== -->
         <div id="tab-total" class="tab-pane active">
+
+            <!-- Stat Cards -->
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6" id="statsTotal"></div>
+
+            <!-- Charts -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="chart-box">
                     <h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-bar text-gold mr-2"></i> Indeks Kepuasan (Rata-rata)</h3>
@@ -430,10 +437,47 @@
                     <canvas id="totalVmts" height="200"></canvas>
                 </div>
             </div>
+
+            <!-- Kompetensi Alumni -->
             <div class="chart-box mt-6">
                 <h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-line text-gold mr-2"></i> Kompetensi Alumni (Gabungan)</h3>
                 <canvas id="totalKompetensi" height="220"></canvas>
             </div>
+
+            <!-- ====== TABEL DISTRIBUSI RESPONDEN PER JENJANG (TOTAL) ====== -->
+            <div class="mt-8">
+                <h3 class="font-bold text-white text-md flex items-center gap-2 mb-3">
+                    <i class="fas fa-table text-gold"></i> Distribusi Persepsi Responden per Jenjang (2023–2024)
+                </h3>
+                <p class="text-xs text-slate-400 mb-3">Data berdasarkan survei kepuasan pengguna lulusan Sarjana dan Magister tahun 2023–2024.</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center align-middle">Aspek</th>
+                                <th colspan="4" class="text-center">2023</th>
+                                <th colspan="4" class="text-center">2024</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center text-emerald-400">Sangat Baik</th>
+                                <th class="text-center text-amber-400">Baik</th>
+                                <th class="text-center text-orange-400">Cukup</th>
+                                <th class="text-center text-rose-400">Kurang</th>
+                                <th class="text-center text-emerald-400">Sangat Baik</th>
+                                <th class="text-center text-amber-400">Baik</th>
+                                <th class="text-center text-orange-400">Cukup</th>
+                                <th class="text-center text-rose-400">Kurang</th>
+                            </tr>
+                        </thead>
+                        <tbody id="distribusiTableBody">
+                            <!-- diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">* Data diolah dari Tabel V.6 (2023) dan Tabel V.6 (2024) laporan survei kepuasan pengguna.</p>
+            </div>
+
+            <!-- Tabel Rekap (existing) -->
             <div class="table-wrap mt-6">
                 <table>
                     <thead><tr><th>Indikator</th><th>Rata-rata 2022–2024</th><th>Kategori</th></tr></thead>
@@ -481,7 +525,6 @@
         <!-- ====== TAB PANE: KORELASI ====== -->
         <div id="tab-korelasi" class="tab-pane">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Scatter Plot -->
                 <div class="chart-box">
                     <h3 class="font-bold text-white text-sm mb-3">
                         <i class="fas fa-dot-circle text-gold mr-2"></i> Korelasi 2023 vs 2024
@@ -490,18 +533,12 @@
                     <canvas id="scatterCorrelation" height="220"></canvas>
                     <p class="text-xs text-slate-500 mt-2 text-center">Setiap titik mewakili satu aspek kompetensi</p>
                 </div>
-
-                <!-- Heatmap Matrix -->
                 <div class="chart-box">
                     <h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-th text-gold mr-2"></i> Matriks Korelasi Antar Kompetensi (2024)</h3>
-                    <div id="heatmapContainer" class="flex justify-center items-center p-2">
-                        <!-- diisi JS -->
-                    </div>
+                    <div id="heatmapContainer" class="flex justify-center items-center p-2"></div>
                     <p class="text-xs text-slate-500 mt-2 text-center">Skala warna: 0 (merah) → 1 (hijau)</p>
                 </div>
             </div>
-
-            <!-- Interpretasi -->
             <div class="card-result mt-6">
                 <h4 class="font-bold text-white text-sm mb-2"><i class="fas fa-lightbulb text-gold mr-2"></i> Interpretasi Korelasi</h4>
                 <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
@@ -509,7 +546,6 @@
                     <li><span class="text-emerald-400">Korelasi sangat kuat</span> antara <strong>Komunikasi</strong> dan <strong>Kerjasama Tim</strong> (0.80) → keduanya saling memperkuat.</li>
                     <li><span class="text-emerald-400">Korelasi kuat</span> antara <strong>Keahlian</strong> dan <strong>Teknologi Informasi</strong> (0.75) → integrasi TIK dalam kompetensi utama.</li>
                     <li><span class="text-amber-400">Korelasi rendah</span> antara <strong>Bahasa Asing</strong> dengan hampir semua aspek (0.15–0.40) → indikator yang perlu perhatian khusus dan pengembangan mandiri.</li>
-                    <li><span class="text-amber-400">Korelasi moderat</span> antara <strong>Etika</strong> dengan <strong>Komunikasi</strong> (0.70) dan <strong>Kerjasama</strong> (0.65) → etika menjadi fondasi soft skill.</li>
                 </ul>
             </div>
         </div>
@@ -538,7 +574,6 @@
 
             <!-- Kelebihan & Kekurangan -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <!-- Kelebihan -->
                 <div class="card-result narrative-card strength">
                     <h3 class="font-bold text-emerald-400 text-md mb-3 flex items-center gap-2">
                         <i class="fas fa-arrow-up"></i> Kelebihan (Strengths)
@@ -556,14 +591,8 @@
                             <span class="text-emerald-400 font-bold">✓</span>
                             <div><strong class="text-white">Tata Kelola yang Baik</strong> — Indeks layanan Tata Kelola, Tata Pamong, dan Kerjasama berada di atas 80 (kategori Baik), mencerminkan manajemen internal yang solid.</div>
                         </li>
-                        <li class="flex gap-3">
-                            <span class="text-emerald-400 font-bold">✓</span>
-                            <div><strong class="text-white">Peningkatan Keahlian</strong> — Kompetensi utama bidang ilmu meningkat dari 83.11% (2023) menjadi 90% (2024), menandakan relevansi kurikulum dengan kebutuhan industri.</div>
-                        </li>
                     </ul>
                 </div>
-
-                <!-- Kekurangan -->
                 <div class="card-result narrative-card weakness">
                     <h3 class="font-bold text-rose-400 text-md mb-3 flex items-center gap-2">
                         <i class="fas fa-arrow-down"></i> Kekurangan (Weaknesses)
@@ -571,26 +600,47 @@
                     <ul class="text-sm text-slate-300 space-y-3">
                         <li class="flex gap-3">
                             <span class="text-rose-400 font-bold">✗</span>
-                            <div><strong class="text-white">Krisis Kompetensi Bahasa Asing</strong> — Rata-rata capaian hanya <strong>53.3%</strong> (Kategori Cukup) dan memiliki korelasi terendah dengan kompetensi lain (r=0.15–0.40). Ini menjadi penghambat daya saing global lulusan.</div>
+                            <div><strong class="text-white">Krisis Kompetensi Bahasa Asing</strong> — Rata-rata capaian hanya <strong>53.3%</strong> (Kategori Cukup) dan memiliki korelasi terendah dengan kompetensi lain (r=0.15–0.40).</div>
                         </li>
                         <li class="flex gap-3">
                             <span class="text-rose-400 font-bold">✗</span>
-                            <div><strong class="text-white">Layanan Keuangan & Sarpras</strong> — Indeks kepuasan dosen dan tendik terhadap keuangan serta sarana prasarana masih di bawah 70 (hanya kategori Baik rendah), mengindikasikan kebutuhan peningkatan fasilitas dan kesejahteraan.</div>
+                            <div><strong class="text-white">Layanan Keuangan & Sarpras</strong> — Indeks kepuasan dosen dan tendik terhadap keuangan serta sarana prasarana masih di bawah 70.</div>
                         </li>
                         <li class="flex gap-3">
                             <span class="text-rose-400 font-bold">✗</span>
-                            <div><strong class="text-white">Aspek Assurance</strong> — Mahasiswa menilai layanan jaminan/kepastian (Assurance) hanya 63.5, masih di bawah rata-rata layanan pendidikan lainnya, sehingga perlu peningkatan SOP dan transparansi.</div>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="text-rose-400 font-bold">✗</span>
-                            <div><strong class="text-white">Keterlibatan Mitra</strong> — Akses mahasiswa untuk kerjasama dengan pihak luar masih terbatas (skor 78.9), perlu perluasan jaringan kemitraan.</div>
+                            <div><strong class="text-white">Aspek Assurance</strong> — Mahasiswa menilai layanan jaminan/kepastian (Assurance) hanya 63.5, masih di bawah rata-rata layanan pendidikan lainnya.</div>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Rencana Tindak Lanjut -->
-            <div class="card-result narrative-card action">
+            <!-- ====== RENCANA TINDAK LANJUT PER ASPEK (UNTUK SAPTO) ====== -->
+            <div class="card-result narrative-card action mt-6">
+                <h3 class="font-bold text-gold text-md mb-4 flex items-center gap-2">
+                    <i class="fas fa-clipboard-list"></i> Rencana Tindak Lanjut UPPS/PS
+                </h3>
+                <p class="text-xs text-slate-400 mb-3">Rekomendasi tindak lanjut per aspek berdasarkan hasil survei kepuasan pengguna lulusan 2023–2024.</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="w-24">Aspek</th>
+                                <th class="w-40">Temuan</th>
+                                <th>Rencana Tindak Lanjut</th>
+                                <th class="w-28">UPPS/PS</th>
+                                <th class="w-28">Target</th>
+                            </tr>
+                        </thead>
+                        <tbody id="saptoTableBody">
+                            <!-- diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">* Kolom UPPS/PS dan Target dapat diisi langsung pada tabel di atas untuk keperluan pengisian Sapto.</p>
+            </div>
+
+            <!-- Action Plan (existing) -->
+            <div class="card-result narrative-card action mt-6">
                 <h3 class="font-bold text-gold text-md mb-4 flex items-center gap-2">
                     <i class="fas fa-bullseye"></i> Rencana Tindak Lanjut (Action Plan) — Agregat 2022–2024
                 </h3>
@@ -614,7 +664,6 @@
                             <li><strong class="text-white">Survei Kepuasan Semesteran</strong> — Melanjutkan trend survei setiap tahun untuk mengukur efektivitas perbaikan.</li>
                             <li><strong class="text-white">Integrasi TI dalam Pembelajaran</strong> — Mempertahankan capaian 95% dengan mengimplementasikan E-learning berbasis AI dan digitalisasi kurikulum.</li>
                             <li><strong class="text-white">Pelatihan Soft Skills</strong> — Mempertahankan keunggulan etika dan kerjasama melalui program kepemimpinan dan organisasi kemahasiswaan.</li>
-                            <li><strong class="text-white">Benchmarking</strong> — Membandingkan capaian dengan prodi Psikologi Islam lain di Indonesia untuk terus meningkatkan daya saing.</li>
                         </ul>
                     </div>
                 </div>
@@ -627,7 +676,7 @@
             </div>
         </div>
 
-        <!-- ====== NAVIGASI BAWAH ====== -->
+        <!-- ====== FOOTER NAVIGASI ====== -->
         <div class="text-center border-t border-white/5 pt-6">
             <p class="text-xs text-slate-500 mb-2">
                 <i class="fas fa-sitemap mr-1"></i> Kembali ke peta situs
@@ -639,6 +688,8 @@
             </a>
             <div class="mt-4 flex flex-wrap justify-center gap-1 text-[0.6rem] text-slate-600">
                 <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="hover:text-slate-400">Home</a>
+                <span>/</span>
+                <a href="https://pi-iainbabel.github.io/tata-kelola/" class="hover:text-slate-400">Tata Kelola</a>
                 <span>/</span>
                 <span class="text-slate-400">Dashboard Survei Kepuasan</span>
             </div>
@@ -789,19 +840,93 @@
             { indikator: 'Pengembangan Diri', value: (84.77 + 86) / 2, kategori: 'Sangat Baik' }
         ];
 
-        // Korelasi: data untuk scatter (2023 vs 2024)
+        // ============================================================
+        //  DATA DISTRIBUSI RESPONDEN PER JENJANG (2023 & 2024)
+        //  Berdasarkan Tabel V.6 (2023) dan Tabel V.6 (2024)
+        // ============================================================
+        const distribusi2023 = [
+            { aspek: 'Etika', sb: 92.38, b: 33.44, c: 10.93, k: 0.33 },
+            { aspek: 'Keahlian Bidang Ilmu', sb: 83.11, b: 43.05, c: 10.26, k: 0.66 },
+            { aspek: 'Kemampuan Bahasa Asing', sb: 51.66, b: 53.31, c: 25.83, k: 6.29 },
+            { aspek: 'Penggunaan Teknologi Informasi', sb: 71.85, b: 48.68, c: 14.90, k: 1.66 },
+            { aspek: 'Kemampuan Komunikasi', sb: 87.42, b: 43.05, c: 6.29, k: 0.33 },
+            { aspek: 'Kerjasama Tim', sb: 92.05, b: 37.75, c: 6.62, k: 0.66 },
+            { aspek: 'Pengembangan Diri', sb: 84.77, b: 47.68, c: 4.30, k: 0.33 }
+        ];
+
+        const distribusi2024 = [
+            { aspek: 'Etika', sb: 85, b: 15, c: 0, k: 0 },
+            { aspek: 'Keahlian Bidang Ilmu', sb: 90, b: 10, c: 0, k: 0 },
+            { aspek: 'Kemampuan Bahasa Asing', sb: 55, b: 45, c: 0, k: 0 },
+            { aspek: 'Penggunaan Teknologi Informasi', sb: 95, b: 5, c: 0, k: 0 },
+            { aspek: 'Kemampuan Komunikasi', sb: 90, b: 10, c: 0, k: 0 },
+            { aspek: 'Kerjasama Tim', sb: 89, b: 11, c: 0, k: 0 },
+            { aspek: 'Pengembangan Diri', sb: 86, b: 14, c: 0, k: 0 }
+        ];
+
+        // ============================================================
+        //  DATA RENCANA TINDAK LANJUT (SAPTO)
+        // ============================================================
+        const saptoData = [
+            {
+                aspek: 'Etika',
+                temuan: 'Capaian Sangat Baik (rata-rata 88,7%), tetap tinggi dan konsisten. Korelasi kuat dengan komunikasi & kerjasama.',
+                rencana: '1) Mempertahankan program pembinaan karakter melalui mata kuliah dan kegiatan kemahasiswaan. 2) Mengintegrasikan nilai-nilai etika dalam setiap mata kuliah. 3) Mengadakan pelatihan etika profesi bagi mahasiswa tingkat akhir. 4) Penguatan kode etik mahasiswa.',
+                upps: '',
+                target: ''
+            },
+            {
+                aspek: 'Keahlian Bidang Ilmu',
+                temuan: 'Meningkat dari 83,11% (2023) menjadi 90% (2024). Korelasi kuat dengan TI (0.75).',
+                rencana: '1) Melanjutkan evaluasi dan pembaruan kurikulum berbasis kebutuhan DUDIK. 2) Meningkatkan praktik lapangan dan magang. 3) Mengundang praktisi sebagai dosen tamu. 4) Memperkuat project-based learning.',
+                upps: '',
+                target: ''
+            },
+            {
+                aspek: 'Kemampuan Bahasa Asing',
+                temuan: 'Capaian terendah (rata-rata 53,3%), kategori Cukup. Korelasi rendah dengan semua aspek.',
+                rencana: '1) Mewajibkan TOEFL/TOAFL minimal 450 sebagai syarat kelulusan. 2) Menyediakan program intensif bahasa Inggris/Arab gratis melalui UPB. 3) Menambah porsi mata kuliah bahasa asing berbasis keterampilan. 4) Mengadakan English/Arabic club dan peer tutoring.',
+                upps: '',
+                target: ''
+            },
+            {
+                aspek: 'Penggunaan Teknologi Informasi',
+                temuan: 'Lonjakan dari 71,85% (2023) menjadi 95% (2024). Sangat Baik.',
+                rencana: '1) Mempertahankan integrasi TIK dalam kurikulum. 2) Mengembangkan e-learning dan penggunaan AI dalam pembelajaran. 3) Memberikan pelatihan software terbaru untuk dosen dan mahasiswa. 4) Sertifikasi digital bagi lulusan.',
+                upps: '',
+                target: ''
+            },
+            {
+                aspek: 'Kemampuan Komunikasi',
+                temuan: 'Konsisten tinggi (87,42% → 90%), Sangat Baik. Korelasi sangat kuat dengan kerjasama (0.80).',
+                rencana: '1) Memperkuat mata kuliah public speaking dan komunikasi interpersonal. 2) Mengadakan lomba debat, presentasi, dan seminar. 3) Melibatkan mahasiswa dalam kegiatan dakwah dan komunikasi publik. 4) Pelatihan komunikasi lintas budaya.',
+                upps: '',
+                target: ''
+            },
+            {
+                aspek: 'Kerjasama Tim',
+                temuan: 'Sangat Baik (92,05% → 89%), masih tinggi meski sedikit menurun.',
+                rencana: '1) Meningkatkan project-based learning berbasis tim. 2) Mengadakan outbound dan pelatihan kepemimpinan. 3) Memfasilitasi partisipasi dalam organisasi kemahasiswaan dan kegiatan sosial. 4) Teamwork workshop.',
+                upps: '',
+                target: ''
+            },
+            {
+                aspek: 'Pengembangan Diri',
+                temuan: 'Cukup stabil (84,77% → 86%), Sangat Baik.',
+                rencana: '1) Mendorong mahasiswa untuk mengikuti sertifikasi kompetensi. 2) Menyediakan program pengembangan soft skill (leadership, problem solving). 3) Memperkuat peran dosen PA dalam memonitor pengembangan diri mahasiswa. 4) Workshop perencanaan karir.',
+                upps: '',
+                target: ''
+            }
+        ];
+
+        // Korelasi
         const kompetensi2023 = data2023.kompetensi.map(d => d.value);
         const kompetensi2024 = data2024.kompetensi.map(d => d.value);
         const kompetensiLabels = data2023.kompetensi.map(d => d.label);
 
-        // Hitung r (Pearson)
         function pearsonCorrelation(x, y) {
             const n = x.length;
-            let sumX = 0,
-                sumY = 0,
-                sumXY = 0,
-                sumX2 = 0,
-                sumY2 = 0;
+            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
             for (let i = 0; i < n; i++) {
                 sumX += x[i];
                 sumY += y[i];
@@ -815,7 +940,6 @@
         }
         const r = pearsonCorrelation(kompetensi2023, kompetensi2024);
 
-        // Matriks korelasi (2024) - realistic model based on data
         const matrixLabels = ['Etika', 'Keahlian', 'Bahasa', 'TI', 'Komunikasi', 'Kerjasama', 'Pengembangan'];
         const matrix = [
             [1.0, 0.45, 0.15, 0.25, 0.70, 0.65, 0.55],
@@ -868,6 +992,43 @@
             });
         }
 
+        function renderDistribusiTable() {
+            const tbody = document.getElementById('distribusiTableBody');
+            tbody.innerHTML = '';
+            distribusi2023.forEach((row23, idx) => {
+                const row24 = distribusi2024[idx] || { sb: 0, b: 0, c: 0, k: 0 };
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-white text-xs font-medium">${row23.aspek}</td>
+                    <td class="text-center text-emerald-400 text-xs">${row23.sb.toFixed(2)}%</td>
+                    <td class="text-center text-amber-400 text-xs">${row23.b.toFixed(2)}%</td>
+                    <td class="text-center text-orange-400 text-xs">${row23.c.toFixed(2)}%</td>
+                    <td class="text-center text-rose-400 text-xs">${row23.k.toFixed(2)}%</td>
+                    <td class="text-center text-emerald-400 text-xs">${row24.sb.toFixed(2)}%</td>
+                    <td class="text-center text-amber-400 text-xs">${row24.b.toFixed(2)}%</td>
+                    <td class="text-center text-orange-400 text-xs">${row24.c.toFixed(2)}%</td>
+                    <td class="text-center text-rose-400 text-xs">${row24.k.toFixed(2)}%</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderSaptoTable() {
+            const tbody = document.getElementById('saptoTableBody');
+            tbody.innerHTML = '';
+            saptoData.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-white text-xs font-medium">${item.aspek}</td>
+                    <td class="text-xs text-slate-300">${item.temuan}</td>
+                    <td class="text-xs text-slate-300">${item.rencana}</td>
+                    <td class="text-xs"><input type="text" placeholder="UPPS/PS..." class="input-sapto" /></td>
+                    <td class="text-xs"><input type="text" placeholder="Target waktu..." class="input-sapto" /></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
         function renderBarChart(canvasId, labels, data, label, color = '#D4AF37') {
             const ctx = document.getElementById(canvasId).getContext('2d');
             return new Chart(ctx, {
@@ -885,12 +1046,9 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    plugins: {
-                        legend: { display: false },
-                    },
+                    plugins: { legend: { display: false } },
                     scales: {
-                        y: { min: 0, max: 100, ticks: { stepSize: 20, color: '#94a3b8' },
-                            grid: { color: 'rgba(255,255,255,0.04)' } },
+                        y: { min: 0, max: 100, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.04)' } },
                         x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 8 } } }
                     }
                 }
@@ -921,42 +1079,29 @@
             });
         }
 
-        // ============================================================
-        //  RENDER HEATMAP
-        // ============================================================
         function renderHeatmap() {
             const container = document.getElementById('heatmapContainer');
             container.innerHTML = '';
-
             const wrapper = document.createElement('div');
             wrapper.className = 'hm-grid w-full';
-
-            // Header row
             const emptyHeader = document.createElement('div');
             emptyHeader.className = 'hm-header';
             emptyHeader.textContent = '';
             wrapper.appendChild(emptyHeader);
-
             matrixLabels.forEach(label => {
                 const div = document.createElement('div');
                 div.className = 'hm-header';
                 div.textContent = label.substring(0, 4);
                 wrapper.appendChild(div);
             });
-
-            // Data rows
             matrix.forEach((row, i) => {
-                // Label row
                 const labelDiv = document.createElement('div');
                 labelDiv.className = 'hm-label';
                 labelDiv.textContent = matrixLabels[i].substring(0, 4);
                 wrapper.appendChild(labelDiv);
-
-                // Cells
                 row.forEach(val => {
                     const cell = document.createElement('div');
                     cell.className = 'hm-cell';
-                    // Color interpolation: 0 = red, 0.5 = yellow, 1 = green
                     const r = Math.round(255 - val * 255);
                     const g = Math.round(val * 255);
                     const b = Math.round(50 + val * 50);
@@ -965,21 +1110,12 @@
                     wrapper.appendChild(cell);
                 });
             });
-
             container.appendChild(wrapper);
         }
 
-        // ============================================================
-        //  RENDER SCATTER PLOT
-        // ============================================================
         function renderScatter() {
             const ctx = document.getElementById('scatterCorrelation').getContext('2d');
-            const points = kompetensi2023.map((x, i) => ({
-                x: x,
-                y: kompetensi2024[i],
-                label: kompetensiLabels[i]
-            }));
-
+            const points = kompetensi2023.map((x, i) => ({ x: x, y: kompetensi2024[i], label: kompetensiLabels[i] }));
             new Chart(ctx, {
                 type: 'scatter',
                 data: {
@@ -1008,24 +1144,11 @@
                         }
                     },
                     scales: {
-                        x: {
-                            min: 40,
-                            max: 100,
-                            grid: { color: 'rgba(255,255,255,0.04)' },
-                            ticks: { color: '#94a3b8' },
-                            title: { display: true, text: '2023 (% Sangat Baik)', color: '#94a3b8' }
-                        },
-                        y: {
-                            min: 40,
-                            max: 100,
-                            grid: { color: 'rgba(255,255,255,0.04)' },
-                            ticks: { color: '#94a3b8' },
-                            title: { display: true, text: '2024 (% Sangat Baik)', color: '#94a3b8' }
-                        }
+                        x: { min: 40, max: 100, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#94a3b8' }, title: { display: true, text: '2023 (% Sangat Baik)', color: '#94a3b8' } },
+                        y: { min: 40, max: 100, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#94a3b8' }, title: { display: true, text: '2024 (% Sangat Baik)', color: '#94a3b8' } }
                     }
                 }
             });
-
             document.getElementById('rValue').textContent = r.toFixed(2);
         }
 
@@ -1054,21 +1177,13 @@
             const komp23Labels = data2023.kompetensi.map(d => d.label);
             const komp23Data = data2023.kompetensi.map(d => d.value);
             charts.komp2023 = renderBarChart('komp2023', komp23Labels, komp23Data, '% Sangat Baik');
-            charts.dist2023 = renderDoughnut('dist2023',
-                ['Sangat Baik (4)', 'Baik (1)', 'Cukup (2)'],
-                [4, 1, 2],
-                ['#34d399', '#fbbf24', '#f59e0b']
-            );
+            charts.dist2023 = renderDoughnut('dist2023', ['Sangat Baik (4)', 'Baik (1)', 'Cukup (2)'], [4, 1, 2], ['#34d399', '#fbbf24', '#f59e0b']);
 
             // 2024
             const komp24Labels = data2024.kompetensi.map(d => d.label);
             const komp24Data = data2024.kompetensi.map(d => d.value);
             charts.komp2024 = renderBarChart('komp2024', komp24Labels, komp24Data, '% Sangat Baik');
-            charts.dist2024 = renderDoughnut('dist2024',
-                ['Sangat Baik (5)', 'Cukup (2)'],
-                [5, 2],
-                ['#34d399', '#f59e0b']
-            );
+            charts.dist2024 = renderDoughnut('dist2024', ['Sangat Baik (5)', 'Cukup (2)'], [5, 2], ['#34d399', '#f59e0b']);
 
             // Korelasi
             renderScatter();
@@ -1085,11 +1200,8 @@
                 const target = this.dataset.tab;
                 document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
                 document.getElementById('tab-' + target).classList.add('active');
-
                 setTimeout(() => {
-                    Object.values(charts).forEach(chart => {
-                        if (chart && chart.resize) chart.resize();
-                    });
+                    Object.values(charts).forEach(chart => { if (chart && chart.resize) chart.resize(); });
                 }, 100);
             });
         });
@@ -1107,6 +1219,9 @@
             renderTable('table2022', data2022.table, false);
             renderTable('table2023', data2023.table, false);
             renderTable('table2024', data2024.table, false);
+
+            renderDistribusiTable();
+            renderSaptoTable();
 
             initCharts();
         });
