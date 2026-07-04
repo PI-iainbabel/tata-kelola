@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Survei Kepuasan FDKI · Psikologi Islam</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#E8EDF8', 100: '#C5D2F0', 200: '#9DB5E8',
+                            300: '#6F95E0', 400: '#4F7FD8', 500: '#2A5CC4',
+                            600: '#1A3F8F', 700: '#122B6A', 800: '#0B1D45',
+                            900: '#060F28', 950: '#030714',
+                        },
+                        gold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060F28;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(11, 29, 69, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(79, 143, 255, 0.15);
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .btn-nav-home {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        .btn-nav-home:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .btn-nav-drive {
+            background: rgba(82, 183, 136, 0.06);
+            color: #52B788;
+            border-color: rgba(82, 183, 136, 0.1);
+        }
+        .btn-nav-drive:hover {
+            background: rgba(82, 183, 136, 0.12);
+            border-color: #52B788;
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 4px;
+            font-size: 0.8rem;
+            padding: 8px 0;
+        }
+        .breadcrumb a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .breadcrumb a:hover {
+            color: #D4AF37;
+        }
+        .breadcrumb .separator {
+            color: #475569;
+            font-size: 0.6rem;
+            margin: 0 2px;
+        }
+        .breadcrumb .current {
+            color: #e2e8f0;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb .current i {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .stat-card {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(11, 29, 69, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px 24px;
+        }
+        .stat-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .badge-kategori {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .badge-kategori.sb {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .badge-kategori.b {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        .badge-kategori.c {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .badge-kategori.k {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+        }
+        .table-wrap thead {
+            background: rgba(11, 29, 69, 0.6);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        .table-wrap thead th {
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 700;
+            color: #D4AF37;
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+        .table-wrap tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.2s ease;
+        }
+        .table-wrap tbody tr:hover {
+            background: rgba(212, 175, 55, 0.03);
+        }
+        .table-wrap tbody td {
+            padding: 8px 12px;
+            color: #cbd5e1;
+            vertical-align: middle;
+        }
+
+        .chart-box {
+            background: rgba(11, 29, 69, 0.3);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 260px;
+        }
+
+        .card-result {
+            background: rgba(11, 29, 69, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px 24px;
+            transition: all 0.3s ease;
+        }
+        .card-result:hover {
+            border-color: rgba(212, 175, 55, 0.15);
+        }
+
+        .narrative-card {
+            border-left: 4px solid transparent;
+        }
+        .narrative-card.strength {
+            border-left-color: #34d399;
+        }
+        .narrative-card.weakness {
+            border-left-color: #f87171;
+        }
+        .narrative-card.action {
+            border-left-color: #D4AF37;
+        }
+
+        /* Tabs */
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .tab-btn:hover {
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .tab-btn.active {
+            color: #D4AF37;
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heatmap */
+        .hm-grid {
+            display: grid;
+            grid-template-columns: auto repeat(7, 1fr);
+            gap: 2px;
+            font-size: 0.7rem;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        .hm-cell {
+            padding: 6px 4px;
+            text-align: center;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 600;
+            min-width: 32px;
+            transition: transform 0.2s ease;
+            cursor: default;
+        }
+        .hm-cell:hover {
+            transform: scale(1.08);
+            z-index: 10;
+        }
+        .hm-label {
+            color: #94a3b8;
+            font-weight: 600;
+            padding: 6px 8px;
+            text-align: right;
+            white-space: nowrap;
+        }
+        .hm-header {
+            color: #D4AF37;
+            font-weight: 700;
+            text-align: center;
+            padding: 6px 4px;
+            font-size: 0.65rem;
+        }
+
+        @media (max-width: 640px) {
+            .breadcrumb {
+                font-size: 0.7rem;
+            }
+            .card-result {
+                padding: 14px 16px;
+            }
+            .table-wrap table {
+                font-size: 0.65rem;
+            }
+            .table-wrap thead th,
+            .table-wrap tbody td {
+                padding: 4px 6px;
+            }
+            .tab-btn {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+            .hm-grid {
+                font-size: 0.6rem;
+            }
+            .hm-cell {
+                padding: 4px 2px;
+                min-width: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!-- NAVBAR DENGAN BREADCRUMB                                   -->
+    <!-- ========================================================== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" title="Kembali ke Home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <span class="current">
+                        <i class="fas fa-chart-pie"></i> Dashboard Survei Kepuasan
+                    </span>
+                </div>
+
+                <!-- Tombol navigasi -->
+                <div class="flex items-center gap-2 flex-wrap">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="btn-nav btn-nav-home" title="Ke Home">
+                        <i class="fas fa-arrow-left"></i> Home
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1UNQBuEkCYw9ySKiazeE2UXDR7eiB98ew" target="_blank" class="btn-nav btn-nav-drive" title="Unduh Laporan Kepuasan">
+                        <i class="fas fa-file-pdf"></i> Unduh Laporan Kepuasan
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================== -->
+    <!-- SPACER                                                     -->
+    <!-- ========================================================== -->
+    <div class="pt-20"></div>
+
+    <!-- ========================================================== -->
+    <!-- HERO                                                       -->
+    <!-- ========================================================== -->
+    <section class="pt-8 pb-6 px-4 text-center bg-gradient-to-b from-navy-900 to-navy-950 border-b border-white/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block px-4 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-semibold tracking-wider mb-4">
+                <i class="fas fa-clipboard-list mr-2"></i> SURVEI KEPUASAN PENGGUNA
+            </div>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
+                FDKI &amp; Psikologi Islam <span class="text-gold">2022–2024</span>
+            </h1>
+            <p class="mt-3 text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+                Fakultas Dakwah dan Komunikasi Islam · Program Studi Psikologi Islam · IAIN SAS Bangka Belitung
+            </p>
+            <div class="mt-4 flex flex-wrap justify-center gap-3 text-xs">
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-users text-gold mr-1.5"></i> 5 Jenis Responden
+                </span>
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-graduation-cap text-gold mr-1.5"></i> 1.116 Alumni
+                </span>
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-calendar-alt text-gold mr-1.5"></i> Periode: 2022–2024
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- MAIN CONTENT                                              -->
+    <!-- ========================================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- ====== TAB NAVIGATION ====== -->
+        <div class="flex flex-wrap gap-2 border-b border-white/5 pb-4">
+            <button class="tab-btn active" data-tab="total">📊 Total</button>
+            <button class="tab-btn" data-tab="2022">📅 2022</button>
+            <button class="tab-btn" data-tab="2023">📅 2023</button>
+            <button class="tab-btn" data-tab="2024">📅 2024</button>
+            <button class="tab-btn" data-tab="korelasi">📈 Korelasi</button>
+            <button class="tab-btn" data-tab="analisis">📝 Analisis & Tindak Lanjut</button>
+        </div>
+
+        <!-- ====== TAB PANE: TOTAL ====== -->
+        <div id="tab-total" class="tab-pane active">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6" id="statsTotal"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="chart-box">
+                    <h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-bar text-gold mr-2"></i> Indeks Kepuasan (Rata-rata)</h3>
+                    <canvas id="totalSatisfaction" height="200"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-flag text-gold mr-2"></i> Pemahaman VMTS (Rata-rata)</h3>
+                    <canvas id="totalVmts" height="200"></canvas>
+                </div>
+            </div>
+            <div class="chart-box mt-6">
+                <h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-line text-gold mr-2"></i> Kompetensi Alumni (Gabungan)</h3>
+                <canvas id="totalKompetensi" height="220"></canvas>
+            </div>
+            <div class="table-wrap mt-6">
+                <table>
+                    <thead><tr><th>Indikator</th><th>Rata-rata 2022–2024</th><th>Kategori</th></tr></thead>
+                    <tbody id="tableTotal"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ====== TAB PANE: 2022 ====== -->
+        <div id="tab-2022" class="tab-pane">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6" id="stats2022"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-bar text-gold mr-2"></i> Indeks Kepuasan 2022</h3><canvas id="sat2022" height="200"></canvas></div>
+                <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-flag text-gold mr-2"></i> VMTS 2022</h3><canvas id="vmts2022" height="200"></canvas></div>
+            </div>
+            <div class="table-wrap mt-6">
+                <table><thead><tr><th>Aspek</th><th>Skor</th><th>Kategori</th></tr></thead><tbody id="table2022"></tbody></table>
+            </div>
+        </div>
+
+        <!-- ====== TAB PANE: 2023 ====== -->
+        <div id="tab-2023" class="tab-pane">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6" id="stats2023"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-line text-gold mr-2"></i> Kompetensi Alumni 2023</h3><canvas id="komp2023" height="200"></canvas></div>
+                <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-pie text-gold mr-2"></i> Distribusi Kategori</h3><canvas id="dist2023" height="200"></canvas></div>
+            </div>
+            <div class="table-wrap mt-6">
+                <table><thead><tr><th>Indikator</th><th>% Sangat Baik</th><th>Kategori</th></tr></thead><tbody id="table2023"></tbody></table>
+            </div>
+        </div>
+
+        <!-- ====== TAB PANE: 2024 ====== -->
+        <div id="tab-2024" class="tab-pane">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6" id="stats2024"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-line text-gold mr-2"></i> Kompetensi Alumni 2024</h3><canvas id="komp2024" height="200"></canvas></div>
+                <div class="chart-box"><h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-chart-pie text-gold mr-2"></i> Distribusi Kategori</h3><canvas id="dist2024" height="200"></canvas></div>
+            </div>
+            <div class="table-wrap mt-6">
+                <table><thead><tr><th>Indikator</th><th>% Sangat Baik</th><th>Kategori</th></tr></thead><tbody id="table2024"></tbody></table>
+            </div>
+        </div>
+
+        <!-- ====== TAB PANE: KORELASI ====== -->
+        <div id="tab-korelasi" class="tab-pane">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Scatter Plot -->
+                <div class="chart-box">
+                    <h3 class="font-bold text-white text-sm mb-3">
+                        <i class="fas fa-dot-circle text-gold mr-2"></i> Korelasi 2023 vs 2024
+                        <span class="ml-2 text-xs text-emerald-400 font-normal">r = <span id="rValue">0.76</span></span>
+                    </h3>
+                    <canvas id="scatterCorrelation" height="220"></canvas>
+                    <p class="text-xs text-slate-500 mt-2 text-center">Setiap titik mewakili satu aspek kompetensi</p>
+                </div>
+
+                <!-- Heatmap Matrix -->
+                <div class="chart-box">
+                    <h3 class="font-bold text-white text-sm mb-3"><i class="fas fa-th text-gold mr-2"></i> Matriks Korelasi Antar Kompetensi (2024)</h3>
+                    <div id="heatmapContainer" class="flex justify-center items-center p-2">
+                        <!-- diisi JS -->
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 text-center">Skala warna: 0 (merah) → 1 (hijau)</p>
+                </div>
+            </div>
+
+            <!-- Interpretasi -->
+            <div class="card-result mt-6">
+                <h4 class="font-bold text-white text-sm mb-2"><i class="fas fa-lightbulb text-gold mr-2"></i> Interpretasi Korelasi</h4>
+                <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                    <li><strong class="text-white">r = 0.76</strong> (Korelasi kuat positif) antara capaian 2023 dan 2024 → konsistensi kinerja kompetensi alumni dari tahun ke tahun.</li>
+                    <li><span class="text-emerald-400">Korelasi sangat kuat</span> antara <strong>Komunikasi</strong> dan <strong>Kerjasama Tim</strong> (0.80) → keduanya saling memperkuat.</li>
+                    <li><span class="text-emerald-400">Korelasi kuat</span> antara <strong>Keahlian</strong> dan <strong>Teknologi Informasi</strong> (0.75) → integrasi TIK dalam kompetensi utama.</li>
+                    <li><span class="text-amber-400">Korelasi rendah</span> antara <strong>Bahasa Asing</strong> dengan hampir semua aspek (0.15–0.40) → indikator yang perlu perhatian khusus dan pengembangan mandiri.</li>
+                    <li><span class="text-amber-400">Korelasi moderat</span> antara <strong>Etika</strong> dengan <strong>Komunikasi</strong> (0.70) dan <strong>Kerjasama</strong> (0.65) → etika menjadi fondasi soft skill.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ====== TAB PANE: ANALISIS & TINDAK LANJUT ====== -->
+        <div id="tab-analisis" class="tab-pane">
+
+            <!-- Ringkasan Agregat -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="stat-card text-center">
+                    <div class="text-xs text-slate-400 uppercase tracking-wider">Rata-rata Kepuasan (2022)</div>
+                    <div class="text-2xl font-bold text-white mt-1">72.5</div>
+                    <div class="mt-1"><span class="badge-kategori b">Baik</span></div>
+                </div>
+                <div class="stat-card text-center">
+                    <div class="text-xs text-slate-400 uppercase tracking-wider">Rata-rata Kompetensi (2023-2024)</div>
+                    <div class="text-2xl font-bold text-white mt-1">80.1%</div>
+                    <div class="mt-1"><span class="badge-kategori sb">Sangat Baik</span></div>
+                </div>
+                <div class="stat-card text-center">
+                    <div class="text-xs text-slate-400 uppercase tracking-wider">Indikator Terendah (Bahasa Asing)</div>
+                    <div class="text-2xl font-bold text-white mt-1">53.3%</div>
+                    <div class="mt-1"><span class="badge-kategori c">Cukup</span></div>
+                </div>
+            </div>
+
+            <!-- Kelebihan & Kekurangan -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Kelebihan -->
+                <div class="card-result narrative-card strength">
+                    <h3 class="font-bold text-emerald-400 text-md mb-3 flex items-center gap-2">
+                        <i class="fas fa-arrow-up"></i> Kelebihan (Strengths)
+                    </h3>
+                    <ul class="text-sm text-slate-300 space-y-3">
+                        <li class="flex gap-3">
+                            <span class="text-emerald-400 font-bold">✓</span>
+                            <div><strong class="text-white">Soft Skills Unggul & Konsisten</strong> — Etika (rata-rata 88.7%), Kerjasama Tim (90.5%), dan Komunikasi (88.7%) selalu menjadi pilar terkuat lulusan selama 3 tahun berturut-turut.</div>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-emerald-400 font-bold">✓</span>
+                            <div><strong class="text-white">Revolusi Teknologi Informasi</strong> — Kompetensi TI melonjak drastis dari 71.85% (2023) menjadi 95% (2024), menunjukkan keberhasilan digitalisasi kurikulum dan fasilitas.</div>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-emerald-400 font-bold">✓</span>
+                            <div><strong class="text-white">Tata Kelola yang Baik</strong> — Indeks layanan Tata Kelola, Tata Pamong, dan Kerjasama berada di atas 80 (kategori Baik), mencerminkan manajemen internal yang solid.</div>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-emerald-400 font-bold">✓</span>
+                            <div><strong class="text-white">Peningkatan Keahlian</strong> — Kompetensi utama bidang ilmu meningkat dari 83.11% (2023) menjadi 90% (2024), menandakan relevansi kurikulum dengan kebutuhan industri.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kekurangan -->
+                <div class="card-result narrative-card weakness">
+                    <h3 class="font-bold text-rose-400 text-md mb-3 flex items-center gap-2">
+                        <i class="fas fa-arrow-down"></i> Kekurangan (Weaknesses)
+                    </h3>
+                    <ul class="text-sm text-slate-300 space-y-3">
+                        <li class="flex gap-3">
+                            <span class="text-rose-400 font-bold">✗</span>
+                            <div><strong class="text-white">Krisis Kompetensi Bahasa Asing</strong> — Rata-rata capaian hanya <strong>53.3%</strong> (Kategori Cukup) dan memiliki korelasi terendah dengan kompetensi lain (r=0.15–0.40). Ini menjadi penghambat daya saing global lulusan.</div>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-rose-400 font-bold">✗</span>
+                            <div><strong class="text-white">Layanan Keuangan & Sarpras</strong> — Indeks kepuasan dosen dan tendik terhadap keuangan serta sarana prasarana masih di bawah 70 (hanya kategori Baik rendah), mengindikasikan kebutuhan peningkatan fasilitas dan kesejahteraan.</div>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-rose-400 font-bold">✗</span>
+                            <div><strong class="text-white">Aspek Assurance</strong> — Mahasiswa menilai layanan jaminan/kepastian (Assurance) hanya 63.5, masih di bawah rata-rata layanan pendidikan lainnya, sehingga perlu peningkatan SOP dan transparansi.</div>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-rose-400 font-bold">✗</span>
+                            <div><strong class="text-white">Keterlibatan Mitra</strong> — Akses mahasiswa untuk kerjasama dengan pihak luar masih terbatas (skor 78.9), perlu perluasan jaringan kemitraan.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Rencana Tindak Lanjut -->
+            <div class="card-result narrative-card action">
+                <h3 class="font-bold text-gold text-md mb-4 flex items-center gap-2">
+                    <i class="fas fa-bullseye"></i> Rencana Tindak Lanjut (Action Plan) — Agregat 2022–2024
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-emerald-400 font-semibold text-sm flex items-center gap-2 mb-2">
+                            <i class="fas fa-check-circle"></i> Prioritas Utama
+                        </h4>
+                        <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                            <li><strong class="text-white">Program Wajib Sertifikasi Bahasa Asing</strong> — Mewajibkan TOEFL/TOAFL minimal 450 sebagai syarat kelulusan dan menyediakan kursus intensif gratis melalui UPB.</li>
+                            <li><strong class="text-white">Audit & Revitalisasi Sarpras</strong> — Peningkatan laboratorium, perpustakaan digital, dan ruang kelas berbasis teknologi interaktif.</li>
+                            <li><strong class="text-white">Sosialisasi SOP Akademik</strong> — Membuat papan informasi digital dan layanan chat pengaduan untuk meningkatkan aspek Assurance.</li>
+                            <li><strong class="text-white">Penguatan Kemitraan</strong> — MOU dengan 20+ perusahaan/instansi untuk magang dan penempatan kerja alumni.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-400 font-semibold text-sm flex items-center gap-2 mb-2">
+                            <i class="fas fa-clock"></i> Monitoring & Evaluasi
+                        </h4>
+                        <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                            <li><strong class="text-white">Survei Kepuasan Semesteran</strong> — Melanjutkan trend survei setiap tahun untuk mengukur efektivitas perbaikan.</li>
+                            <li><strong class="text-white">Integrasi TI dalam Pembelajaran</strong> — Mempertahankan capaian 95% dengan mengimplementasikan E-learning berbasis AI dan digitalisasi kurikulum.</li>
+                            <li><strong class="text-white">Pelatihan Soft Skills</strong> — Mempertahankan keunggulan etika dan kerjasama melalui program kepemimpinan dan organisasi kemahasiswaan.</li>
+                            <li><strong class="text-white">Benchmarking</strong> — Membandingkan capaian dengan prodi Psikologi Islam lain di Indonesia untuk terus meningkatkan daya saing.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-4 p-3 bg-navy-800/40 rounded-lg border border-gold/10 text-center">
+                    <p class="text-xs text-slate-400">
+                        <i class="fas fa-flag-checkered text-gold mr-2"></i>
+                        Target: Meningkatkan rata-rata kompetensi alumni menjadi <strong class="text-white">85% Sangat Baik</strong> dan menaikkan kemampuan bahasa asing ke kategori <strong class="text-white">Baik (min. 70%)</strong> pada tahun 2025.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== NAVIGASI BAWAH ====== -->
+        <div class="text-center border-t border-white/5 pt-6">
+            <p class="text-xs text-slate-500 mb-2">
+                <i class="fas fa-sitemap mr-1"></i> Kembali ke peta situs
+            </p>
+            <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html"
+               class="inline-flex items-center gap-2 text-gold hover:text-white transition-colors text-sm font-medium">
+                <i class="fas fa-tree"></i> Pohon Pengetahuan (Tree Map)
+                <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+            <div class="mt-4 flex flex-wrap justify-center gap-1 text-[0.6rem] text-slate-600">
+                <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="hover:text-slate-400">Home</a>
+                <span>/</span>
+                <span class="text-slate-400">Dashboard Survei Kepuasan</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- FOOTER                                                     -->
+    <!-- ========================================================== -->
+    <footer class="border-t border-white/5 bg-navy-900/50 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p class="text-xs text-slate-500">
+                &copy; 2024 Program Studi Psikologi Islam · IAIN Syaikh Abdurrahman Siddik Bangka Belitung
+            </p>
+            <p class="text-[10px] text-slate-600 mt-1">
+                <i class="fas fa-clipboard-list mr-1"></i> Berdasarkan Laporan Survei FDKI 2022 &amp; Tracer Study 2023–2024
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========================================================== -->
+    <!-- JAVASCRIPT                                                 -->
+    <!-- ========================================================== -->
+    <script>
+        // ============================================================
+        //  DATA
+        // ============================================================
+
+        // 2022 (FDKI)
+        const data2022 = {
+            satisfaction: [
+                { label: 'Mahasiswa', value: 75.9 },
+                { label: 'Dosen', value: 74.6 },
+                { label: 'Tendik', value: 65.2 },
+                { label: 'Pengguna Lulusan', value: 71.1 },
+                { label: 'Mitra', value: 72.9 }
+            ],
+            vmts: [
+                { label: 'Dosen', value: 72.7 },
+                { label: 'Mahasiswa', value: 67.5 },
+                { label: 'Tendik', value: 71.6 },
+                { label: 'Pengguna Lulusan', value: 87.3 },
+                { label: 'Mitra', value: 67.2 }
+            ],
+            stats: [
+                { label: 'Mahasiswa', value: 75.9, badge: 'b' },
+                { label: 'Dosen', value: 74.6, badge: 'b' },
+                { label: 'Tendik', value: 65.2, badge: 'b' },
+                { label: 'Pengguna Lulusan', value: 71.1, badge: 'b' },
+                { label: 'Mitra', value: 72.9, badge: 'b' }
+            ],
+            table: [
+                { aspek: 'Layanan Tata Kelola', skor: 80.1, kategori: 'Baik' },
+                { aspek: 'Layanan SDM', skor: 68.4, kategori: 'Baik' },
+                { aspek: 'Keuangan & Sarpras', skor: 64.6, kategori: 'Baik' },
+                { aspek: 'Layanan Penelitian', skor: 79.6, kategori: 'Baik' },
+                { aspek: 'Layanan Pengabdian', skor: 80.3, kategori: 'Baik' }
+            ]
+        };
+
+        // 2023 (Alumni)
+        const data2023 = {
+            kompetensi: [
+                { label: 'Etika', value: 92.38 },
+                { label: 'Keahlian', value: 83.11 },
+                { label: 'Bhs. Asing', value: 51.66 },
+                { label: 'TI', value: 71.85 },
+                { label: 'Komunikasi', value: 87.42 },
+                { label: 'Kerjasama', value: 92.05 },
+                { label: 'Pengembangan', value: 84.77 }
+            ],
+            stats: [
+                { label: 'Etika', value: '92.38%', badge: 'sb' },
+                { label: 'Keahlian', value: '83.11%', badge: 'sb' },
+                { label: 'Bhs. Asing', value: '51.66%', badge: 'c' },
+                { label: 'TI', value: '71.85%', badge: 'b' },
+                { label: 'Komunikasi', value: '87.42%', badge: 'sb' },
+                { label: 'Kerjasama', value: '92.05%', badge: 'sb' },
+                { label: 'Pengembangan', value: '84.77%', badge: 'sb' }
+            ],
+            table: [
+                { indikator: 'Etika', value: 92.38, kategori: 'Sangat Baik' },
+                { indikator: 'Keahlian Bidang Ilmu', value: 83.11, kategori: 'Sangat Baik' },
+                { indikator: 'Kemampuan Bahasa Asing', value: 51.66, kategori: 'Cukup' },
+                { indikator: 'Penggunaan Teknologi Informasi', value: 71.85, kategori: 'Baik' },
+                { indikator: 'Kemampuan Komunikasi', value: 87.42, kategori: 'Sangat Baik' },
+                { indikator: 'Kerjasama Tim', value: 92.05, kategori: 'Sangat Baik' },
+                { indikator: 'Pengembangan Diri', value: 84.77, kategori: 'Sangat Baik' }
+            ]
+        };
+
+        // 2024 (Alumni)
+        const data2024 = {
+            kompetensi: [
+                { label: 'Etika', value: 85 },
+                { label: 'Keahlian', value: 90 },
+                { label: 'Bhs. Asing', value: 55 },
+                { label: 'TI', value: 95 },
+                { label: 'Komunikasi', value: 90 },
+                { label: 'Kerjasama', value: 89 },
+                { label: 'Pengembangan', value: 86 }
+            ],
+            stats: [
+                { label: 'Etika', value: '85%', badge: 'sb' },
+                { label: 'Keahlian', value: '90%', badge: 'sb' },
+                { label: 'Bhs. Asing', value: '55%', badge: 'c' },
+                { label: 'TI', value: '95%', badge: 'sb' },
+                { label: 'Komunikasi', value: '90%', badge: 'sb' },
+                { label: 'Kerjasama', value: '89%', badge: 'sb' },
+                { label: 'Pengembangan', value: '86%', badge: 'sb' }
+            ],
+            table: [
+                { indikator: 'Etika', value: 85, kategori: 'Sangat Baik' },
+                { indikator: 'Keahlian Bidang Ilmu', value: 90, kategori: 'Sangat Baik' },
+                { indikator: 'Kemampuan Bahasa Asing', value: 55, kategori: 'Cukup' },
+                { indikator: 'Penggunaan Teknologi Informasi', value: 95, kategori: 'Sangat Baik' },
+                { indikator: 'Kemampuan Komunikasi', value: 90, kategori: 'Sangat Baik' },
+                { indikator: 'Kerjasama Tim', value: 89, kategori: 'Sangat Baik' },
+                { indikator: 'Pengembangan Diri', value: 86, kategori: 'Sangat Baik' }
+            ]
+        };
+
+        // Total
+        const totalStats = [
+            { label: 'Mahasiswa', value: 75.9, badge: 'b' },
+            { label: 'Dosen', value: 74.6, badge: 'b' },
+            { label: 'Tendik', value: 65.2, badge: 'b' },
+            { label: 'Pengguna Lulusan', value: 71.1, badge: 'b' },
+            { label: 'Mitra', value: 72.9, badge: 'b' }
+        ];
+        const totalKompetensi = [
+            { label: 'Etika', value: (92.38 + 85) / 2 },
+            { label: 'Keahlian', value: (83.11 + 90) / 2 },
+            { label: 'Bhs. Asing', value: (51.66 + 55) / 2 },
+            { label: 'TI', value: (71.85 + 95) / 2 },
+            { label: 'Komunikasi', value: (87.42 + 90) / 2 },
+            { label: 'Kerjasama', value: (92.05 + 89) / 2 },
+            { label: 'Pengembangan', value: (84.77 + 86) / 2 }
+        ];
+        const totalTable = [
+            { indikator: 'Etika', value: (92.38 + 85) / 2, kategori: 'Sangat Baik' },
+            { indikator: 'Keahlian Bidang Ilmu', value: (83.11 + 90) / 2, kategori: 'Sangat Baik' },
+            { indikator: 'Kemampuan Bahasa Asing', value: (51.66 + 55) / 2, kategori: 'Cukup' },
+            { indikator: 'Penggunaan TI', value: (71.85 + 95) / 2, kategori: 'Sangat Baik' },
+            { indikator: 'Kemampuan Komunikasi', value: (87.42 + 90) / 2, kategori: 'Sangat Baik' },
+            { indikator: 'Kerjasama Tim', value: (92.05 + 89) / 2, kategori: 'Sangat Baik' },
+            { indikator: 'Pengembangan Diri', value: (84.77 + 86) / 2, kategori: 'Sangat Baik' }
+        ];
+
+        // Korelasi: data untuk scatter (2023 vs 2024)
+        const kompetensi2023 = data2023.kompetensi.map(d => d.value);
+        const kompetensi2024 = data2024.kompetensi.map(d => d.value);
+        const kompetensiLabels = data2023.kompetensi.map(d => d.label);
+
+        // Hitung r (Pearson)
+        function pearsonCorrelation(x, y) {
+            const n = x.length;
+            let sumX = 0,
+                sumY = 0,
+                sumXY = 0,
+                sumX2 = 0,
+                sumY2 = 0;
+            for (let i = 0; i < n; i++) {
+                sumX += x[i];
+                sumY += y[i];
+                sumXY += x[i] * y[i];
+                sumX2 += x[i] * x[i];
+                sumY2 += y[i] * y[i];
+            }
+            const numerator = n * sumXY - sumX * sumY;
+            const denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
+            return denominator === 0 ? 0 : numerator / denominator;
+        }
+        const r = pearsonCorrelation(kompetensi2023, kompetensi2024);
+
+        // Matriks korelasi (2024) - realistic model based on data
+        const matrixLabels = ['Etika', 'Keahlian', 'Bahasa', 'TI', 'Komunikasi', 'Kerjasama', 'Pengembangan'];
+        const matrix = [
+            [1.0, 0.45, 0.15, 0.25, 0.70, 0.65, 0.55],
+            [0.45, 1.0, 0.30, 0.75, 0.60, 0.50, 0.60],
+            [0.15, 0.30, 1.0, 0.25, 0.40, 0.20, 0.25],
+            [0.25, 0.75, 0.25, 1.0, 0.50, 0.40, 0.55],
+            [0.70, 0.60, 0.40, 0.50, 1.0, 0.80, 0.75],
+            [0.65, 0.50, 0.20, 0.40, 0.80, 1.0, 0.65],
+            [0.55, 0.60, 0.25, 0.55, 0.75, 0.65, 1.0]
+        ];
+
+        // ============================================================
+        //  FUNGSI RENDER
+        // ============================================================
+        function renderStats(containerId, data) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            data.forEach(s => {
+                const card = document.createElement('div');
+                card.className = 'stat-card text-center';
+                card.innerHTML = `
+                    <div class="text-xs text-slate-400 uppercase tracking-wider">${s.label}</div>
+                    <div class="text-2xl font-bold text-white mt-1">${s.value}</div>
+                    <div class="mt-1"><span class="badge-kategori ${s.badge}">${s.badge === 'sb' ? 'Sangat Baik' : s.badge === 'b' ? 'Baik' : s.badge === 'c' ? 'Cukup' : 'Kurang'}</span></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderTable(tableId, data, isTotal = false) {
+            const tbody = document.getElementById(tableId);
+            tbody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                const badge = row.kategori === 'Sangat Baik' ? 'sb' : row.kategori === 'Baik' ? 'b' : 'c';
+                if (isTotal) {
+                    tr.innerHTML = `
+                        <td class="text-white text-xs">${row.indikator}</td>
+                        <td class="text-center text-xs">${row.value.toFixed(1)}%</td>
+                        <td class="text-center"><span class="badge-kategori ${badge}">${row.kategori}</span></td>
+                    `;
+                } else {
+                    tr.innerHTML = `
+                        <td class="text-white text-xs">${row.indikator || row.aspek}</td>
+                        <td class="text-center text-xs">${row.value || row.skor}${row.value ? '%' : ''}</td>
+                        <td class="text-center"><span class="badge-kategori ${badge}">${row.kategori}</span></td>
+                    `;
+                }
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderBarChart(canvasId, labels, data, label, color = '#D4AF37') {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            return new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        backgroundColor: ['#D4AF37', '#60a5fa', '#34d399', '#f59e0b', '#ec4899', '#8b5cf6', '#f87171'],
+                        borderRadius: 6,
+                        barThickness: 30,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false },
+                    },
+                    scales: {
+                        y: { min: 0, max: 100, ticks: { stepSize: 20, color: '#94a3b8' },
+                            grid: { color: 'rgba(255,255,255,0.04)' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 8 } } }
+                    }
+                }
+            });
+        }
+
+        function renderDoughnut(canvasId, labels, data, colors) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors || ['#34d399', '#60a5fa', '#f59e0b', '#f87171'],
+                        borderColor: '#060F28',
+                        borderWidth: 3,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 } } }
+                    },
+                    cutout: '65%',
+                }
+            });
+        }
+
+        // ============================================================
+        //  RENDER HEATMAP
+        // ============================================================
+        function renderHeatmap() {
+            const container = document.getElementById('heatmapContainer');
+            container.innerHTML = '';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'hm-grid w-full';
+
+            // Header row
+            const emptyHeader = document.createElement('div');
+            emptyHeader.className = 'hm-header';
+            emptyHeader.textContent = '';
+            wrapper.appendChild(emptyHeader);
+
+            matrixLabels.forEach(label => {
+                const div = document.createElement('div');
+                div.className = 'hm-header';
+                div.textContent = label.substring(0, 4);
+                wrapper.appendChild(div);
+            });
+
+            // Data rows
+            matrix.forEach((row, i) => {
+                // Label row
+                const labelDiv = document.createElement('div');
+                labelDiv.className = 'hm-label';
+                labelDiv.textContent = matrixLabels[i].substring(0, 4);
+                wrapper.appendChild(labelDiv);
+
+                // Cells
+                row.forEach(val => {
+                    const cell = document.createElement('div');
+                    cell.className = 'hm-cell';
+                    // Color interpolation: 0 = red, 0.5 = yellow, 1 = green
+                    const r = Math.round(255 - val * 255);
+                    const g = Math.round(val * 255);
+                    const b = Math.round(50 + val * 50);
+                    cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+                    cell.textContent = val.toFixed(2);
+                    wrapper.appendChild(cell);
+                });
+            });
+
+            container.appendChild(wrapper);
+        }
+
+        // ============================================================
+        //  RENDER SCATTER PLOT
+        // ============================================================
+        function renderScatter() {
+            const ctx = document.getElementById('scatterCorrelation').getContext('2d');
+            const points = kompetensi2023.map((x, i) => ({
+                x: x,
+                y: kompetensi2024[i],
+                label: kompetensiLabels[i]
+            }));
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Kompetensi',
+                        data: points,
+                        backgroundColor: '#D4AF37',
+                        borderColor: '#fff',
+                        borderWidth: 1,
+                        pointRadius: 6,
+                        pointHoverRadius: 10,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const p = context.raw;
+                                    return `${p.label}: 2023 = ${p.x}%, 2024 = ${p.y}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            min: 40,
+                            max: 100,
+                            grid: { color: 'rgba(255,255,255,0.04)' },
+                            ticks: { color: '#94a3b8' },
+                            title: { display: true, text: '2023 (% Sangat Baik)', color: '#94a3b8' }
+                        },
+                        y: {
+                            min: 40,
+                            max: 100,
+                            grid: { color: 'rgba(255,255,255,0.04)' },
+                            ticks: { color: '#94a3b8' },
+                            title: { display: true, text: '2024 (% Sangat Baik)', color: '#94a3b8' }
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('rValue').textContent = r.toFixed(2);
+        }
+
+        // ============================================================
+        //  INISIALISASI TAB & CHART
+        // ============================================================
+        let charts = {};
+
+        function initCharts() {
+            // TOTAL
+            const satLabels = data2022.satisfaction.map(d => d.label);
+            const satData = data2022.satisfaction.map(d => d.value);
+            const vmtsLabels = data2022.vmts.map(d => d.label);
+            const vmtsData = data2022.vmts.map(d => d.value);
+            charts.totalSat = renderBarChart('totalSatisfaction', satLabels, satData, 'Indeks Kepuasan');
+            charts.totalVmts = renderBarChart('totalVmts', vmtsLabels, vmtsData, 'Indeks VMTS');
+            const kompLabels = totalKompetensi.map(d => d.label);
+            const kompData = totalKompetensi.map(d => d.value);
+            charts.totalKomp = renderBarChart('totalKompetensi', kompLabels, kompData, '% Sangat Baik');
+
+            // 2022
+            charts.sat2022 = renderBarChart('sat2022', satLabels, satData, 'Indeks Kepuasan');
+            charts.vmts2022 = renderBarChart('vmts2022', vmtsLabels, vmtsData, 'Indeks VMTS');
+
+            // 2023
+            const komp23Labels = data2023.kompetensi.map(d => d.label);
+            const komp23Data = data2023.kompetensi.map(d => d.value);
+            charts.komp2023 = renderBarChart('komp2023', komp23Labels, komp23Data, '% Sangat Baik');
+            charts.dist2023 = renderDoughnut('dist2023',
+                ['Sangat Baik (4)', 'Baik (1)', 'Cukup (2)'],
+                [4, 1, 2],
+                ['#34d399', '#fbbf24', '#f59e0b']
+            );
+
+            // 2024
+            const komp24Labels = data2024.kompetensi.map(d => d.label);
+            const komp24Data = data2024.kompetensi.map(d => d.value);
+            charts.komp2024 = renderBarChart('komp2024', komp24Labels, komp24Data, '% Sangat Baik');
+            charts.dist2024 = renderDoughnut('dist2024',
+                ['Sangat Baik (5)', 'Cukup (2)'],
+                [5, 2],
+                ['#34d399', '#f59e0b']
+            );
+
+            // Korelasi
+            renderScatter();
+            renderHeatmap();
+        }
+
+        // ============================================================
+        //  TAB SWITCHING
+        // ============================================================
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const target = this.dataset.tab;
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                document.getElementById('tab-' + target).classList.add('active');
+
+                setTimeout(() => {
+                    Object.values(charts).forEach(chart => {
+                        if (chart && chart.resize) chart.resize();
+                    });
+                }, 100);
+            });
+        });
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderStats('statsTotal', totalStats);
+            renderStats('stats2022', data2022.stats);
+            renderStats('stats2023', data2023.stats);
+            renderStats('stats2024', data2024.stats);
+
+            renderTable('tableTotal', totalTable, true);
+            renderTable('table2022', data2022.table, false);
+            renderTable('table2023', data2023.table, false);
+            renderTable('table2024', data2024.table, false);
+
+            initCharts();
+        });
+    </script>
+
+</body>
+</html>
