@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GUG · Good University Governance · Psikologi Islam</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#E8EDF8', 100: '#C5D2F0', 200: '#9DB5E8',
+                            300: '#6F95E0', 400: '#4F7FD8', 500: '#2A5CC4',
+                            600: '#1A3F8F', 700: '#122B6A', 800: '#0B1D45',
+                            900: '#060F28', 950: '#030714',
+                        },
+                        gold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060F28;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .glass-nav {
+            background: rgba(11, 29, 69, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .btn-nav-home {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        .btn-nav-home:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .btn-nav-tree {
+            background: rgba(82, 183, 136, 0.06);
+            color: #52B788;
+            border-color: rgba(82, 183, 136, 0.1);
+        }
+        .btn-nav-tree:hover {
+            background: rgba(82, 183, 136, 0.12);
+            border-color: #52B788;
+            transform: translateY(-2px);
+        }
+        .btn-nav-drive {
+            background: rgba(26, 115, 232, 0.08);
+            color: #4F7FD8;
+            border-color: rgba(26, 115, 232, 0.1);
+        }
+        .btn-nav-drive:hover {
+            background: rgba(26, 115, 232, 0.15);
+            border-color: #4F7FD8;
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 4px;
+            font-size: 0.8rem;
+            padding: 8px 0;
+        }
+        .breadcrumb a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .breadcrumb a:hover {
+            color: #D4AF37;
+        }
+        .breadcrumb .separator {
+            color: #475569;
+            font-size: 0.6rem;
+            margin: 0 2px;
+        }
+        .breadcrumb .current {
+            color: #e2e8f0;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb .current i {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .card-glass {
+            background: rgba(11, 29, 69, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .card-glass:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-card {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .stat-card:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+        }
+        .table-wrap thead {
+            background: rgba(11, 29, 69, 0.6);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        .table-wrap thead th {
+            padding: 10px 14px;
+            text-align: center;
+            font-weight: 700;
+            color: #D4AF37;
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+        .table-wrap tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.2s ease;
+        }
+        .table-wrap tbody tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .table-wrap tbody td {
+            padding: 10px 14px;
+            color: #cbd5e1;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .table-wrap tbody td:first-child {
+            font-weight: 600;
+            color: #e2e8f0;
+            text-align: left;
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .badge-status.lengkap {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .tautan-link {
+            color: #4F7FD8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px dotted transparent;
+        }
+        .tautan-link:hover {
+            color: #D4AF37;
+            border-bottom-color: #D4AF37;
+        }
+
+        .narrative-section {
+            background: linear-gradient(135deg, rgba(11, 29, 69, 0.8), rgba(26, 63, 143, 0.2));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 28px 32px;
+        }
+        .narrative-section h3 {
+            color: #D4AF37;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .narrative-section p {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        .narrative-section strong {
+            color: #fff;
+        }
+        .narrative-section .highlight {
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        /* Heatmap Cell */
+        .hm-cell {
+            padding: 8px 4px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+            min-width: 50px;
+            text-align: center;
+        }
+        .hm-cell:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .hm-cell.ya {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .hm-cell.tidak {
+            background: rgba(100, 116, 139, 0.1);
+            color: #475569;
+            border: 1px solid rgba(100, 116, 139, 0.05);
+        }
+        .hm-cell.ya-kuat {
+            background: rgba(16, 185, 129, 0.35);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+        .hm-cell.ya-sangat {
+            background: rgba(16, 185, 129, 0.55);
+            color: #a7f3d0;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+
+        .legend-dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            margin-right: 6px;
+        }
+        .legend-dot.sangat { background: rgba(16, 185, 129, 0.55); border: 1px solid rgba(16, 185, 129, 0.35); }
+        .legend-dot.kuat { background: rgba(16, 185, 129, 0.35); border: 1px solid rgba(16, 185, 129, 0.25); }
+        .legend-dot.ya { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.15); }
+        .legend-dot.tidak { background: rgba(100, 116, 139, 0.1); border: 1px solid rgba(100, 116, 139, 0.05); }
+
+        @media (max-width: 640px) {
+            .breadcrumb { font-size: 0.7rem; }
+            .btn-nav { font-size: 0.65rem; padding: 4px 10px; }
+            .table-wrap table { font-size: 0.55rem; }
+            .table-wrap thead th, .table-wrap tbody td { padding: 4px 6px; }
+            .narrative-section { padding: 16px 18px; }
+            .narrative-section p { font-size: 0.8rem; }
+            .hm-cell { font-size: 0.6rem; padding: 4px 2px; min-width: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!-- NAVBAR DENGAN BREADCRUMB                                   -->
+    <!-- ========================================================== -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" title="Kembali ke Home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <a href="https://pi-iainbabel.github.io/tata-kelola/" title="Kembali ke Tata Kelola">
+                        <i class="fas fa-building"></i> Tata Kelola
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <span class="current">
+                        <i class="fas fa-gavel"></i> GUG
+                    </span>
+                </div>
+
+                <!-- Tombol navigasi kanan -->
+                <div class="flex items-center gap-2 flex-wrap">
+                    <a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="btn-nav btn-nav-drive">
+                        <i class="fas fa-folder-open"></i> Drive Dokumen GUG
+                    </a>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" class="btn-nav btn-nav-tree" title="Pohon Pengetahuan">
+                        <i class="fas fa-tree"></i> Tree
+                    </a>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="btn-nav btn-nav-home" title="Kembali ke Home">
+                        <i class="fas fa-arrow-left"></i> Home
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================== -->
+    <!-- SPACER                                                     -->
+    <!-- ========================================================== -->
+    <div class="pt-20"></div>
+
+    <!-- ===== HERO ===== -->
+    <section class="pt-8 pb-6 px-4 text-center bg-gradient-to-b from-navy-900 to-navy-950 border-b border-white/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block px-4 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-semibold tracking-wider mb-4">
+                <i class="fas fa-gavel mr-2"></i> GOOD UNIVERSITY GOVERNANCE
+            </div>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-4xl text-white leading-tight">
+                GUG — <span class="text-gold">Good University Governance</span>
+            </h1>
+            <p class="mt-3 text-slate-400 max-w-2xl mx-auto text-sm">
+                Program Studi Psikologi Islam · FDKI · IAIN Syaikh Abdurrahman Siddik Bangka Belitung
+            </p>
+            <div class="mt-4 flex flex-wrap justify-center gap-3 text-xs">
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-check-circle text-emerald-400 mr-1.5"></i> 10 Komponen
+                </span>
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-file-alt text-gold mr-1.5"></i> 100% Lengkap
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATISTIK RINGKASAN ===== -->
+    <section class="py-6 px-4 bg-navy-900/50 border-b border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                    <div class="text-2xl font-bold text-gold">10</div>
+                    <div class="text-xs text-slate-400">Komponen GUG</div>
+                </div>
+                <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                    <div class="text-2xl font-bold text-emerald-400">100%</div>
+                    <div class="text-xs text-slate-400">Kelengkapan Dokumen</div>
+                </div>
+                <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                    <div class="text-2xl font-bold text-gold">6</div>
+                    <div class="text-xs text-slate-400">Aspek GUG</div>
+                </div>
+                <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                    <div class="text-2xl font-bold text-sky-400">2025</div>
+                    <div class="text-xs text-slate-400">Tahun Penyusunan</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- ===== TABEL REKAPITULASI DOKUMEN GUG ===== -->
+        <div class="card-glass p-6 border-gold/10">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h3 class="font-heading font-bold text-white text-sm flex items-center gap-2">
+                        <i class="fas fa-clipboard-list text-gold"></i> Rekapitulasi Kelengkapan Dokumen GUG
+                    </h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Good University Governance — Program Studi Psikologi Islam</p>
+                </div>
+                <span class="text-[10px] text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">
+                    <i class="fas fa-check-circle mr-1"></i> 100% Lengkap
+                </span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-16 text-center">No</th>
+                            <th>Komponen GUG</th>
+                            <th>Status</th>
+                            <th class="min-w-[120px]">Lokasi Tautan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center font-bold text-gold">1</td>
+                            <td class="font-semibold text-white">Perangkat SPMI</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">2</td>
+                            <td class="font-semibold text-white">Struktur Organisasi &amp; Tupoksi</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">3</td>
+                            <td class="font-semibold text-white">Dokumen Pendukung Operasional</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">4</td>
+                            <td class="font-semibold text-white">Laporan AMI &amp; RTM</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">5</td>
+                            <td class="font-semibold text-white">Pengakuan Mutu Eksternal &amp; PDDikti</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">6</td>
+                            <td class="font-semibold text-white">Manajemen Risiko</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">7</td>
+                            <td class="font-semibold text-white">Etika, Integritas Akademik &amp; Publikasi Ilmiah</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">8</td>
+                            <td class="font-semibold text-white">Pencegahan &amp; Penanganan Kekerasan Seksual (PPKS)</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">9</td>
+                            <td class="font-semibold text-white">Whistleblower System</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center font-bold text-gold">10</td>
+                            <td class="font-semibold text-white">Zona Integritas &amp; Reformasi Birokrasi</td>
+                            <td class="text-center"><span class="badge-status lengkap">✅ Lengkap</span></td>
+                            <td><a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="tautan-link"><i class="fas fa-external-link-alt text-[10px] mr-1"></i> Drive Folder</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 text-[10px] text-slate-500 text-center">
+                <i class="fas fa-info-circle mr-1"></i> Seluruh dokumen pendukung GUG telah diverifikasi dan tersedia dalam folder drive resmi.
+            </div>
+        </div>
+
+        <!-- ===== MATRIKS HEATMAP: KETERKAITAN DOKUMEN GUG DENGAN 6 ASPEK GUG ===== -->
+        <div class="card-glass p-6 border-gold/10">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h3 class="font-heading font-bold text-white text-sm flex items-center gap-2">
+                        <i class="fas fa-th text-gold"></i> Matriks Heatmap — Keterkaitan Dokumen GUG dengan 6 Aspek GUG
+                    </h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Semakin gelap warna hijau, semakin kuat dukungan dokumen terhadap aspek GUG</p>
+                </div>
+            </div>
+
+            <!-- Legenda -->
+            <div class="flex flex-wrap items-center gap-4 mb-4 text-xs text-slate-400">
+                <span class="font-semibold text-white">Legenda:</span>
+                <span><span class="legend-dot sangat"></span> Dukungan Sangat Kuat</span>
+                <span><span class="legend-dot kuat"></span> Dukungan Kuat</span>
+                <span><span class="legend-dot ya"></span> Dukungan</span>
+                <span><span class="legend-dot tidak"></span> Tidak Berkaitan</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-left min-w-[160px]">Komponen GUG</th>
+                            <th class="text-center">Kredibilitas</th>
+                            <th class="text-center">Transparansi</th>
+                            <th class="text-center">Akuntabilitas</th>
+                            <th class="text-center">Tanggung Jawab</th>
+                            <th class="text-center">Berkeadilan</th>
+                            <th class="text-center">Manajemen Risiko</th>
+                            <th class="text-center text-gold">Skor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold text-white">1. Perangkat SPMI</td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td class="font-bold text-gold">8/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">2. Struktur Organisasi &amp; Tupoksi</td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td class="font-bold text-gold">8/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">3. Dokumen Pendukung Operasional</td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td class="font-bold text-gold">6/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">4. Laporan AMI &amp; RTM</td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td class="font-bold text-gold">8/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">5. Pengakuan Mutu Eksternal &amp; PDDikti</td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td class="font-bold text-gold">8/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">6. Manajemen Risiko</td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td class="font-bold text-gold">7/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">7. Etika, Integritas &amp; Publikasi Ilmiah</td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td class="font-bold text-gold">8/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">8. Pencegahan &amp; Penanganan Kekerasan Seksual (PPKS)</td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td class="font-bold text-gold">7/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">9. Whistleblower System</td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td class="font-bold text-gold">8/6</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-white">10. Zona Integritas &amp; Reformasi Birokrasi</td>
+                            <td><span class="hm-cell ya-sangat">✓✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya-kuat">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td><span class="hm-cell ya">✓</span></td>
+                            <td class="font-bold text-gold">7/6</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="border-t-2 border-gold/30 bg-navy-800/20">
+                            <td class="font-bold text-gold">Total Dukungan</td>
+                            <td class="font-bold text-emerald-400">10/10</td>
+                            <td class="font-bold text-emerald-400">10/10</td>
+                            <td class="font-bold text-emerald-400">10/10</td>
+                            <td class="font-bold text-emerald-400">10/10</td>
+                            <td class="font-bold text-emerald-400">10/10</td>
+                            <td class="font-bold text-emerald-400">10/10</td>
+                            <td class="font-bold text-gold">100%</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="mt-3 text-[10px] text-slate-500 text-center">
+                <i class="fas fa-info-circle mr-1"></i> 
+                <span class="text-emerald-300">✓</span> Dukungan &nbsp;|&nbsp; 
+                <span class="text-emerald-200">✓✓</span> Dukungan Sangat Kuat (menyoroti aspek utama dokumen)
+            </div>
+        </div>
+
+        <!-- ===== NARASI ANALISIS GUG ===== -->
+        <div class="narrative-section">
+            <h3>
+                <i class="fas fa-pen-fancy"></i> Analisis Penerapan Good University Governance (GUG)
+                <span class="text-[10px] text-slate-400 font-normal ml-2"></span>
+            </h3>
+
+            <p>
+                Prodi Psikologi Islam dalam menjalankan tata kelolanya berkomitmen mewujudkan praktik baik 
+                <span class="highlight">Good University Governance (GUG)</span> yang mencakup enam aspek utama, 
+                yaitu <strong>kredibilitas, transparansi, akuntabilitas, tanggung jawab, berkeadilan, dan manajemen risiko</strong>. 
+                Seluruh aspek tersebut telah didukung oleh dokumen formal yang lengkap dan telah disosialisasikan kepada 
+                sivitas akademika.
+            </p>
+
+            <p>
+                <strong class="text-gold">1. Dokumen Formal dan Penetapan GUG</strong><br>
+                UPPS dan Prodi telah memiliki dan menetapkan secara formal dokumen-dokumen pendukung GUG sebagai berikut:
+            </p>
+
+            <p class="pl-4 text-sm text-slate-300">
+                <span class="text-gold">a.</span> Dokumen Organisasi dan Tata Kerja (SOTK) yang mengatur struktur, tugas, fungsi, dan wewenang di lingkungan UPPS/Prodi, yang tertuang dalam SK Struktur Organisasi FDKI serta Struktur Organisasi FDKI dan Prodi Psikologi Islam.<br>
+                <span class="text-gold">b.</span> Perangkat SPMI yang lengkap mencakup Buku 1 (Kebijakan SPMI), Buku 2 (Manual SPMI), Buku 3 (Standar SPMI), dan Buku 4 (Formulir SPMI) baik di tingkat institut maupun fakultas. Perangkat ini menjadi landasan bagi seluruh siklus PPEPP (Penetapan, Pelaksanaan, Evaluasi, Pengendalian, dan Peningkatan) dalam penjaminan mutu program studi.<br>
+                <span class="text-gold">c.</span> Dokumen Manajemen Risiko yang mencakup Panduan Manajemen Risiko, SK Pengesahan Panduan, SK Tim Penyusun, serta Kertas Kerja Manajemen Risiko di tingkat FSEI dan FDKI. Dokumen ini mengidentifikasi, menganalisis, mengevaluasi, dan mengendalikan potensi risiko yang dapat menghambat pencapaian tujuan program studi.<br>
+                <span class="text-gold">d.</span> Kode Etik dan Integritas Akademik yang diperkuat dengan MoU Turnitin untuk mencegah plagiarisme dan menjunjung tinggi etika akademik.<br>
+                <span class="text-gold">e.</span> Pedoman Pencegahan dan Penanganan Kekerasan Seksual (PPKS) yang disusun oleh Pusat Studi Gender dan Anak (PSGA) LP2M IAIN SAS Babel pada tahun 2024, sebagai implementasi dari Permendikbudristek No. 30 Tahun 2021.<br>
+                <span class="text-gold">f.</span> Prosedur Pengaduan (Whistleblower System) yang ditetapkan melalui SK Rektor Nomor 876 Tahun 2025, yang mengatur mekanisme penerimaan, pencatatan, verifikasi, penelaahan, dan tindak lanjut pengaduan serta perlindungan bagi pelapor.<br>
+                <span class="text-gold">g.</span> SK Zona Integritas dan Kelompok Kerja Reformasi Birokrasi sebagai wujud komitmen institusi dalam mewujudkan wilayah bebas dari korupsi, serta SK Gugus Kendali Mutu dan Unit Penjamin Mutu FDKI sebagai struktur pelaksana penjaminan mutu di tingkat fakultas.<br>
+                <span class="text-gold">h.</span> Pedoman Publikasi Ilmiah Mahasiswa yang disusun oleh tim dosen Prodi Psikologi Islam dan disahkan oleh Dekan Fakultas Dakwah dan Komunikasi Islam pada tahun 2021.<br>
+                <span class="text-gold">i.</span> Laporan Audit Mutu Internal (AMI) dan Rapat Tinjauan Manajemen (RTM) yang dilaksanakan secara periodik pada tahun 2023, 2024, dan 2025, serta dilengkapi dengan notulen dan laporan tindak lanjut. Hal ini menunjukkan efektivitas siklus penjaminan mutu yang berkelanjutan.<br>
+                <span class="text-gold">j.</span> Pengakuan mutu eksternal melalui sertifikat akreditasi program studi dan institusi, serta pelaporan data tervalidasi ke PDDikti yang didukung oleh SOP dan SK POKJA PDDikti.
+            </p>
+
+            <p>
+                <strong class="text-gold">2. Sosialisasi dan Implementasi</strong><br>
+                Seluruh dokumen GUG telah disosialisasikan kepada sivitas akademika melalui berbagai forum, seperti rapat program studi, forum dosen, dan pengenalan kehidupan kampus bagi mahasiswa baru. Sosialisasi juga dilakukan melalui media daring seperti website resmi dan grup komunikasi resmi. Dengan demikian, seluruh sivitas memahami hak, kewajiban, dan mekanisme pengawasan yang berlaku.
+            </p>
+
+            <p>
+                <strong class="text-gold">3. Akuntabilitas dan Transparansi</strong><br>
+                Prodi secara berkala melaporkan kinerja dan capaian mutu melalui laporan kinerja program studi yang diunggah ke PD Dikti setiap semester, publikasi informasi akademik dan non-akademik melalui website resmi Prodi, serta keterbukaan akses terhadap dokumen mutu dan kebijakan prodi.
+            </p>
+
+            <p>
+                <strong class="text-gold">4. Manajemen Risiko dan Pengendalian</strong><br>
+                Prodi secara proaktif memantau potensi risiko yang dapat mengganggu pencapaian mutu melalui penerapan manajemen risiko yang terintegrasi dalam perencanaan dan pelaksanaan kegiatan. Risiko-risiko seperti penurunan kualitas pembelajaran, pelanggaran etika akademik, dan ketidakakuratan data PD Dikti telah diidentifikasi dan dimitigasi melalui strategi yang terencana.
+            </p>
+
+            <p>
+                <strong class="text-gold">5. Penanganan Pengaduan dan Perlindungan Pelapor</strong><br>
+                Prosedur Pengaduan (Whistleblower System) yang telah ditetapkan menjamin setiap pengaduan ditangani secara adil, objektif, profesional, dan tepat waktu, serta memberikan perlindungan bagi pelapor dari tindakan pembalasan, intimidasi, atau diskriminasi.
+            </p>
+
+            <p>
+                Dengan demikian, tata kelola yang baik (GUG) telah terintegrasi dalam seluruh aspek penyelenggaraan program studi, baik di tingkat perencanaan, pelaksanaan, pengendalian, hingga peningkatan mutu secara berkelanjutan.
+            </p>
+
+            <p class="mb-0">
+                <strong class="text-gold">Kesimpulan:</strong> Berdasarkan seluruh dokumen yang telah disiapkan dan diverifikasi, Prodi Psikologi Islam telah memenuhi seluruh aspek GUG yang dipersyaratkan dalam Instrumen Akreditasi IAPS 5.0, dengan bukti dokumen formal yang lengkap, penetapan resmi, dan implementasi yang berjalan secara konsisten.
+            </p>
+
+            <div class="mt-4 pt-4 border-t border-gold/20 text-[10px] text-slate-500">
+                <i class="fas fa-folder-open mr-1 text-gold"></i> Seluruh dokumen pendukung dapat diakses melalui folder drive resmi: 
+                <a href="https://drive.google.com/drive/u/1/folders/1jEZZXfBnxwtb2XTVEvheW0nQlhv9rIFa" target="_blank" class="text-gold hover:text-white transition-colors">
+                    Dokumen GUG Prodi Psikologi Islam
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-white/5 bg-navy-900/50 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p class="text-xs text-slate-500">
+                &copy; 2025 Program Studi Psikologi Islam · FDKI · IAIN Syaikh Abdurrahman Siddik Bangka Belitung
+            </p>
+            <p class="text-[10px] text-slate-600 mt-1">Good University Governance — Rekapitulasi Dokumen GUG</p>
+        </div>
+    </footer>
+
+</body>
+</html>
