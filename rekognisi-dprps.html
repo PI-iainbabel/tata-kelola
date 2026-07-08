@@ -391,38 +391,47 @@
 
         <!-- ===== TABEL REKOGNISI ===== -->
         <section class="card-glass p-6 border-gold/10 mb-8">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                <div>
-                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
-                        <i class="fas fa-list text-gold"></i> Tabel Rekognisi DPRPS
-                        <span class="text-sm text-slate-400 font-normal">— 2022–2025</span>
-                    </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Data rekognisi dosen tetap berdasarkan dokumentasi yang tersedia</p>
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                    <select id="filterDosen" onchange="renderTable()" class="filter-select">
-                        <option value="all">Semua Dosen</option>
-                        <option value="Primalita Putri Distina">Primalita Putri Distina</option>
-                        <option value="Chitra Fraghini">Chitra Fraghini</option>
-                        <option value="Siska Dwi Paramitha">Siska Dwi Paramitha</option>
-                        <option value="Wahyu Kurniawan">Wahyu Kurniawan</option>
-                        <option value="Oktarizal Drianus">Oktarizal Drianus</option>
-                        <option value="Yandi Hafizallah">Yandi Hafizallah</option>
-                    </select>
-                    <select id="filterTingkat" onchange="renderTable()" class="filter-select">
-                        <option value="all">Semua Tingkat</option>
-                        <option value="internasional">Internasional</option>
-                        <option value="nasional">Nasional</option>
-                        <option value="wilayah">Wilayah</option>
-                    </select>
-                    <select id="filterTahun" onchange="renderTable()" class="filter-select">
-                        <option value="all">Semua Tahun</option>
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                    </select>
-                </div>
-            </div>
+           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+    <!-- Bagian kiri: Judul + Tombol CSV -->
+    <div class="flex items-center gap-4 flex-wrap">
+        <div>
+            <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                <i class="fas fa-list text-gold"></i> Tabel Rekognisi DPRPS
+                <span class="text-sm text-slate-400 font-normal">— 2022–2025</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Data rekognisi dosen tetap berdasarkan dokumentasi yang tersedia</p>
+        </div>
+        <!-- ===== TOMBOL CSV DI SINI ===== -->
+        <button onclick="downloadCSV()" class="btn-nav btn-nav-drive text-xs whitespace-nowrap">
+            <i class="fas fa-file-csv"></i> Download CSV
+        </button>
+    </div>
+
+    <!-- Bagian kanan: Filter -->
+    <div class="flex flex-wrap items-center gap-2">
+        <select id="filterDosen" onchange="renderTable()" class="filter-select">
+            <option value="all">Semua Dosen</option>
+            <option value="Primalita Putri Distina">Primalita Putri Distina</option>
+            <option value="Chitra Fraghini">Chitra Fraghini</option>
+            <option value="Siska Dwi Paramitha">Siska Dwi Paramitha</option>
+            <option value="Wahyu Kurniawan">Wahyu Kurniawan</option>
+            <option value="Oktarizal Drianus">Oktarizal Drianus</option>
+            <option value="Yandi Hafizallah">Yandi Hafizallah</option>
+        </select>
+        <select id="filterTingkat" onchange="renderTable()" class="filter-select">
+            <option value="all">Semua Tingkat</option>
+            <option value="internasional">Internasional</option>
+            <option value="nasional">Nasional</option>
+            <option value="wilayah">Wilayah</option>
+        </select>
+        <select id="filterTahun" onchange="renderTable()" class="filter-select">
+            <option value="all">Semua Tahun</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+        </select>
+    </div>
+</div>
 
             <div class="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs text-amber-400 flex items-center gap-2">
                 <i class="fas fa-info-circle"></i>
