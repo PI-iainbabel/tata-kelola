@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil Dosen · Psikologi Islam</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#E8EDF8', 100: '#C5D2F0', 200: '#9DB5E8',
+                            300: '#6F95E0', 400: '#4F7FD8', 500: '#2A5CC4',
+                            600: '#1A3F8F', 700: '#122B6A', 800: '#0B1D45',
+                            900: '#060F28', 950: '#030714',
+                        },
+                        gold: '#D4AF37',
+                        emerald: '#34D399',
+                        sky: '#60A5FA',
+                        rose: '#FB7185',
+                        amber: '#FBBF24',
+                        purple: '#A78BFA',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060F28;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .glass-nav {
+            background: rgba(11, 29, 69, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .btn-nav-home {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        .btn-nav-home:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .btn-nav-tree {
+            background: rgba(82, 183, 136, 0.06);
+            color: #52B788;
+            border-color: rgba(82, 183, 136, 0.1);
+        }
+        .btn-nav-tree:hover {
+            background: rgba(82, 183, 136, 0.12);
+            border-color: #52B788;
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 4px;
+            font-size: 0.8rem;
+            padding: 8px 0;
+        }
+        .breadcrumb a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .breadcrumb a:hover {
+            color: #D4AF37;
+        }
+        .breadcrumb .separator {
+            color: #475569;
+            font-size: 0.6rem;
+            margin: 0 2px;
+        }
+        .breadcrumb .current {
+            color: #e2e8f0;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb .current i {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 40px;
+        }
+
+        /* ===== HERO CARD ===== */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(11, 29, 69, 0.6) 0%, rgba(11, 29, 69, 0.3) 100%);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 48px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.06), transparent 70%);
+            pointer-events: none;
+        }
+        .hero-card .badge {
+            display: inline-block;
+            padding: 4px 16px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #D4AF37;
+            margin-bottom: 12px;
+        }
+        .hero-card h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .hero-card h1 span {
+            background: linear-gradient(135deg, #D4AF37, #f5d76e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-card p {
+            color: #94a3b8;
+            font-size: 1rem;
+            max-width: 560px;
+            line-height: 1.7;
+        }
+        .hero-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .hero-card .stats .stat-item .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #D4AF37;
+        }
+        .hero-card .stats .stat-item .label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        /* ===== SUB-CARD GRID ===== */
+        .sub-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .sub-card {
+            background: rgba(11, 29, 69, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 28px 24px 32px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .sub-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        .sub-card .icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+        .sub-card .icon-wrap.gold {
+            background: rgba(212, 175, 55, 0.12);
+            color: #D4AF37;
+        }
+        .sub-card .icon-wrap.emerald {
+            background: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+        }
+        .sub-card .icon-wrap.sky {
+            background: rgba(96, 165, 250, 0.12);
+            color: #60a5fa;
+        }
+        .sub-card .icon-wrap.purple {
+            background: rgba(167, 139, 250, 0.12);
+            color: #a78bfa;
+        }
+
+        .sub-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .sub-card .subtitle {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+        .sub-card p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .sub-card .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 100px;
+        }
+        .sub-card .status.ready {
+            background: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.15);
+        }
+        .sub-card .status.pending {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.15);
+        }
+        .sub-card .status i {
+            font-size: 0.5rem;
+        }
+        .sub-card .arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 24px;
+            color: #475569;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .sub-card:hover .arrow {
+            color: #D4AF37;
+            transform: translateX(4px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .main-content { padding: 16px; }
+            .hero-card { padding: 28px 24px; }
+            .hero-card .stats { gap: 16px; }
+            .sub-card-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .hero-card h1 { font-size: 1.6rem; }
+            .hero-card .stats .stat-item .number { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!-- NAVBAR DENGAN BREADCRUMB                                   -->
+    <!-- ========================================================== -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+
+                <div class="breadcrumb">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" title="Kembali ke Home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" title="Kembali ke Tata Kelola">
+                        <i class="fas fa-sitemap"></i> Tata Kelola
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <span class="current">
+                        <i class="fas fa-user-graduate"></i> Profil Dosen
+                    </span>
+                </div>
+
+                <div class="flex items-center gap-2 flex-wrap">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" class="btn-nav btn-nav-tree" title="Pohon Pengetahuan">
+                        <i class="fas fa-tree"></i> Tree
+                    </a>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="btn-nav btn-nav-home" title="Kembali ke Home">
+                        <i class="fas fa-arrow-left"></i> Home
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================== -->
+    <!-- SPACER                                                     -->
+    <!-- ========================================================== -->
+    <div class="pt-20"></div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- ===== HERO CARD ===== -->
+        <div class="hero-card">
+            <div class="badge"><i class="fas fa-user-graduate mr-1"></i> SUMBER DAYA MANUSIA</div>
+            <h1>Profil <span>Dosen</span></h1>
+            <p>Informasi lengkap mengenai dosen tetap Program Studi Psikologi Islam, mencakup data personal, beban kerja, publikasi, dan rekognisi.</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="number">25</div>
+                    <div class="label">Dosen Tetap (DPRPS)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">14.56</div>
+                    <div class="label">Rata-rata sks/Semester</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">583+</div>
+                    <div class="label">Publikasi (GS)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">35 (sementara)</div>
+                    <div class="label">Rekognisi DPRPS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SUB-CARD GRID ===== -->
+        <div class="sub-card-grid">
+
+            <!-- 1. Rekognisi DPRPS (sudah ada) -->
+            <a href="#" class="sub-card" target="_blank">
+                <div class="icon-wrap gold">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Rekognisi DPRPS</h3>
+                <div class="subtitle">Pengakuan &amp; Apresiasi Dosen</div>
+                <p>Rekapitulasi rekognisi dan apresiasi yang diterima dosen tetap dalam kegiatan pengabdian, keprofesian, dan keilmuan.</p>
+                <span class="status pending">
+                    <i class="fas fa-circle"></i> Segera Hadir
+                </span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+
+            <!-- 2. EWMP Dosen (Sudah ada) -->
+            <a href="https://pi-iainbabel.github.io/sdm/" class="sub-card" target="_blank">
+                <div class="icon-wrap emerald">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>EWMP Dosen</h3>
+                <div class="subtitle">Ekuivalen Waktu Mengajar Penuh</div>
+                <p>Data beban kerja dosen tetap (DPR) berdasarkan komponen pengajaran, penelitian, PkM, dan penunjang.</p>
+                <span class="status ready">
+                    <i class="fas fa-circle"></i> Tersedia
+                </span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+
+            <!-- 3. Publikasi Dosen (Sudah ada) -->
+            <a href="https://pi-iainbabel.github.io/sdm/publikasi.html" class="sub-card" target="_blank">
+                <div class="icon-wrap sky">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3>Publikasi Dosen</h3>
+                <div class="subtitle">Karya Ilmiah &amp; Sitasi</div>
+                <p>Rekapitulasi publikasi dosen berdasarkan data SINTA, Google Scholar, dan Scopus, dilengkapi klasifikasi dan tren.</p>
+                <span class="status ready">
+                    <i class="fas fa-circle"></i> Tersedia
+                </span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+
+            <!-- 4. DPRPS (Sudah ada) -->
+            <a href="https://pi-iainbabel.github.io/sdm/dpr.html" class="sub-card" target="_blank">
+                <div class="icon-wrap purple">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>DPRPS</h3>
+                <div class="subtitle">Dosen Penghitung Rasio</div>
+                <p>Data dosen tetap (DPRPS) dan dosen tidak tetap (DTT) dengan informasi pendidikan, jabatan, sertifikat, dan kesesuaian.</p>
+                <span class="status ready">
+                    <i class="fas fa-circle"></i> Tersedia
+                </span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="mt-10 pt-4 border-t border-white/5 text-xs text-slate-500 text-center">
+            <i class="fas fa-print mr-1"></i> Terakhir diperbarui: 2025 – Prodi Psikologi Islam
+            <span class="mx-2">·</span>
+            <i class="fas fa-leaf text-gold mr-1"></i> Daun dari Pohon Pengetahuan
+        </div>
+
+    </main>
+
+</body>
+</html>
