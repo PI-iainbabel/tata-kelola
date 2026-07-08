@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rekognisi DPRPS · Psikologi Islam</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#E8EDF8', 100: '#C5D2F0', 200: '#9DB5E8',
+                            300: '#6F95E0', 400: '#4F7FD8', 500: '#2A5CC4',
+                            600: '#1A3F8F', 700: '#122B6A', 800: '#0B1D45',
+                            900: '#060F28', 950: '#030714',
+                        },
+                        gold: '#D4AF37',
+                        emerald: '#34D399',
+                        sky: '#60A5FA',
+                        rose: '#FB7185',
+                        amber: '#FBBF24',
+                        purple: '#A78BFA',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060F28;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .glass-nav {
+            background: rgba(11, 29, 69, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .btn-nav-home {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        .btn-nav-home:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .btn-nav-tree {
+            background: rgba(82, 183, 136, 0.06);
+            color: #52B788;
+            border-color: rgba(82, 183, 136, 0.1);
+        }
+        .btn-nav-tree:hover {
+            background: rgba(82, 183, 136, 0.12);
+            border-color: #52B788;
+            transform: translateY(-2px);
+        }
+        .btn-nav-drive {
+            background: rgba(26, 115, 232, 0.08);
+            color: #4F7FD8;
+            border-color: rgba(26, 115, 232, 0.1);
+        }
+        .btn-nav-drive:hover {
+            background: rgba(26, 115, 232, 0.15);
+            border-color: #4F7FD8;
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 4px;
+            font-size: 0.8rem;
+            padding: 8px 0;
+        }
+        .breadcrumb a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .breadcrumb a:hover {
+            color: #D4AF37;
+        }
+        .breadcrumb .separator {
+            color: #475569;
+            font-size: 0.6rem;
+            margin: 0 2px;
+        }
+        .breadcrumb .current {
+            color: #e2e8f0;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb .current i {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .card-glass {
+            background: rgba(11, 29, 69, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .card-glass:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-card {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .stat-card:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.65rem;
+        }
+        .table-wrap thead {
+            background: rgba(11, 29, 69, 0.6);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        .table-wrap thead th {
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 700;
+            color: #D4AF37;
+            text-transform: uppercase;
+            font-size: 0.55rem;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+        .table-wrap tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.2s ease;
+        }
+        .table-wrap tbody tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .table-wrap tbody td {
+            padding: 8px 12px;
+            color: #cbd5e1;
+            vertical-align: middle;
+        }
+        .table-wrap tbody td:first-child {
+            font-weight: 600;
+            color: #e2e8f0;
+            text-align: center;
+        }
+        .table-wrap tfoot tr {
+            background: rgba(11, 29, 69, 0.5);
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        .table-wrap tfoot td {
+            padding: 10px 12px;
+            color: #D4AF37;
+            font-weight: 700;
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.55rem;
+            font-weight: 600;
+        }
+        .badge-internasional {
+            background: rgba(96, 165, 250, 0.12);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.15);
+        }
+        .badge-nasional {
+            background: rgba(212, 175, 55, 0.12);
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+        .badge-wilayah {
+            background: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.15);
+        }
+
+        .badge-tema {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.55rem;
+            font-weight: 600;
+            background: rgba(212, 175, 55, 0.08);
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .filter-select {
+            background-color: rgba(11, 29, 69, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .filter-select:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
+        }
+        .filter-select option {
+            background-color: #0B1D45;
+            color: #e2e8f0;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 40px;
+        }
+
+        .btn-bukti {
+            color: #4F7FD8;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+        .btn-bukti:hover {
+            color: #D4AF37;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .main-content { padding: 16px; }
+            .table-wrap table { font-size: 0.55rem; }
+            .table-wrap thead th, .table-wrap tbody td { padding: 4px 6px; }
+            .filter-select { font-size: 0.6rem; padding: 2px 8px; }
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: #fff; color: #000; }
+            .card-glass { background: #f1f5f9; border-color: #cbd5e1; }
+            .stat-card { background: #f1f5f9; border-color: #cbd5e1; }
+            .table-wrap { border-color: #cbd5e1; }
+            .table-wrap thead { background: #e2e8f0; }
+            .table-wrap thead th { color: #1e293b; }
+            .table-wrap tbody td { color: #1e293b; }
+            .table-wrap tbody tr { border-color: #e2e8f0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!-- NAVBAR DENGAN BREADCRUMB                                   -->
+    <!-- ========================================================== -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+
+                <div class="breadcrumb">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" title="Kembali ke Home">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" title="Kembali ke Tata Kelola">
+                        <i class="fas fa-sitemap"></i> Tata Kelola
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <a href="https://pi-iainbabel.github.io/sdm/" title="Kembali ke Profil Dosen">
+                        <i class="fas fa-user-graduate"></i> Profil Dosen
+                    </a>
+                    <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                    <span class="current">
+                        <i class="fas fa-trophy"></i> Rekognisi DPRPS
+                    </span>
+                </div>
+
+                <div class="flex items-center gap-2 flex-wrap">
+                    <a href="https://docs.google.com/spreadsheets/d/1ypXZVZ3rATjgG0O0HV0CyzOPMTjE2ncm/edit?gid=266748171#gid=266748171" target="_blank" class="btn-nav btn-nav-drive">
+                        <i class="fas fa-table"></i> LKPS Rekognisi DPRPS
+                    </a>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" class="btn-nav btn-nav-tree" title="Pohon Pengetahuan">
+                        <i class="fas fa-tree"></i> Tree
+                    </a>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="btn-nav btn-nav-home" title="Kembali ke Home">
+                        <i class="fas fa-arrow-left"></i> Home
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================== -->
+    <!-- SPACER                                                     -->
+    <!-- ========================================================== -->
+    <div class="pt-20"></div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- ===== HERO ===== -->
+        <div class="mb-8 text-center">
+            <div class="inline-block px-4 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-semibold tracking-wider mb-4">
+                <i class="fas fa-trophy mr-2"></i> REKOGNISI DOSEN
+            </div>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-4xl text-white flex items-center justify-center gap-3">
+                <i class="fas fa-award text-gold"></i> Rekognisi <span class="text-gold">DPRPS</span>
+            </h1>
+            <p class="mt-3 text-slate-400 max-w-2xl mx-auto text-sm">
+                Rekapitulasi pengakuan dan apresiasi yang diterima oleh dosen tetap Prodi Psikologi Islam periode 2022–2025
+            </p>
+            <div class="mt-4 flex flex-wrap justify-center gap-3 text-xs">
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-globe text-gold mr-1.5"></i> 3 Internasional
+                </span>
+                <span class="px-4 py-1.5 rounded-full bg-navy-800/60 border border-white/5 text-slate-300">
+                    <i class="fas fa-flag text-gold mr-1.5"></i> 6 Nasional
+                </span>
+                <span class="px-4 py-1.5 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300">
+                    <i class="fas fa-map-pin mr-1.5"></i> 26 Wilayah
+                </span>
+                <span class="px-4 py-1.5 rounded-full bg-sky-400/20 border border-sky-400/30 text-sky-300">
+                    <i class="fas fa-user-graduate mr-1.5"></i> 6 Dosen Terlibat
+                </span>
+            </div>
+        </div>
+
+        <!-- ===== STATISTIK UTAMA ===== -->
+        <section class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                <div class="text-2xl font-bold text-gold">35</div>
+                <div class="text-xs text-slate-400">Total Rekognisi</div>
+            </div>
+            <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                <div class="text-2xl font-bold text-sky-400">3</div>
+                <div class="text-xs text-slate-400">Tingkat Internasional</div>
+            </div>
+            <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                <div class="text-2xl font-bold text-gold">6</div>
+                <div class="text-xs text-slate-400">Tingkat Nasional</div>
+            </div>
+            <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                <div class="text-2xl font-bold text-emerald-400">26</div>
+                <div class="text-xs text-slate-400">Tingkat Wilayah</div>
+            </div>
+        </section>
+
+        <!-- ===== TABEL REKOGNISI ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                        <i class="fas fa-list text-gold"></i> Tabel Rekognisi DPRPS
+                        <span class="text-sm text-slate-400 font-normal">— 2022–2025</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Data rekognisi dosen tetap berdasarkan dokumentasi yang tersedia</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <select id="filterDosen" onchange="renderTable()" class="filter-select">
+                        <option value="all">Semua Dosen</option>
+                        <option value="Primalita Putri Distina">Primalita Putri Distina</option>
+                        <option value="Chitra Fraghini">Chitra Fraghini</option>
+                        <option value="Siska Dwi Paramitha">Siska Dwi Paramitha</option>
+                        <option value="Wahyu Kurniawan">Wahyu Kurniawan</option>
+                        <option value="Oktarizal Drianus">Oktarizal Drianus</option>
+                        <option value="Yandi Hafizallah">Yandi Hafizallah</option>
+                    </select>
+                    <select id="filterTingkat" onchange="renderTable()" class="filter-select">
+                        <option value="all">Semua Tingkat</option>
+                        <option value="internasional">Internasional</option>
+                        <option value="nasional">Nasional</option>
+                        <option value="wilayah">Wilayah</option>
+                    </select>
+                    <select id="filterTahun" onchange="renderTable()" class="filter-select">
+                        <option value="all">Semua Tahun</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs text-amber-400 flex items-center gap-2">
+                <i class="fas fa-info-circle"></i>
+                <span>Data rekognisi dosen berdasarkan sertifikat, surat tugas, dan bukti pendukung yang terdokumentasi.</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-10 text-center">No</th>
+                            <th class="text-left min-w-[120px]">Nama Dosen</th>
+                            <th class="text-left min-w-[160px]">Bidang Keahlian</th>
+                            <th class="text-left min-w-[200px]">Rekognisi dan Bukti Pendukung</th>
+                            <th class="text-center min-w-[60px]">Wilayah</th>
+                            <th class="text-center min-w-[60px]">Nasional</th>
+                            <th class="text-center min-w-[60px]">Internasional</th>
+                            <th class="text-center min-w-[60px]">Tahun</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- diisi oleh JavaScript -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8" class="text-center text-xs text-slate-500">
+                                <i class="fas fa-database mr-1"></i> Total <span id="totalData">0</span> entri tercatat
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <!-- ===== RINGKASAN AGREGAT ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8">
+            <h3 class="font-heading font-bold text-white text-sm mb-4 flex items-center gap-2">
+                <i class="fas fa-layer-group text-gold"></i> Ringkasan Agregat
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                    <div class="text-xs text-slate-400">Total Rekognisi</div>
+                    <div class="text-2xl font-bold text-gold">35</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                    <div class="text-xs text-slate-400">Internasional</div>
+                    <div class="text-2xl font-bold text-sky-400">3</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                    <div class="text-xs text-slate-400">Nasional</div>
+                    <div class="text-2xl font-bold text-gold">6</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                    <div class="text-xs text-slate-400">Wilayah</div>
+                    <div class="text-2xl font-bold text-emerald-400">26</div>
+                </div>
+            </div>
+
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                    <div class="text-xs text-slate-400">Dosen dengan Rekognisi Terbanyak</div>
+                    <div class="text-sm text-white font-semibold mt-1">Primalita Putri Distina, M.Psi., Psikolog</div>
+                    <div class="text-xs text-gold">21 rekognisi</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                    <div class="text-xs text-slate-400">Distribusi per Tahun</div>
+                    <div class="flex gap-4 mt-1 text-sm">
+                        <span><span class="text-gold font-bold">2023</span> <span class="text-slate-400">(3)</span></span>
+                        <span><span class="text-gold font-bold">2024</span> <span class="text-slate-400">(19)</span></span>
+                        <span><span class="text-gold font-bold">2025</span> <span class="text-slate-400">(13)</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ANALISIS NARATIF ===== -->
+        <section class="bg-gradient-to-r from-gold/10 to-gold/5 border border-gold/20 rounded-2xl p-6 mb-8">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl">📝</span>
+                <div>
+                    <h3 class="font-heading font-bold text-white text-sm">Analisis Rekognisi DPRPS</h3>
+                    <p class="text-xs text-slate-400">Ringkasan berbasis data rekognisi 2022–2025</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+
+                <p>
+                    Prodi Psikologi Islam telah melakukan inventarisasi terhadap rekognisi dan pengakuan yang diterima oleh dosen tetap dalam kurun waktu 2022–2025 sebagai bagian dari upaya mengukur capaian kinerja dosen dan kontribusi prodi dalam pengembangan ilmu psikologi berbasis nilai Islam dan pemberdayaan masyarakat. Berdasarkan data yang berhasil dihimpun dari dokumentasi sertifikat, surat tugas, dan bukti pendukung lainnya, tercatat sebanyak <strong class="text-gold">35 rekognisi</strong> yang diterima oleh <strong class="text-white">6 dosen tetap</strong> Prodi Psikologi Islam.
+                </p>
+
+                <p>
+                    <strong class="text-gold">1. Capaian Berdasarkan Tingkat Rekognisi</strong>
+                </p>
+
+                <p>
+                    Rekognisi yang diterima dosen terdiri atas tiga jenjang tingkat. <strong class="text-white">Tingkat Internasional (3 rekognisi):</strong> Dosen prodi berhasil meraih pengakuan internasional melalui partisipasi sebagai presenter dalam <strong class="text-white">AICOIIS 2024</strong> (Abstract: <em>"Communal Happiness: Source of Employee Happiness in Healthcare"</em>) serta perolehan <strong class="text-white">Bronze Medal</strong> dan <strong class="text-white">Silver Medal</strong> dalam ajang <strong class="text-white">ICOPSY 2024</strong>. Capaian ini menunjukkan bahwa dosen prodi mampu bersaing dan diakui di forum ilmiah internasional.
+                </p>
+
+                <p>
+                    <strong class="text-white">Tingkat Nasional (6 rekognisi):</strong> Pengakuan tingkat nasional mencakup peran sebagai <strong class="text-white">editor Jurnal Psychosophia</strong> (SINTA 3), <strong class="text-white">reviewer proposal penelitian</strong> di IAKN Toraja, <strong class="text-white">poster presenter</strong> dalam Temilnas APPI-HIMPSI, serta <strong class="text-white">Juara 3 Lomba Poster Harkodia Nasional</strong> (Kemenag RI). Dosen prodi juga dipercaya sebagai <strong class="text-white">psikolog rujukan rehabilitasi psikologis terlindung</strong> oleh Lembaga Perlindungan Saksi dan Korban (LPSK), yang menegaskan kompetensi klinis dosen di tingkat nasional.
+                </p>
+
+                <p>
+                    <strong class="text-white">Tingkat Wilayah (26 rekognisi):</strong> Sebagian besar rekognisi (74,3%) berada pada tingkat wilayah, yang mencerminkan peran aktif dosen dalam memberikan kontribusi langsung kepada masyarakat di Provinsi Kepulauan Bangka Belitung. Kegiatan ini meliputi narasumber dalam program <strong class="text-white">BNN</strong> (7 kegiatan), <strong class="text-white">BKKBN/Forum GenRe</strong> (8 kegiatan), serta berbagai institusi pendidikan dan sosial lainnya.
+                </p>
+
+                <p>
+                    <strong class="text-gold">2. Kontribusi Dosen dan Bidang Keahlian</strong>
+                </p>
+
+                <p>
+                    <strong class="text-white">Primalita Putri Distina, M.Psi., Psikolog</strong> mencatat rekognisi terbanyak dengan <strong class="text-gold">21 pengakuan</strong>, yang mencerminkan peran sentralnya dalam berbagai kegiatan pengabdian dan pengembangan keilmuan di tingkat wilayah, nasional, dan internasional. <strong class="text-white">Chitra Fraghini, M.Psi., Psikolog</strong> dengan 9 rekognisi menunjukkan kontribusi yang kuat di bidang intervensi keluarga, perlindungan anak, dan pembinaan mental. <strong class="text-white">Siska Dwi Paramitha, M.Psi., Psikolog</strong> dengan 4 rekognisi berfokus pada psikologi pendidikan, sementara <strong class="text-white">Wahyu Kurniawan, M.Psi., Psikolog</strong> dengan 3 rekognisi menonjol di bidang rehabilitasi psikologis dan keluarga.
+                </p>
+
+                <p>
+                    Bidang keahlian yang paling banyak mendapatkan rekognisi adalah <strong class="text-white">Psikologi Remaja &amp; Pendidikan</strong> (10 rekognisi), diikuti <strong class="text-white">Psikologi Pendidikan</strong> (8 rekognisi) dan <strong class="text-white">Psikologi Keluarga &amp; Intervensi</strong> (6 rekognisi). Hal ini menunjukkan bahwa dosen prodi memiliki kompetensi unggul dalam ranah pendidikan, pengembangan remaja, dan intervensi keluarga, yang sejalan dengan misi prodi dalam mengintegrasikan psikologi dengan nilai-nilai keislaman dan pemberdayaan masyarakat.
+                </p>
+
+                <p>
+                    <strong class="text-gold">3. Mitra dan Dampak Layanan</strong>
+                </p>
+
+                <p>
+                    Institusi mitra yang paling banyak bekerja sama dengan dosen prodi adalah <strong class="text-white">BNN (7 kegiatan)</strong> dan <strong class="text-white">BKKBN/Forum GenRe (8 kegiatan)</strong>, yang mencerminkan kepercayaan institusi pemerintah terhadap kompetensi dosen prodi dalam bidang pencegahan narkoba, ketahanan keluarga, dan pengembangan generasi muda. Keterlibatan dengan <strong class="text-white">POLRI/HIMPSI</strong> dan <strong class="text-white">APPI-HIMPSI</strong> juga menunjukkan pengakuan atas kompetensi dosen dalam asesmen psikologi dan pengembangan profesi psikologi di tingkat nasional.
+                </p>
+
+                <p>
+                    <strong class="text-gold">4. Pemenuhan Indikator Kinerja Dosen (DPRPS)</strong>
+                </p>
+
+                <p>
+                    Berdasarkan capaian rekognisi dosen tersebut, Prodi Psikologi Islam menunjukkan pencapaian yang signifikan, dengan rincian <strong class="text-white">35 rekognisi</strong> dari berbagai bidang dan tingkat, <strong class="text-white">3 rekognisi internasional</strong> yang menunjukkan daya saing global dosen, <strong class="text-white">6 rekognisi nasional</strong> yang menegaskan kontribusi di tingkat kebijakan dan keilmuan nasional, serta <strong class="text-white">26 rekognisi wilayah</strong> yang mencerminkan dampak langsung kepada masyarakat lokal. Keberagaman bidang rekognisi—yang mencakup publikasi ilmiah, pengabdian kepada masyarakat, peran sebagai narasumber/asesor/juri, serta pengakuan dari institusi pemerintah dan profesional—menunjukkan bahwa dosen Prodi Psikologi Islam tidak hanya unggul dalam ranah akademik, tetapi juga memiliki kapasitas untuk berkontribusi secara nyata dalam pembangunan sumber daya manusia dan penguatan ekosistem psikologi di tingkat lokal, nasional, dan internasional.
+                </p>
+
+                <p>
+                    <strong class="text-gold">5. Rekomendasi Penguatan</strong>
+                </p>
+
+                <p>
+                    Untuk mempertahankan dan meningkatkan capaian rekognisi dosen, disarankan: <strong class="text-white">(1)</strong> memperkuat jejaring kemitraan dengan institusi pemerintah dan profesional di tingkat nasional dan internasional untuk memperluas peluang kolaborasi dan pengakuan dosen; <strong class="text-white">(2)</strong> mendorong publikasi internasional dan partisipasi dalam forum ilmiah global guna meningkatkan jumlah rekognisi tingkat internasional; <strong class="text-white">(3)</strong> mendokumentasikan secara sistematis seluruh rekognisi dosen dalam basis data yang terintegrasi untuk mendukung akreditasi dan pelaporan kinerja; <strong class="text-white">(4)</strong> mengembangkan program pendampingan bagi dosen yang masih memiliki jumlah rekognisi terbatas untuk meningkatkan kapasitas dan kontribusinya; serta <strong class="text-white">(5)</strong> menjadikan capaian rekognisi sebagai umpan balik untuk perbaikan kurikulum dan penguatan kompetensi lulusan agar semakin relevan dengan kebutuhan nasional dan global, khususnya dalam bidang psikologi berbasis nilai dan pemberdayaan masyarakat.
+                </p>
+
+                <p class="text-[10px] text-slate-400 mt-2 border-t border-gold/20 pt-2">
+                    <i class="fas fa-info-circle mr-1"></i> Data ini diolah dari dokumentasi sertifikat dan surat tugas dosen 2022–2025.
+                </p>
+
+            </div>
+        </section>
+
+        <!-- ===== DRIVE LINK ===== -->
+        <section class="card-glass p-6 border-gold/10 bg-gold/5">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <h3 class="font-heading font-bold text-white text-sm flex items-center gap-2">
+                        <i class="fas fa-cloud text-gold"></i> Dokumentasi Lengkap
+                    </h3>
+                    <p class="text-xs text-slate-400">Seluruh dokumen bukti rekognisi dosen</p>
+                </div>
+                <a href="https://drive.google.com/drive/u/1/folders/1OJ6vGMW238OFq49xMEZ2LdI_UTuyVzP7" 
+                   target="_blank" 
+                   class="btn-nav btn-nav-drive text-sm">
+                    <i class="fab fa-google-drive"></i> 
+                    Drive Bukti Rekognisi
+                    <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="mt-8 pt-4 border-t border-white/5 text-xs text-slate-500 text-center">
+            <i class="fas fa-print mr-1"></i> Terakhir diperbarui: 2025 – Prodi Psikologi Islam
+            <span class="mx-2">·</span>
+            <i class="fas fa-leaf text-gold mr-1"></i> Daun dari Pohon Pengetahuan
+        </div>
+
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT                                                   -->
+    <!-- ============================================================ -->
+    <script>
+        // ===== DATA REKOGNISI DPRPS (35 ENTRI) =====
+        let rekognisiData = [
+            // 2023 (3)
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Remaja & Pendidikan', rekognisi: 'Narasumber Duta GenRe Provinsi Kepulauan Bangka Belitung (BKKBN)', wilayah: true, nasional: false, internasional: false, tahun: 2023 },
+            { nama: 'Siska Dwi Paramitha, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan', rekognisi: 'Narasumber Program P5 di SMKN 5 Pangkalpinang (Ikatan Psikologi Klinis Indonesia)', wilayah: true, nasional: false, internasional: false, tahun: 2023 },
+            { nama: 'Yandi Hafizallah, M.A.', bidang: 'Psikologi Sosial & Dakwah', rekognisi: 'Juara 3 Lomba Poster Harkodia Nasional (Inspektorat Jenderal Kemenag RI)', wilayah: false, nasional: true, internasional: false, tahun: 2023 },
+
+            // 2024 (19)
+            { nama: 'Oktarizal Drianus, M.Psi., Primalita Putri Distina, M.Psi., Psikolog, Diah Meitikasari, M.Psi., & Firly Triwahyuni', bidang: 'Psikologi Organisasi & Kesejahteraan', rekognisi: 'LoA Presenter AICOIIS 2024 (Abstract: "Communal Happiness: Source of Employee Happiness in Healthcare")', wilayah: false, nasional: false, internasional: true, tahun: 2024 },
+            { nama: 'Chitra Fraghini, M.Psi., Psikolog', bidang: 'Psikologi Klinis & Asesmen', rekognisi: 'Pewawancara Pemeriksaan Psikologi Tahap II (wawancara) Penerimaan Calon Anggota POLRI (Biro SDM Polda Kep. Babel)', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Chitra Fraghini, M.Psi., Psikolog & Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Keluarga & Intervensi', rekognisi: 'Narasumber Intervensi Program Ketahanan Keluarga Anti Narkoba di Desa Air Anyir (BNN Bangka)', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Chitra Fraghini, M.Psi., Psikolog & Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Klinis & Asesmen', rekognisi: 'Tim Pewawancara Calon Anggota POLRI TA 2024 (HIMPSI Wilayah Kep. Babel)', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikometri & Pengukuran', rekognisi: 'Bronze Medal ICOPSY', wilayah: false, nasional: false, internasional: true, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Remaja & Pendidikan', rekognisi: 'Narasumber Apresiasi Duta dan Jambore Kreatifitas GenRe Bangka Selatan (BKKBN)', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan', rekognisi: 'Poster Presenter Temilnas APPI-HIMPSI', wilayah: false, nasional: true, internasional: false, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan', rekognisi: 'Reviewer Proposal Penelitian IAKN Toraja', wilayah: false, nasional: true, internasional: false, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan', rekognisi: 'Sertifikat Presenter Poster Temilnas APP-HIMPSI', wilayah: false, nasional: true, internasional: false, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikometri & Pengukuran', rekognisi: 'Silver Medal ICOPSY', wilayah: false, nasional: false, internasional: true, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan & Perlindungan Anak', rekognisi: 'Narasumber In House Training Penguatan Keamanan Satuan Pendidikan di UPTD SMP Negeri 1 Sungaiselan', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Remaja & Pendidikan', rekognisi: 'Juri Deep Interview dan Grand Final Apresiasi Duta Genre Provinsi Kep. Babel (Forum GenRe Indonesia)', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Remaja & Kesehatan', rekognisi: 'Narasumber Dialog Interaktif Remaja (BNN Bangka)', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Siska Dwi Paramitha, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan', rekognisi: 'Narasumber Seminar "Membangun Kedekatan dan Hubungan Baik antara Guru, Peserta Didik dan Orang Tua" (SMP Negeri 3 Pangkalpinang)', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Siska Dwi Paramitha, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan', rekognisi: 'Narasumber Qisya', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Siska Dwi Paramitha, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan', rekognisi: 'Narasumber SD 55 Pangkalpinang', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Wahyu Kurniawan, M.Psi., Psikolog', bidang: 'Psikologi Klinis & Rehabilitasi', rekognisi: 'Psikolog Rujukan Rehabilitasi Psikologis Terlindung (Lembaga Perlindungan Saksi dan Korban - LPSK)', wilayah: false, nasional: true, internasional: false, tahun: 2024 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Remaja & Pendidikan', rekognisi: 'Juri Deep Interview dan Grand Final Apresiasi Duta Genre Provinsi Kep. Babel (Forum GenRe Indonesia)', wilayah: true, nasional: false, internasional: false, tahun: 2024 },
+            { nama: 'Oktarizal Drianus, M.Psi., Primalita Putri Distina, M.Psi., Psikolog, Yandi Hafizallah, M.A., & Chitra Fraghini, M.Psi., Psikolog', bidang: 'Publikasi Ilmiah & Jurnal', rekognisi: 'Editor Jurnal Psychosophia: Journal of Psychology, Religion and Humanity (SINTA 3)', wilayah: false, nasional: true, internasional: false, tahun: '2022–2025' },
+
+            // 2025 (13)
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog; Chitra Fraghini, M.Psi., Psikolog; Wahyu Kurniawan, M.Psi., Psikolog', bidang: 'Psikologi Keluarga & Intervensi', rekognisi: 'Narasumber Workshop Pelaksanaan Fasilitasi Pendidikan Anti Narkoba Pada Keluarga (BNN Kab. Bangka)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Chitra Fraghini, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan', rekognisi: 'Narasumber Sosialisasi Program Pencegahan Anti Perundungan (SKB Kota Pangkalpinang)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Chitra Fraghini, M.Psi., Psikolog', bidang: 'Psikologi Keluarga & Intervensi', rekognisi: 'Narasumber Evaluasi Pelaksanaan Fasilitasi Pendidikan Anti Narkoba Pada Keluarga (BNN Kota Pangkalpinang)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Chitra Fraghini, M.Psi., Psikolog', bidang: 'Psikologi Perempuan & Perlindungan Anak', rekognisi: 'Narasumber Bimbingan Teknis Peningkatan Kapasitas Lembaga Penanganan Perempuan Korban Kekerasan (DPPKBP3A Bangka Tengah)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Chitra Fraghini, M.Psi., Psikolog', bidang: 'Psikologi Klinis & Pembinaan Mental', rekognisi: 'Narasumber Pembinaan Rohani dan Mental Pegawai BNN (BNN Kab. Bangka)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Remaja & Pendidikan', rekognisi: 'Narasumber Apresiasi Duta Genre Tingkat Provinsi Kepulauan Bangka Belitung (BKKBN Prov. Kep. Babel)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Keluarga & Parenting', rekognisi: 'Narasumber Parenting PAUD Paramarta (Yayasan Rumba Kita Indonesia)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Pengembangan Diri', rekognisi: 'Narasumber Pemilihan Duta Bahasa Kepulauan Bangka Belitung (Kantor Bahasa Prov. Kep. Babel)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Pendidikan & Remaja', rekognisi: 'Narasumber Pelatihan Teknis Pendidik Sebaya Anti Narkotika (BNN Kab. Bangka)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog; Chitra Fraghini, M.Psi., Psikolog; Wahyu Kurniawan, M.Psi., Psikolog', bidang: 'Psikologi Keluarga & Intervensi', rekognisi: 'Narasumber Workshop Pelaksanaan Fasilitasi Pendidikan Anti Narkoba Pada Keluarga (BNN Kota Pangkalpinang)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Remaja & Pendidikan', rekognisi: 'Juri Grand Final Duta Genre Kab. Bangka (Forum Genre Indonesia Kab. Bangka)', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog & Pebri Yanasari, M.A.', bidang: 'Psikologi Keluarga & Parenting', rekognisi: 'Narasumber Kelas Orang Tua Hebat (KERABAT) - BKKBN Prov. Kep. Babel', wilayah: true, nasional: false, internasional: false, tahun: 2025 },
+            { nama: 'Primalita Putri Distina, M.Psi., Psikolog', bidang: 'Psikologi Remaja & Pendidikan', rekognisi: 'Juri Grand Final Apresiasi Duta Genre Tingkat Provinsi Kep. Babel (BKKBN Prov. Kep. Babel)', wilayah: true, nasional: false, internasional: false, tahun: 2025 }
+        ];
+
+        // ===== RENDER TABEL =====
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const filterDosen = document.getElementById('filterDosen').value;
+            const filterTingkat = document.getElementById('filterTingkat').value;
+            const filterTahun = document.getElementById('filterTahun').value;
+
+            let filtered = rekognisiData;
+
+            if (filterDosen !== 'all') {
+                filtered = filtered.filter(item => item.nama.toLowerCase().includes(filterDosen.toLowerCase()));
+            }
+            if (filterTingkat !== 'all') {
+                if (filterTingkat === 'internasional') filtered = filtered.filter(item => item.internasional === true);
+                else if (filterTingkat === 'nasional') filtered = filtered.filter(item => item.nasional === true);
+                else if (filterTingkat === 'wilayah') filtered = filtered.filter(item => item.wilayah === true);
+            }
+            if (filterTahun !== 'all') {
+                filtered = filtered.filter(item => item.tahun == filterTahun || item.tahun === '2022–2025');
+            }
+
+            tbody.innerHTML = '';
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center text-slate-500 py-4">Tidak ada data untuk filter ini.</td></tr>`;
+                document.getElementById('totalData').textContent = '0';
+                return;
+            }
+
+            filtered.forEach((item, index) => {
+                const tr = document.createElement('tr');
+
+                const wilayahBadge = item.wilayah ? '<span class="badge-status badge-wilayah">✓</span>' : '';
+                const nasionalBadge = item.nasional ? '<span class="badge-status badge-nasional">✓</span>' : '';
+                const internasionalBadge = item.internasional ? '<span class="badge-status badge-internasional">✓</span>' : '';
+
+                const bidangDisplay = item.bidang.length > 25 ? item.bidang.substring(0, 22) + '...' : item.bidang;
+
+                tr.innerHTML = `
+                    <td class="text-center font-mono text-gold font-bold">${index + 1}</td>
+                    <td class="text-left text-white text-xs font-medium">${item.nama}</td>
+                    <td class="text-left text-slate-300 text-xs" title="${item.bidang}">${bidangDisplay}</td>
+                    <td class="text-left text-slate-300 text-xs">${item.rekognisi}</td>
+                    <td class="text-center">${wilayahBadge}</td>
+                    <td class="text-center">${nasionalBadge}</td>
+                    <td class="text-center">${internasionalBadge}</td>
+                    <td class="text-center text-slate-300 text-xs">${item.tahun}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('totalData').textContent = filtered.length;
+        }
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTable();
+        });
+    </script>
+
+</body>
+</html>
