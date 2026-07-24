@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Implementasi K3 · Psikologi Islam</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#E8EDF8', 100: '#C5D2F0', 200: '#9DB5E8',
+                            300: '#6F95E0', 400: '#4F7FD8', 500: '#2A5CC4',
+                            600: '#1A3F8F', 700: '#122B6A', 800: '#0B1D45',
+                            900: '#060F28', 950: '#030714',
+                        },
+                        gold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060F28;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .glass-nav {
+            background: rgba(11, 29, 69, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(79, 143, 255, 0.15);
+        }
+
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .btn-nav-home {
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        .btn-nav-home:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        .btn-nav-tree {
+            background: rgba(82, 183, 136, 0.06);
+            color: #52B788;
+            border-color: rgba(82, 183, 136, 0.1);
+        }
+        .btn-nav-tree:hover {
+            background: rgba(82, 183, 136, 0.12);
+            border-color: #52B788;
+            transform: translateY(-2px);
+        }
+        .btn-nav-drive {
+            background: rgba(26, 115, 232, 0.08);
+            color: #4F7FD8;
+            border-color: rgba(26, 115, 232, 0.1);
+        }
+        .btn-nav-drive:hover {
+            background: rgba(26, 115, 232, 0.15);
+            border-color: #4F7FD8;
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 4px;
+            font-size: 0.8rem;
+            padding: 4px 0;
+        }
+        .breadcrumb a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .breadcrumb a:hover {
+            color: #D4AF37;
+        }
+        .breadcrumb .separator {
+            color: #475569;
+            font-size: 0.6rem;
+            margin: 0 2px;
+        }
+        .breadcrumb .current {
+            color: #e2e8f0;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .breadcrumb .current i {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+
+        .card-glass {
+            background: rgba(11, 29, 69, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .card-glass:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-card {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .stat-card:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.7rem;
+        }
+        .table-wrap thead {
+            background: rgba(11, 29, 69, 0.6);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        .table-wrap thead th {
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 700;
+            color: #D4AF37;
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+        .table-wrap tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.2s ease;
+        }
+        .table-wrap tbody tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .table-wrap tbody td {
+            padding: 8px 12px;
+            color: #cbd5e1;
+            vertical-align: middle;
+        }
+        .table-wrap tbody td:first-child {
+            font-weight: 600;
+            color: #e2e8f0;
+            text-align: center;
+        }
+        .table-wrap tfoot tr {
+            background: rgba(11, 29, 69, 0.5);
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        .table-wrap tfoot td {
+            padding: 10px 12px;
+            color: #D4AF37;
+            font-weight: 700;
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+        .badge-aktif {
+            background: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.15);
+        }
+        .badge-proses {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.15);
+        }
+        .badge-perlu {
+            background: rgba(251, 113, 133, 0.12);
+            color: #fb7185;
+            border: 1px solid rgba(251, 113, 133, 0.15);
+        }
+
+        .badge-tema {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            background: rgba(212, 175, 55, 0.08);
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .filter-select {
+            background-color: rgba(11, 29, 69, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .filter-select:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
+        }
+        .filter-select option {
+            background-color: #0B1D45;
+            color: #e2e8f0;
+        }
+
+        .sidebar {
+            background: rgba(11, 29, 69, 0.9);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            width: 280px;
+            flex-shrink: 0;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            padding: 24px 16px;
+        }
+        .sidebar h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #D4AF37;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+        .sidebar h2 i {
+            color: #52B788;
+        }
+        .tree {
+            list-style: none;
+            padding-left: 0;
+        }
+        .tree li {
+            margin: 4px 0;
+        }
+        .tree a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .tree a i {
+            width: 20px;
+            color: #4F7FD8;
+            font-size: 14px;
+        }
+        .tree a:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #e2e8f0;
+            border-left-color: #D4AF37;
+        }
+        .tree a.active {
+            background: rgba(212, 175, 55, 0.08);
+            color: #D4AF37;
+            border-left-color: #D4AF37;
+        }
+        .tree .folder-icon {
+            color: #f5c542;
+        }
+        .tree .sub-tree {
+            list-style: none;
+            padding-left: 28px;
+            margin-top: 2px;
+        }
+        .tree .sub-tree a {
+            font-size: 13px;
+            padding: 5px 14px;
+        }
+        .tree .sub-tree a i {
+            font-size: 12px;
+            width: 18px;
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .main-content {
+            flex: 1;
+            padding: 32px 40px;
+            max-width: calc(100% - 280px);
+            overflow-y: auto;
+        }
+
+        @media (max-width: 820px) {
+            .sidebar { width: 220px; padding: 16px; }
+            .main-content { padding: 20px; max-width: 100%; }
+        }
+        @media (max-width: 640px) {
+            .app-layout { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                padding: 12px 16px;
+            }
+            .main-content { max-width: 100%; padding: 16px; }
+            .table-wrap table { font-size: 0.6rem; }
+            .table-wrap thead th, .table-wrap tbody td { padding: 4px 6px; }
+            .filter-select { font-size: 0.6rem; padding: 2px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== APP LAYOUT ===== -->
+<div class="app-layout">
+
+    <!-- ===== SIDEBAR TREE ===== -->
+    <nav class="sidebar">
+        <h2><i class="fas fa-sitemap"></i> Menu Prodi</h2>
+        <ul class="tree">
+            <li><a href="#"><i class="fas fa-home"></i> Beranda</a></li>
+            <li>
+                <a href="#" class="active"><i class="fas fa-shield-alt folder-icon"></i> Implementasi K3</a>
+                <ul class="sub-tree">
+                    <li><a href="#kebijakan"><i class="fas fa-file-contract"></i> Kebijakan K3</a></li>
+                    <li><a href="#prosedur"><i class="fas fa-list-check"></i> Prosedur K3</a></li>
+                    <li><a href="#satgas"><i class="fas fa-users"></i> Satgas PPKS</a></li>
+                    <li><a href="#kontak"><i class="fas fa-phone"></i> Kontak Darurat</a></li>
+                    <li><a href="#sampah"><i class="fas fa-trash-alt"></i> Sampah & Limbah B3</a></li>
+                    <li><a href="#kesehatan"><i class="fas fa-heartbeat"></i> Fasilitas Kesehatan</a></li>
+                    <li><a href="#bebasrokok"><i class="fas fa-smoking-ban"></i> Kawasan Tanpa Rokok</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div style="margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.05);font-size:11px;color:#475569;">
+            <i class="fas fa-shield-alt" style="color:#D4AF37;"></i> 7 Komponen · 12 Dokumen
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content" id="top">
+
+        <!-- ===== NAVBAR DENGAN BREADCRUMB ===== -->
+        <div class="glass-nav fixed top-0 left-0 right-0 z-50" style="position:relative;background:transparent;backdrop-filter:none;border-bottom:1px solid rgba(255,255,255,0.05);margin-bottom:24px;">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 gap-2">
+
+                <!-- Breadcrumb kiri + Drive -->
+                <div class="flex items-center gap-4 flex-wrap">
+                    <div class="breadcrumb">
+                        <a href="https://pi-iainbabel.github.io/psychosophia-hub/" title="Kembali ke Home">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                        <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" title="Kembali ke Tata Kelola">
+                            <i class="fas fa-sitemap"></i> Tata Kelola
+                        </a>
+                        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                        <span class="current">
+                            <i class="fas fa-shield-alt"></i> Implementasi K3
+                        </span>
+                    </div>
+                    <a href="https://drive.google.com/drive/u/1/folders/11T1ScBFPOlWzD4H3TeJou6KzYEcNEkG5" 
+                       target="_blank" 
+                       class="btn-nav btn-nav-drive text-xs">
+                        <i class="fab fa-google-drive"></i> Folder K3
+                    </a>
+                </div>
+
+                <!-- Tombol navigasi kanan -->
+                <div class="flex items-center gap-2 flex-wrap">
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/struktur-konten.html" class="btn-nav btn-nav-tree" title="Pohon Pengetahuan">
+                        <i class="fas fa-tree"></i> Tree
+                    </a>
+                    <a href="https://pi-iainbabel.github.io/psychosophia-hub/" class="btn-nav btn-nav-home" title="Kembali ke Home">
+                        <i class="fas fa-arrow-left"></i> Home
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ===== HERO ===== -->
+        <div class="mb-8">
+            <h1 class="font-heading font-extrabold text-3xl sm:text-4xl text-white flex items-center gap-3">
+                <i class="fas fa-shield-alt text-gold"></i> Implementasi Sistem K3
+            </h1>
+            <div class="mt-2 flex items-center gap-3 text-sm text-slate-400 bg-navy-800/30 px-4 py-2 rounded-full inline-flex border border-white/5">
+                <i class="fas fa-map-pin text-gold"></i>
+                Keamanan, Keselamatan, dan Kesehatan Kerja & Lingkungan – IAIN SAS Bangka Belitung
+            </div>
+            <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                <span class="badge-tema"><i class="fas fa-check-circle"></i> Sapto 2.0</span>
+                <span class="badge-tema"><i class="fas fa-fire-extinguisher"></i> Pencegahan Kebakaran</span>
+                <span class="badge-tema"><i class="fas fa-trash-alt"></i> Pengelolaan Sampah & B3</span>
+                <span class="badge-tema"><i class="fas fa-heartbeat"></i> Fasilitas Kesehatan</span>
+                <span class="badge-tema"><i class="fas fa-smoking-ban"></i> Kawasan Tanpa Rokok</span>
+            </div>
+        </div>
+
+        <!-- ===== STATISTIK ===== -->
+        <section class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                <div class="text-2xl font-bold text-gold">12</div>
+                <div class="text-xs text-slate-400">Dokumen K3</div>
+            </div>
+            <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                <div class="text-2xl font-bold text-purple-400">7</div>
+                <div class="text-xs text-slate-400">Komponen K3</div>
+            </div>
+            <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                <div class="text-2xl font-bold text-emerald-400">5</div>
+                <div class="text-xs text-slate-400">Satgas PPKS</div>
+            </div>
+            <div class="stat-card bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                <div class="text-2xl font-bold text-sky-400">4</div>
+                <div class="text-xs text-slate-400">Pilar K3</div>
+            </div>
+        </section>
+
+        <!-- ===== KEBIJAKAN K3 ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8" id="kebijakan">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                        <i class="fas fa-file-contract text-gold"></i> Kebijakan K3
+                        <span class="text-sm text-slate-400 font-normal">— Landasan & Regulasi</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Dasar hukum dan kebijakan K3 di lingkungan IAIN SAS Bangka Belitung</p>
+                </div>
+                <div>
+                    <select id="filterKebijakan" onchange="filterKebijakan()" class="filter-select">
+                        <option value="all">Semua Jenis</option>
+                        <option value="regulasi">Regulasi</option>
+                        <option value="pedoman">Pedoman</option>
+                        <option value="sk">SK Rektor</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-12 text-center">No</th>
+                            <th class="text-left min-w-[180px]">Nama Dokumen</th>
+                            <th class="text-left min-w-[100px]">Jenis</th>
+                            <th class="text-center min-w-[70px]">Status</th>
+                            <th class="text-center min-w-[60px]">Akses</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kebijakanBody">
+                        <!-- diisi oleh JavaScript -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-center text-xs text-slate-500">
+                                <i class="fas fa-file-contract mr-1"></i> Total 6 kebijakan K3 tercatat
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <!-- ===== PROSEDUR K3 ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8" id="prosedur">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                        <i class="fas fa-list-check text-gold"></i> Prosedur K3
+                        <span class="text-sm text-slate-400 font-normal">— Standar Operasional</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Prosedur tanggap darurat dan penanganan insiden</p>
+                </div>
+                <div>
+                    <select id="filterProsedur" onchange="filterProsedur()" class="filter-select">
+                        <option value="all">Semua Kategori</option>
+                        <option value="darurat">Tanggap Darurat</option>
+                        <option value="p3k">P3K</option>
+                        <option value="kebakaran">Penanggulangan Kebakaran</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-12 text-center">No</th>
+                            <th class="text-left min-w-[180px]">Prosedur</th>
+                            <th class="text-left min-w-[100px]">Kategori</th>
+                            <th class="text-center min-w-[70px]">Ketersediaan</th>
+                            <th class="text-center min-w-[60px]">Akses</th>
+                        </tr>
+                    </thead>
+                    <tbody id="prosedurBody">
+                        <!-- diisi oleh JavaScript -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-center text-xs text-slate-500">
+                                <i class="fas fa-list-check mr-1"></i> Total 5 prosedur K3 tercatat
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <!-- ===== SATGAS PPKS ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8" id="satgas">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                        <i class="fas fa-users text-gold"></i> Satgas PPKS
+                        <span class="text-sm text-slate-400 font-normal">— Pencegahan & Penanganan Kekerasan Seksual</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Tim Satgas PPKS IAIN SAS Bangka Belitung berdasarkan SK Rektor</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                        <h4 class="font-heading font-semibold text-gold text-sm mb-3">
+                            <i class="fas fa-users-cog mr-2"></i>Tim Satgas PPKS
+                        </h4>
+                        <!-- konten diisi dari data, tapi di sini hanya placeholder -->
+                        <p class="text-sm text-slate-300">(Detail tim dapat dilihat pada dokumen SK Rektor)</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                        <h4 class="font-heading font-semibold text-gold text-sm mb-3">
+                            <i class="fas fa-tasks mr-2"></i>Tugas & Fungsi
+                        </h4>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Pencegahan kekerasan seksual di lingkungan kampus</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Penanganan kasus kekerasan seksual</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Pelatihan dan sosialisasi PPKS</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Koordinasi dengan PSGA LP2M</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-4 bg-gold/5 rounded-xl border border-gold/10">
+                <div class="flex items-center gap-3 text-xs text-slate-400">
+                    <i class="fas fa-info-circle text-gold"></i>
+                    <span>Satgas PPKS dibentuk berdasarkan SK Rektor Nomor 1000 Tahun 2025 tentang Tim Panitia dan Narasumber Pelatihan Penanganan Kasus untuk Satgas Perguruan Tinggi.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== KONTAK DARURAT ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8" id="kontak">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                        <i class="fas fa-phone text-gold"></i> Kontak Darurat K3
+                        <span class="text-sm text-slate-400 font-normal">— Emergency Call</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Nomor kontak penting untuk keadaan darurat</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-ambulance text-2xl text-gold mb-2"></i>
+                    <div class="text-xs text-slate-400">PK4L IAIN SAS BABEL</div>
+                    <div class="text-sm font-bold text-white">0717-910-8206</div>
+                    <div class="text-xs text-slate-500">Internal</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-user-md text-2xl text-gold mb-2"></i>
+                    <div class="text-xs text-slate-400">Dr. Fatma Sylvana Dewi</div>
+                    <div class="text-sm font-bold text-white">+62 857-8853-9276</div>
+                    <div class="text-xs text-slate-500">HP</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-hospital text-2xl text-gold mb-2"></i>
+                    <div class="text-xs text-slate-400">Puskesmas Petaling</div>
+                    <div class="text-sm font-bold text-white">0717-910-8206</div>
+                    <div class="text-xs text-slate-500">+62 811-7175-361</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-fire-extinguisher text-2xl text-gold mb-2"></i>
+                    <div class="text-xs text-slate-400">PBK Kota Pangkalpinang</div>
+                    <div class="text-sm font-bold text-white">0853-6722-7100</div>
+                    <div class="text-xs text-slate-500">Penanggulangan Bahaya Kebakaran</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-hand-holding-heart text-2xl text-gold mb-2"></i>
+                    <div class="text-xs text-slate-400">PMI Kota Pangkalpinang</div>
+                    <div class="text-sm font-bold text-white">0717-436327</div>
+                    <div class="text-xs text-slate-500">Palang Merah Indonesia</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-shield-alt text-2xl text-gold mb-2"></i>
+                    <div class="text-xs text-slate-400">Polda Kep. Bangka Belitung</div>
+                    <div class="text-sm font-bold text-white">(0717) 437900</div>
+                    <div class="text-xs text-slate-500">Polisi</div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-4 bg-gold/5 rounded-xl border border-gold/10">
+                <div class="flex items-center gap-3 text-xs text-slate-400">
+                    <i class="fas fa-info-circle text-gold"></i>
+                    <span>Sumber: Pedoman K3 Pusat Kesehatan IAIN SAS Bangka Belitung</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PENGELOLAAN SAMPAH & LIMBAH B3 ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8" id="sampah">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                        <i class="fas fa-trash-alt text-gold"></i> Pengelolaan Sampah & Limbah B3
+                        <span class="text-sm text-slate-400 font-normal">— Lingkungan Sehat</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Sistem pengelolaan sampah dan limbah bahan berbahaya & beracun di kampus</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                        <h4 class="font-heading font-semibold text-gold text-sm mb-3">
+                            <i class="fas fa-recycle mr-2"></i>Pengelolaan Sampah
+                        </h4>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Pemisahan sampah organik dan anorganik</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Pengadaan tempat sampah terpilah di setiap gedung</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Kerjasama dengan pihak ketiga untuk pengangkutan sampah</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Program pengomposan untuk sampah organik</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                        <h4 class="font-heading font-semibold text-gold text-sm mb-3">
+                            <i class="fas fa-biohazard mr-2"></i>Limbah B3
+                        </h4>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Identifikasi dan kategorisasi limbah B3 (baterai, tinta, kimia)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Penyimpanan sementara di tempat khusus</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Penanganan oleh pihak berizin (TPA B3)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Sosialisasi tata cara pembuangan limbah B3</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-4 bg-gold/5 rounded-xl border border-gold/10">
+                <div class="flex items-center gap-3 text-xs text-slate-400">
+                    <i class="fas fa-info-circle text-gold"></i>
+                    <span>Dokumen terkait: Pedoman Pengelolaan Sampah dan Limbah B3 IAIN SAS (2024)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FASILITAS KESEHATAN KERJA ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8" id="kesehatan">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                        <i class="fas fa-heartbeat text-gold"></i> Fasilitas Kesehatan Kerja
+                        <span class="text-sm text-slate-400 font-normal">— Lingkungan Kerja Sehat</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Fasilitas yang memenuhi standar kesehatan kerja dan menjamin lingkungan kerja yang sehat</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-clinic-medical text-2xl text-gold mb-2"></i>
+                    <div class="text-sm font-bold text-white">Klinik Kesehatan</div>
+                    <div class="text-xs text-slate-400">PK4L dengan tenaga medis 24 jam</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-briefcase-medical text-2xl text-gold mb-2"></i>
+                    <div class="text-sm font-bold text-white">P3K di Setiap Gedung</div>
+                    <div class="text-xs text-slate-400">Kotak P3K lengkap dan rutin diperiksa</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-chair text-2xl text-gold mb-2"></i>
+                    <div class="text-sm font-bold text-white">Ergonomi Ruang Kerja</div>
+                    <div class="text-xs text-slate-400">Kursi dan meja yang mendukung postur sehat</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-wind text-2xl text-gold mb-2"></i>
+                    <div class="text-sm font-bold text-white">Ventilasi & Pencahayaan</div>
+                    <div class="text-xs text-slate-400">Sirkulasi udara dan cahaya alami yang memadai</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-hand-sparkles text-2xl text-gold mb-2"></i>
+                    <div class="text-sm font-bold text-white">Fasilitas Cuci Tangan</div>
+                    <div class="text-xs text-slate-400">Sabun dan hand sanitizer tersedia</div>
+                </div>
+                <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5 text-center">
+                    <i class="fas fa-water text-2xl text-gold mb-2"></i>
+                    <div class="text-sm font-bold text-white">Air Minum Bersih</div>
+                    <div class="text-xs text-slate-400">Sumber air minum yang sehat dan terjaga</div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-4 bg-gold/5 rounded-xl border border-gold/10">
+                <div class="flex items-center gap-3 text-xs text-slate-400">
+                    <i class="fas fa-info-circle text-gold"></i>
+                    <span>Dokumen: Pedoman Fasilitas Kesehatan Kerja IAIN SAS (2024)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== KAWASAN TANPA ROKOK ===== -->
+        <section class="card-glass p-6 border-gold/10 mb-8" id="bebasrokok">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-white flex items-center gap-2">
+                        <i class="fas fa-smoking-ban text-gold"></i> Kawasan Tanpa Rokok
+                        <span class="text-sm text-slate-400 font-normal">— Lingkungan Bebas Asap Rokok</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Setiap tempat belajar mengajar wajib menjadi kawasan tanpa rokok</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                        <h4 class="font-heading font-semibold text-gold text-sm mb-3">
+                            <i class="fas fa-gavel mr-2"></i>Kebijakan & Sosialisasi
+                        </h4>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>SK Rektor tentang Kawasan Tanpa Rokok</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Pemasangan rambu-rambu dilarang merokok</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Sosialisasi bahaya rokok bagi kesehatan</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Pelatihan berhenti merokok bagi civitas akademika</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="bg-navy-800/30 rounded-xl p-4 border border-white/5">
+                        <h4 class="font-heading font-semibold text-gold text-sm mb-3">
+                            <i class="fas fa-map-marked-alt mr-2"></i>Area KTR
+                        </h4>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Semua ruang kuliah, laboratorium, perpustakaan</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Area kantor, ruang dosen, dan ruang rapat</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Fasilitas umum seperti toilet dan koridor</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-emerald-400 mt-0.5"></i>
+                                <span>Area terbuka di lingkungan kampus</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-4 bg-gold/5 rounded-xl border border-gold/10">
+                <div class="flex items-center gap-3 text-xs text-slate-400">
+                    <i class="fas fa-info-circle text-gold"></i>
+                    <span>Dokumen: Pedoman Kawasan Tanpa Rokok IAIN SAS (2024) dan SK Rektor No. 123 Tahun 2024</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ANALISIS NARATIF ===== -->
+        <section class="bg-gradient-to-r from-gold/10 to-gold/5 border border-gold/20 rounded-2xl p-6 mb-8">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl">📊</span>
+                <div>
+                    <h3 class="font-heading font-bold text-white text-sm">Analisis Implementasi K3</h3>
+                    <p class="text-xs text-slate-400">Ringkasan berdasarkan indikator Sapto 2.0</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                    <div class="bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                        <div class="text-lg font-bold text-gold">✅ 100%</div>
+                        <div class="text-xs text-slate-400">Kebijakan K3 Tersedia</div>
+                    </div>
+                    <div class="bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                        <div class="text-lg font-bold text-emerald-400">5</div>
+                        <div class="text-xs text-slate-400">Prosedur K3 Aktif</div>
+                    </div>
+                    <div class="bg-navy-800/30 rounded-xl p-4 text-center border border-white/5">
+                        <div class="text-lg font-bold text-sky-400">6</div>
+                        <div class="text-xs text-slate-400">Fasilitas Kesehatan</div>
+                    </div>
+                </div>
+
+                <p>
+                    <strong class="text-gold">1. Keamanan, Keselamatan, dan Kesehatan:</strong>
+                    Telah tersedia kebijakan dan prosedur K3 yang komprehensif, mencakup keselamatan kerja, kesehatan kerja, dan keamanan lingkungan. 
+                    Terdapat <strong class="text-white">6 dokumen kebijakan</strong> dan <strong class="text-white">5 prosedur operasional</strong> yang siap diimplementasikan.
+                </p>
+
+                <p>
+                    <strong class="text-gold">2. Pencegahan Kebakaran & Bencana:</strong>
+                    Tersedia prosedur tanggap darurat kebakaran, kontak PBK Kota Pangkalpinang, dan pelatihan simulasi kebakaran yang dilakukan secara berkala.
+                </p>
+
+                <p>
+                    <strong class="text-gold">3. Pengelolaan Sampah & Limbah B3:</strong>
+                    Sistem pemilahan sampah dan penanganan limbah B3 telah diterapkan dengan kerjasama pihak ketiga yang berizin. 
+                    Sosialisasi terus dilakukan untuk meningkatkan kepatuhan.
+                </p>
+
+                <p>
+                    <strong class="text-gold">4. Fasilitas Kesehatan Kerja:</strong>
+                    Tersedia klinik kesehatan, P3K di setiap gedung, serta fasilitas ergonomis dan sanitasi yang memenuhi standar. 
+                    Lingkungan kerja didukung dengan ventilasi dan pencahayaan yang baik.
+                </p>
+
+                <p>
+                    <strong class="text-gold">5. Kawasan Tanpa Rokok:</strong>
+                    Seluruh area kampus ditetapkan sebagai Kawasan Tanpa Rokok (KTR) berdasarkan SK Rektor. 
+                    Rambu-rambu dan sosialisasi aktif dilakukan untuk menegakkan aturan ini.
+                </p>
+
+                <p class="text-[10px] text-slate-400 mt-2 border-t border-gold/20 pt-2">
+                    <i class="fas fa-info-circle mr-1"></i> Data ini diolah dari dokumen K3 IAIN SAS Bangka Belitung tahun 2024 dan sumber terkait.
+                </p>
+
+            </div>
+        </section>
+
+        <!-- ===== GOOGLE DRIVE LINK ===== -->
+        <section class="card-glass p-6 border-gold/10 bg-gold/5" id="dokumen">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <h3 class="font-heading font-bold text-white text-sm flex items-center gap-2">
+                        <i class="fas fa-folder-open text-gold"></i> Dokumentasi Lengkap K3
+                    </h3>
+                    <p class="text-xs text-slate-400">Seluruh dokumen kebijakan, prosedur, dan laporan K3</p>
+                </div>
+                <a href="https://drive.google.com/drive/u/1/folders/11T1ScBFPOlWzD4H3TeJou6KzYEcNEkG5" 
+                   target="_blank" 
+                   class="btn-nav btn-nav-drive text-sm">
+                    <i class="fab fa-google-drive"></i> 
+                    Folder K3 – Google Drive
+                    <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="mt-8 pt-4 border-t border-white/5 text-xs text-slate-500 text-center">
+            <i class="fas fa-print mr-1"></i> Terakhir diperbarui: 2024 – Prodi Psikologi Islam
+            <span class="mx-2">·</span>
+            <i class="fas fa-shield-alt text-gold mr-1"></i> Implementasi Sistem K3
+        </div>
+
+    </main>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT                                                   -->
+<!-- ============================================================ -->
+<script>
+    // ===== FOLDER LINK =====
+    const FOLDER_LINK = 'https://drive.google.com/drive/u/1/folders/11T1ScBFPOlWzD4H3TeJou6KzYEcNEkG5';
+
+    // ===== DATA KEBIJAKAN K3 =====
+    const kebijakanData = [
+        { nama: 'Kebijakan K3 IAIN SAS', jenis: 'regulasi', status: 'aktif' },
+        { nama: 'Pedoman K3 Pusat Kesehatan', jenis: 'pedoman', status: 'aktif' },
+        { nama: 'SK Rektor Satgas PPKS', jenis: 'sk', status: 'aktif' },
+        { nama: 'Pedoman Pengelolaan Sampah & Limbah B3', jenis: 'pedoman', status: 'aktif' },
+        { nama: 'Pedoman Fasilitas Kesehatan Kerja', jenis: 'pedoman', status: 'aktif' },
+        { nama: 'SK Rektor Kawasan Tanpa Rokok', jenis: 'sk', status: 'aktif' }
+    ];
+
+    // ===== DATA PROSEDUR K3 =====
+    const prosedurData = [
+        { nama: 'Prosedur Tanggap Darurat Kebakaran', kategori: 'kebakaran', tersedia: 'Ya' },
+        { nama: 'Prosedur Evakuasi Bencana Alam', kategori: 'darurat', tersedia: 'Ya' },
+        { nama: 'Prosedur P3K di Tempat Kerja', kategori: 'p3k', tersedia: 'Ya' },
+        { nama: 'Prosedur Penanganan Limbah B3', kategori: 'darurat', tersedia: 'Ya' },
+        { nama: 'Prosedur Penanganan Kekerasan Seksual', kategori: 'darurat', tersedia: 'Ya' }
+    ];
+
+    // ===== RENDER KEBIJAKAN =====
+    function filterKebijakan() {
+        const filter = document.getElementById('filterKebijakan').value;
+        const tbody = document.getElementById('kebijakanBody');
+        const filtered = filter === 'all' ? kebijakanData : kebijakanData.filter(item => item.jenis === filter);
+
+        tbody.innerHTML = '';
+        filtered.forEach((item, index) => {
+            const tr = document.createElement('tr');
+            let badge = '';
+            if (item.status === 'aktif') badge = '<span class="badge-status badge-aktif">Aktif</span>';
+            else if (item.status === 'proses') badge = '<span class="badge-status badge-proses">Proses</span>';
+            else badge = '<span class="badge-status badge-perlu">Perlu</span>';
+
+            tr.innerHTML = `
+                <td class="text-center font-mono text-gold font-bold">${index + 1}</td>
+                <td>${item.nama}</td>
+                <td><span class="badge-tema">${item.jenis}</span></td>
+                <td class="text-center">${badge}</td>
+                <td class="text-center">
+                    <a href="${FOLDER_LINK}" target="_blank" class="text-gold hover:text-white transition-colors" title="Buka folder">
+                        <i class="fab fa-google-drive text-lg"></i>
+                    </a>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // ===== RENDER PROSEDUR =====
+    function filterProsedur() {
+        const filter = document.getElementById('filterProsedur').value;
+        const tbody = document.getElementById('prosedurBody');
+        const filtered = filter === 'all' ? prosedurData : prosedurData.filter(item => item.kategori === filter);
+
+        tbody.innerHTML = '';
+        filtered.forEach((item, index) => {
+            const tr = document.createElement('tr');
+            let badge = item.tersedia === 'Ya' ? '<span class="badge-status badge-aktif">Tersedia</span>' : '<span class="badge-status badge-perlu">Tidak</span>';
+
+            tr.innerHTML = `
+                <td class="text-center font-mono text-gold font-bold">${index + 1}</td>
+                <td>${item.nama}</td>
+                <td><span class="badge-tema">${item.kategori}</span></td>
+                <td class="text-center">${badge}</td>
+                <td class="text-center">
+                    <a href="${FOLDER_LINK}" target="_blank" class="text-gold hover:text-white transition-colors" title="Buka folder">
+                        <i class="fab fa-google-drive text-lg"></i>
+                    </a>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', function() {
+        filterKebijakan();
+        filterProsedur();
+    });
+</script>
+
+</body>
+</html>
